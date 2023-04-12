@@ -1,0 +1,73 @@
+/* imports */
+@import url('https://fonts.googleapis.com/css2?family=Bevan&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Maitree:wght@500&display=swap');
+
+/* variables */
+    
+    /* colors */
+
+        // white
+        $h-c-white: #ffffff;
+        $h-c-white-contrast: #000000;
+        $h-c-white-shade: #c8c8c8;
+        $h-c-white-light: rgb(244, 244, 244);
+        $h-c-white-tint: #ffffff;
+
+        // black
+        $h-c-black: #000000;
+        $h-c-black-contrast: #ffffff;
+        $h-c-black-shade: #000000;
+        $h-c-black-tint: #1a1a1a;
+
+        // red-logo
+        $h-c-red-logo: #D20300;
+        $h-c-red-logo-contrast: #ffffff;
+        $h-c-red-logo-shade: #b90300;
+        $h-c-red-logo-tint: #d71c1a;
+
+        // red-light
+        $h-c-red-ligth: #ff4242;
+        $h-c-red-ligth-contrast: #ffffff;
+        $h-c-red-ligth-shade: #e03a3a;
+        $h-c-red-ligth-tint: #ff5555;
+
+        // gray
+        $h-c-gray: #f0f0f0;
+        $h-c-gray-contrast: #000000;
+        $h-c-gray-shade: #dedede;
+        $h-c-gray-tint: #fcfcfc;
+        
+
+    /*fonts*/
+    $h-f-family-title: 'Bevan', cursive;
+    $h-f-family-subtitle: 'Ubuntu', sans-serif;
+    $h-f-family-text: 'Maitree', serif;
+
+    $h-f-size-title: 36px;
+    $h-f-size-subtitle: 24px;
+    $h-f-size-text: 16px;
+
+
+    /* z-index */
+    $h-z-index-header: 1000;
+
+
+/* maps */
+
+    /* social-media-colors */
+    $h-m-social-media-colors: (
+        'facebook': #4867AA,
+        'instagram': #F70168,
+        'twitter': #1D9BF0,
+        'youtube': #FF0000,
+    );
+
+
+
+// return maps
+
+    /* social-media-colors */
+    @function getSocialMediaColors($social-media-name){
+        @return map-get($h-m-social-media-colors, $social-media-name);
+    }

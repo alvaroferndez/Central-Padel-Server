@@ -1,0 +1,88 @@
+// Mixin
+
+@mixin flexbox($direction:row, $aling:center, $justify:center, $gap:0){
+    // display
+    display: flex;
+    flex-direction: $direction;
+    align-items: $aling;
+    justify-content: $justify;
+    gap: $gap;
+}
+
+@mixin grid($columns: 1, $rows: 1, $columns-size: 1fr, $rows-size: 1fr, $gap: 0){
+    // display
+    display: grid;
+    grid-template-columns: repeat($columns, $columns-size);
+    grid-template-rows: repeat($rows, $rows-size);
+    grid-gap: $gap;
+    align-content: center;
+    justify-content: center;
+}
+
+@mixin semicircle-footer($position, $color){
+    /* size */
+    width: 7.5%;
+    height: 15%;
+
+    /* position */
+    position: relative;
+    @if($position == 'top'){
+        top: 0.2%;
+        -moz-border-radius: 100px 100px 0 0;
+        -webkit-border-radius: 100px 100px 0 0;
+        border-radius: 100px 100px 0 0;
+    } @else if($position == 'bottom'){
+        -moz-border-radius: 0 0 100px 100px;
+        -webkit-border-radius: 0 0 100px 100px;
+        border-radius: 0 0 100px 100px;
+    } 
+    
+    /* display */
+    visibility: hidden;
+
+    /* decoration */
+    background-color: $color;
+
+    @media screen and (max-width: 764px) {
+
+        width: 10%;
+        height: 12%;
+        @if($position == 'top'){
+            top: 1.7%;
+        } @else if($position == 'bottom'){
+            bottom: 1.9%;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        width: 12%;
+        height: 10%;
+        @if($position == 'top'){
+            top: 2.7%;
+        } @else if($position == 'bottom'){
+            bottom: 2.9%;
+        }
+    }
+}
+
+@mixin mediaLoginWidth($media, $width, $right, $height, $top){
+    @media screen and (max-width: $media){
+        // size
+        width: $width;
+        height: $height;
+
+        // position
+        right: $right;
+        top: $top;
+    }
+}
+
+@mixin mediaLoginHeight($media, $height, $top){
+    @media screen and (max-height: $media){
+        // size
+        height: 50%;
+
+        // position
+        top: 25%;
+    }
+}
