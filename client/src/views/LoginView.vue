@@ -1,11 +1,34 @@
 <script setup>
+import {ref} from "vue";
+
 AOS.init();
+
+const email = ref('');
+const password = ref('');
 
   setTimeout(() => {
     document.getElementById('header').style.display = 'none';
     document.getElementById('footer').style.display = 'none';
     document.getElementsByClassName('main')[0].style.marginTop = '0';
   }, 10);
+
+function login(e) {
+  e.preventDefault();
+  fetch('http://localhost:3080/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
 
 </script>
 
@@ -18,12 +41,12 @@ AOS.init();
     <h1 class="title">Login</h1>
     <form>
       <div class="email">
-        <input type="email" id="email" placeholder="correo"/>
+        <input type="email" id="email" placeholder="correo" v-model="email"/>
       </div>
       <div class="password">
-        <input type="password" id="password" placeholder="contraseña"/>
+        <input type="password" id="password" placeholder="contraseña" v-model="password"/>
       </div>
-      <button class="button" type="submit">Login</button>
+      <button class="button" type="submit" v-on:click="login($event)">Login</button>
     </form>
     <div class="others-logins">
       <i class="fa-brands fa-google hover"></i>
