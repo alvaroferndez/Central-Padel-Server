@@ -1,47 +1,57 @@
 <script setup>
 import { ref } from 'vue';
-import {authentificationStore} from "../stores/authentification";
+import { authentificationStore } from "../stores/authentification";
+import { regExStore } from "../stores/regEx";
+
+// header and footer
+setTimeout(() => {
+  document.getElementById('header').style.display = 'none';
+  document.getElementById('footer').style.display = 'none';
+  document.getElementsByClassName('main')[0].style.marginTop = '0';
+}, 10);
 
 AOS.init();
 
-const email = ref('');
-const password = ref('');
-const repitPassword = ref('');
-const phone = ref('');
+// stores
+const authentification = authentificationStore();
+const regEx = regExStore();
 
-// regEx
-const emailRegex = /^[a-zA-Z0-9_\-]+@[^\s@]+\.[^\s@]+$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_\-.\\()/\:]).{8,}$/;
-const phoneRegex = /^(6|7|8|9)\d{8}$/;
+// variables
+var email = ref('');
+var password = ref('');
+var repitPassword = ref('');
+var phone = ref('');
 
-function signIn(e){
+// functions
+function signIn(e) {
   e.preventDefault();
-  regEx();
 
-  if (password.value === repitPassword.value) {
-    // authentificationStore.signIn(email.value, password.value, number.value);
-  } else {
-    // trhow error password not match
-  }
-}
+  // validate data
+  if (regEx.validateEmail(email.value) && regEx.validatePassword(password.value) && regEx.validatePhone(phone.value)) {
+    if (password.value === repitPassword.value) {
 
-function regEx(){
-  if(!emailRegex.test(email.value)){
-    console.log('email incorrecto');
-  }else {
-    console.log('email correcto');
-  }
-
-  if(!passwordRegex.test(password.value)){
-    console.log('contraseña incorrecta');
-  }else {
-      console.log('contraseña correcta');
-  }
-
-  if(!phoneRegex.test(phone.value)){
-    console.log('teléfono incorrecto');
-  }else {
-    console.log('teléfono correcto');
+      // authentification
+      if(authentification.register(email.value, password.value, phone.value)){
+        console.log(1)
+        this.$toast.open('Mensaje de notificación')
+        setTimeout(() => {
+          router.push('/login');
+        }, 1000);
+        
+      }
+    } else {
+      // error passwords
+      throw new Error('Las contraseñas no coinciden');
+    }
+  } else if (!regEx.validateEmail(email.value)) {
+    // error email
+    throw new Error('El email no es válido');
+  } else if (!regEx.validatePassword(password.value)) {
+    // error password
+    throw new Error('La contraseña no es válida');
+  } else if (!regEx.validatePhone(phone.value)) {
+    // error phone
+    throw new Error('El teléfono no es válido');
   }
 }
 </script>
@@ -55,16 +65,16 @@ function regEx(){
     <h1 class="title">Registrarse</h1>
     <form>
       <div class="email">
-        <input type="email" id="email" placeholder="correo" v-model="email"/>
+        <input type="email" id="email" placeholder="correo" v-model="email" required />
       </div>
       <div class="password">
-        <input type="password" id="password" placeholder="contraseña" v-model="password"/>
+        <input type="password" id="password" placeholder="contraseña" v-model="password" required />
       </div>
       <div class="password">
-        <input type="password" id="repit-password" placeholder="repetir contraseña" v-model="repitPassword"/>
+        <input type="password" id="repit-password" placeholder="repetir contraseña" v-model="repitPassword" required />
       </div>
       <div class="number">
-        <input type="tel" id="number" placeholder="teléfono" v-model="phone"/>
+        <input type="tel" id="number" placeholder="teléfono" v-model="phone" required />
       </div>
       <button class="button" v-on:click="signIn($event)" type="submit">Registrar</button>
     </form>
@@ -78,7 +88,7 @@ function regEx(){
 <style lang="scss">
 @import "@/assets/styles.scss";
 
-.global-container{
+.global-container {
   // size
   width: 100%;
   height: 100vh;
@@ -86,10 +96,10 @@ function regEx(){
   background-image: url('@/assets/images/login-image.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  filter:brightness(0.7);
+  filter: brightness(0.7);
 }
 
-.login-container{
+.login-container {
   border: 1px solid $h-c-gray;
   // size
   height: 70%;
@@ -105,7 +115,7 @@ function regEx(){
   @include flexbox();
 
   // decoration
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   filter: blur(1.5px);
   border-radius: 40px;
 
@@ -235,7 +245,7 @@ function regEx(){
     }
   }
 
-  .return{
+  .return {
     // size
     width: 90%;
     height: 10%;
@@ -243,7 +253,7 @@ function regEx(){
     // display
     @include flexbox(row, center, space-around);
 
-    .red{
+    .red {
       // decoration
       color: $h-c-red-ligth;
     }

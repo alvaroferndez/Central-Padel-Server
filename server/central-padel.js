@@ -1,48 +1,42 @@
+// libraries imports
 const express = require('express')
 const cors = require('cors')
-const app = express()
-const port = 3080
-const mysql = require('mysql')
 
+
+// init express
+const app = express()
+
+
+// librearies init
 app.use(cors())
 app.use(express.json())
 
-// Database connection
-const db_config = {
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'root',
-    database: 'central-padel'
-}
 
-let connection
-function handleDisconnect() {
-    connection = mysql.createConnection(db_config);
+// import files
+const handleDisconnect = require('./config/handle').handleDisconnect
+const port = require('./config/database').port;
+const connection = require('./config/connection').connection;
 
-    connection.connect(function(err) {
-        if(err) {
-            console.log('error when connecting to db:', err);
-            setTimeout(handleDisconnect, 2000);
-        }
-    });
-    connection.on('error', function(err) {
-        console.log('db error', err);
-        handleDisconnect();
-    });
-}
+
+// connection initialization
 handleDisconnect();
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
-app.post('/api/login', async (req, res) => {
-    const { email, password } = req.body
-    connection.query(`SELECT * FROM User WHERE email = '${email}' AND password = '${password}'`, (err, result) => {
-        if (err) throw err
-        res.json(result)
-    })
-})
-
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
+
+// user
+const user = require('./controllers/user/controller')
+
+//login
+app.post('/api/login', (req, res) => {
+        user.login(req, res, connection)
+})
+
+//register
+app.post('/api/register', (req, res) => {
+    user.register(req, res, connection)
+})
+
+
+module.exports = app;

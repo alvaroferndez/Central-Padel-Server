@@ -1,33 +1,25 @@
 <script setup>
 import {ref} from "vue";
+import { authentificationStore } from "../stores/authentification";
 
 AOS.init();
 
+// header and footer
+setTimeout(() => {
+  document.getElementById('header').style.display = 'none';
+  document.getElementById('footer').style.display = 'none';
+  document.getElementsByClassName('main')[0].style.marginTop = '0';
+}, 10);
+
+const store = authentificationStore();
 const email = ref('');
 const password = ref('');
 
-  setTimeout(() => {
-    document.getElementById('header').style.display = 'none';
-    document.getElementById('footer').style.display = 'none';
-    document.getElementsByClassName('main')[0].style.marginTop = '0';
-  }, 10);
+// store.show()
 
 function login(e) {
   e.preventDefault();
-  fetch('http://localhost:3080/api/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    });
+  store.login(email.value, password.value)
 }
 
 </script>
