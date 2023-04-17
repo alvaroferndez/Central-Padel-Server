@@ -7,17 +7,11 @@ export const authentificationStore = defineStore('authentification', () => {
 
     var user = ref(
         {
-            id: null,
-            email: '',
-            name: '',
-            password: '',
-            token: '',
-            role: '',
         }
     );
 
-    function login(email, password) {
-        fetch(url + '/login', {
+    async function login(email, password) {
+        await fetch(url + '/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,8 +23,9 @@ export const authentificationStore = defineStore('authentification', () => {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
-            user.value.name = data[0].name
+            user.value = data[0];
+            console.log(user.value)
+            return true
         })
     }
 

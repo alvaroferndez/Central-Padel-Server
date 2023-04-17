@@ -32,12 +32,9 @@ function signIn(e) {
 
       // authentification
       if(authentification.register(email.value, password.value, phone.value)){
-        console.log(1)
-        this.$toast.open('Mensaje de notificación')
-        setTimeout(() => {
-          router.push('/login');
-        }, 1000);
-        
+        // success
+      } else {
+        // error
       }
     } else {
       // error passwords

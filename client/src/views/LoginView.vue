@@ -11,7 +11,7 @@ setTimeout(() => {
   document.getElementsByClassName('main')[0].style.marginTop = '0';
 }, 10);
 
-const store = authentificationStore();
+const authentification = authentificationStore();
 const email = ref('');
 const password = ref('');
 
@@ -19,7 +19,11 @@ const password = ref('');
 
 function login(e) {
   e.preventDefault();
-  store.login(email.value, password.value)
+  authentification.login(email.value, password.value).then(() => {
+    console.log(authentification.user)
+  }).catch(() => {
+    console.log('error')
+  });
 }
 
 </script>
