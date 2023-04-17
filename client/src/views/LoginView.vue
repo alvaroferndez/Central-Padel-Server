@@ -1,6 +1,9 @@
 <script setup>
 import {ref} from "vue";
 import { authentificationStore } from "../stores/authentification";
+import { toastStore} from "../stores/toast";
+import { routerStore } from "../stores/router";
+
 
 AOS.init();
 
@@ -11,18 +14,27 @@ setTimeout(() => {
   document.getElementsByClassName('main')[0].style.marginTop = '0';
 }, 10);
 
+// stores
 const authentification = authentificationStore();
+const toast = toastStore();
+const router = routerStore();
+
+// variables
 const email = ref('');
 const password = ref('');
 
-// store.show()
 
+// functions
 function login(e) {
   e.preventDefault();
   authentification.login(email.value, password.value).then(() => {
-    console.log(authentification.user)
-  }).catch(() => {
-    console.log('error')
+    if(authentification.user != undefined){
+      localStorage.setItem('user', JSON.stringify(authentification.user.email));
+      toast.showSuccess('Login correcto');
+      router.navigateTo('/')
+    }else{
+      toast.showError('Login incorrecto');
+    }
   });
 }
 

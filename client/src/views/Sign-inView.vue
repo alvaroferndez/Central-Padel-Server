@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { authentificationStore } from "../stores/authentification";
 import { regExStore } from "../stores/regEx";
+import { toastStore } from "../stores/toast";
+import { routerStore } from "../stores/router";
 
 // header and footer
 setTimeout(() => {
@@ -15,6 +17,8 @@ AOS.init();
 // stores
 const authentification = authentificationStore();
 const regEx = regExStore();
+const toast = toastStore();
+const router = routerStore();
 
 // variables
 var email = ref('');
@@ -31,11 +35,22 @@ function signIn(e) {
     if (password.value === repitPassword.value) {
 
       // authentification
-      if(authentification.register(email.value, password.value, phone.value)){
-        // success
-      } else {
-        // error
-      }
+      authentification.register(email.value, password.value, phone.value)
+      .then((result) => {
+
+        if (result.success) {
+          toast.showSuccess('Registro correcto');
+          router.navigateTo('/login');
+
+        }else{
+          toast.showError(result.error);
+        }
+
+      }).catch((error) => {
+        console.error(error);
+        toast.showError('Ocurrió un error durante el registro');
+      });
+
     } else {
       // error passwords
       throw new Error('Las contraseñas no coinciden');

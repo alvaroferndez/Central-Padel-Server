@@ -1,12 +1,17 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-
+import {toastStore} from "./toast";
 
 export const authentificationStore = defineStore('authentification', () => {
     const url = 'http://localhost:3080/api'
 
+    const current_device = navigator.userAgent;
+
+    const toast = toastStore();
+
     var user = ref(
         {
+            logged: false,
         }
     );
 
@@ -19,18 +24,43 @@ export const authentificationStore = defineStore('authentification', () => {
             body: JSON.stringify({
                 email: email,
                 password: password,
+                device: current_device,
             }),
         })
         .then((response) => response.json())
         .then((data) => {
             user.value = data[0];
-            console.log(user.value)
-            return true
+            user.value.logged = true;
+        })
+    }
+
+    function checkUserLogged(email) {
+        fetch(url + '/user/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+                device: current_device,
+            }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if(data.logged){
+                user.value = data;
+                console.log(user.value)
+                if(user.value.name){
+                    toast.showSuccess('Bienvenido de nuevo ' + user.value.name);
+                }else{
+                    toast.showSuccess('Bienvenido de nuevo ' + user.value.email);
+                }
+            }
         })
     }
 
     async function register(email, password, phone) {
-        await fetch(url + '/register', {
+        const response = await fetch(url + '/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,12 +70,9 @@ export const authentificationStore = defineStore('authentification', () => {
                 password: password,
                 phone: phone,
             }),
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            user = data[0];
-            return true
-        })
+        });
+        const data = await response.json();
+        return data;
     }
 
     function show() {
@@ -61,5 +88,5 @@ export const authentificationStore = defineStore('authentification', () => {
         })
     }
   
-    return { user, login, register, show }
+    return { user, login, register, show, checkUserLogged }
 })

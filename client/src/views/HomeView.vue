@@ -66,6 +66,8 @@ var news = [
     }
 ]
 
+
+
 function orderNews() {
     return news.sort((a, b) => {
         if (a.principal) {
@@ -136,7 +138,7 @@ function orderNews() {
                 <h1 class="title">Juega con nosotros</h1>
                 <p class="description">Únete a cualquier partido que este activo en la posición que quieras</p>
                 <router-link to="/reservas" class="button">
-                    <i class="fa-solid fa-futbol fa-beat-fade"></i>
+                    <v-icon name="io-tennisball-sharp" fill="#CAE21D" scale="2" animation="pulse"/>
                     <span>Únete ya</span>
                 </router-link>
             </div>

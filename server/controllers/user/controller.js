@@ -1,18 +1,29 @@
+const device_controller = require('../device/controller.js');
 const hash = require('../../middleware/hash/hash.js');
 const regEx = require('../../middleware/regEx/regEx.js');
 
 module.exports = {
     async login(req, res, db) {
-        var { email, password } = req.body;
+        var { email, password, device } = req.body;
 
+        // Check if user exists
         db.query(`SELECT * FROM User WHERE email = '${email}'`, (err, result) => {
             if (err) throw err
+
+            // if exist
             if(result.length > 0){
+
+                // Check if password is correct
                 if(hash.verifyPassword(password, result[0].password, result[0].salt)){
+
+                    // Create device
+                    device_controller.newDevice(result[0].email, device, db);
                     return res.json(result);
                 }else{
                     return res.json({error: 'Contraseña incorrecta'});
-                }   
+                }
+
+            // if not exist
             }else{
                 return res.json({error: 'El usuario no existe'});
             }
@@ -23,14 +34,44 @@ module.exports = {
         var { email, password, phone } = req.body;
 
         if(regEx.validateEmail(email) && regEx.validatePassword(password) && regEx.validatePhone(phone)){
+
+            // Hash password
             let hashedPassword = hash.hashPassword(password);
             let salt = hashedPassword.salt;
             password = hashedPassword.hash;
-    
-            db.query(`INSERT INTO User (email, password, phone, salt) VALUES ('${email}', '${password}', '${phone}', '${salt}')`, (err, result) => {
+
+            var result = {
+                success: false,
+                error: ''
+            };
+
+            // Check if user exists
+            db.query(`SELECT * FROM User WHERE email = '${email}'`, (err, data) => {
                 if (err) throw err
-                return res.json(result);
+                if(data.length > 0){
+                    result.error = 'El usuario ya existe';
+                    return res.json(result);
+                }else{
+
+                    // Check if phone exists
+                    db.query(`SELECT * FROM User WHERE phone = '${phone}'`, (err,data) => {
+                        if (err) throw err
+                        if(data.length > 0){
+                            result.error = 'El teléfono ya existe';
+                            return res.json(result);
+                        }{
+
+                            // Insert user
+                            db.query(`INSERT INTO User (email, password, phone, salt) VALUES ('${email}', '${password}', '${phone}', '${salt}')`, (err) => {
+                                if (err) throw err
+                                result.success = true;
+                                return res.json(result);
+                            });
+                        }
+                    });
+                }
             });
+
         }else if(!regEx.validateEmail(email)){
             return res.json({error: 'El email no es válido'});
         }else if(!regEx.validatePassword(password)){
@@ -38,5 +79,16 @@ module.exports = {
         }else if(!regEx.validatePhone(phone)){
             return res.json({error: 'El teléfono no es válido'});
         }
+    },
+
+    selectUserByEmail(email,db) {
+        db.query(`SELECT * FROM User WHERE email = '${email}'`, (err, result) => {
+            if (err) throw err
+            if(result.length > 0){
+                return result;
+            }else{
+                return null;
+            }
+        });
     }
 }

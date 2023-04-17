@@ -1,6 +1,13 @@
 <script setup>
+import { authentificationStore } from "../stores/authentification";
+
+// stores
+const authentification = authentificationStore();
+
+// variables
 var last_scroll = 0;
 
+// styles
 window.onscroll = function() {
   var y = window.scrollY;
 
@@ -29,6 +36,8 @@ window.onscroll = function() {
     }
     last_scroll = y;
 };
+
+// functions
 </script>
 
 
@@ -52,15 +61,18 @@ window.onscroll = function() {
 
         <!-- login -->
         <div class="login-logo">
-            <router-link class="link" to="/login">
-                <i class="fa-solid fa-user"></i>
+            <router-link v-if="!authentification.user.logged" class="link" to="/login">
+                <v-icon name="ri-user-3-fill" scale="1.5"/>
+            </router-link>
+            <router-link v-else class="link" to="/profile">
+                <v-icon name="oi-three-bars" scale="2" />
             </router-link>
         </div>
     </header>
 
     <div class="scrolling-top">
         <a href="#href">
-              <span>↑</span>
+            <v-icon name="bi-arrow-up" scale="2" />
         </a>
     </div>
 

@@ -27,6 +27,7 @@ app.listen(port, () => {
 
 // user
 const user = require('./controllers/user/controller')
+const user_device = require('./controllers/userdevice/controller')
 
 //login
 app.post('/api/login', (req, res) => {
@@ -36,6 +37,11 @@ app.post('/api/login', (req, res) => {
 //register
 app.post('/api/register', (req, res) => {
     user.register(req, res, connection)
+})
+
+// check if user is logged
+app.post('/api/user', (req, res) => {
+    user_device.checkUserLogged(req, res, connection);
 })
 
 
