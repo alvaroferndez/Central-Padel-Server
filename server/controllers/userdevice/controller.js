@@ -28,5 +28,17 @@ module.exports = {
                 return res.json({logged: false});
             }
         });
+    },
+
+    logout(req, res, db) {
+        var { email, device } = req.body;
+        db.query(`SELECT * FROM UserDevice WHERE name_device = '${device}'`, (err, result) => {
+            if (err) return res.json({success: false});
+            db.query(`DELETE FROM UserDevice WHERE email_user = '${email}' AND name_device = '${device}'`);
+            if(result.length == 1){
+                db.query(`DELETE FROM Device WHERE name = '${device}'`);
+            }
+            return res.json({success: true});
+        });
     }
 }

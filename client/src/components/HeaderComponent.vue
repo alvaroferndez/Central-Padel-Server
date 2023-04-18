@@ -1,5 +1,7 @@
 <script setup>
 import { authentificationStore } from "../stores/authentification";
+import Menu from "./MenuComponent.vue";
+import { ref } from "vue";
 
 // stores
 const authentification = authentificationStore();
@@ -13,16 +15,30 @@ window.onscroll = function() {
 
     // moodify the height of the header
     if (y >= 85) {
-        document.getElementById("header").classList.add("header-scrolled");
-        document.getElementsByClassName("container-logo")[0].style["grid-row"] = "1 / 4";
-        document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "100%";
+      document.getElementById("header").classList.add("header-scrolled");
+      document.getElementsByClassName("container-logo")[0].style["grid-row"] = "1 / 4";
+      document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "100%";
+      if(document.getElementsByClassName("menu").length > 0){
+        if(window.innerWidth > 600){
+          document.getElementsByClassName("menu")[0].style.marginTop = "-10vh";
+        }
+      }
     } else {
-        document.getElementById("header").classList.remove("header-scrolled");
-        document.getElementsByClassName("container-logo")[0].style["grid-row"] = "2 / 3";
-        document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "200%";
+      document.getElementById("header").classList.remove("header-scrolled");
+      document.getElementsByClassName("container-logo")[0].style["grid-row"] = "2 / 3";
+      document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "200%";
+
+      if(document.getElementsByClassName("menu").length > 0){
+        if(window.innerWidth > 600){
+          document.getElementsByClassName("menu")[0].style.marginTop = "-8vh";
+        }
+      }
     }
 
     // show the button to scroll to the top
+  if(window.innerWidth <= 600 && authentification.menu_status){
+    document.getElementsByClassName("scrolling-top")[0].style.display = "none";
+  }else{
     if (y > 143) {
       document.getElementsByClassName("scrolling-top")[0].style.display = "flex";
     } else {
@@ -34,10 +50,32 @@ window.onscroll = function() {
     }else{
       document.getElementsByClassName("scrolling-top")[0].style.visibility = "hidden";
     }
+  }
+
+
     last_scroll = y;
 };
 
 // functions
+function menuStatus(e){
+  e.stopPropagation();
+  authentification.menu_status = !authentification.menu_status
+  if(authentification.menu_status) {
+    setTimeout(() => {
+      if(window.innerWidth > 600){
+        if (window.scrollY < 85) {
+          document.getElementsByClassName("menu")[0].style.marginTop = "-8vh";
+        } else {
+          document.getElementsByClassName("menu")[0].style.marginTop = "-10vh";
+        }
+      }else{
+        document.getElementsByClassName("scrolling-top")[0].style.display = "none";
+      }
+    }, 1);
+  }
+}
+
+
 </script>
 
 
@@ -60,20 +98,22 @@ window.onscroll = function() {
         </nav>
 
         <!-- login -->
-        <div class="login-logo">
+        <div class="login-logo hover">
             <router-link v-if="!authentification.user.logged" class="link" to="/login">
                 <v-icon name="ri-user-3-fill" scale="1.5"/>
             </router-link>
-            <router-link v-else class="link" to="/profile">
-                <v-icon name="oi-three-bars" scale="2" />
-            </router-link>
+            <v-icon v-else v-on:click="menuStatus($event)" class="link" name="oi-three-bars" scale="2" />
         </div>
     </header>
 
+    <!-- menu -->
+    <Menu class="menu" v-if="authentification.menu_status && authentification.user.logged" />
+
+  <!-- button to scroll to the top -->
     <div class="scrolling-top">
-        <a href="#href">
-            <v-icon name="bi-arrow-up" scale="2" />
-        </a>
+          <a href="#href">
+              <v-icon name="bi-arrow-up" scale="2" />
+          </a>
     </div>
 
 </template>
@@ -160,6 +200,7 @@ window.onscroll = function() {
             gap: 2rem;
         }
 
+        /* login */
         .login-logo{
             /* position */
             grid-column: 7 / 8;
@@ -167,9 +208,16 @@ window.onscroll = function() {
 
             /* display */
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
+
+
+    }
+
+    .menu{
+
     }
 
     .header-scrolled{

@@ -44,5 +44,9 @@ app.post('/api/user', (req, res) => {
     user_device.checkUserLogged(req, res, connection);
 })
 
+app.post('/api/logout', (req, res) => {
+    user_device.logout(req, res, connection);
+})
+
 
 module.exports = app;

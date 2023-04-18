@@ -7,6 +7,8 @@ export const authentificationStore = defineStore('authentification', () => {
 
     const current_device = navigator.userAgent;
 
+    const menu_status = ref(false);
+
     const toast = toastStore();
 
     var user = ref(
@@ -47,6 +49,7 @@ export const authentificationStore = defineStore('authentification', () => {
         })
         .then((response) => response.json())
         .then((data) => {
+            console.log(data)
             if(data.logged){
                 user.value = data;
                 console.log(user.value)
@@ -75,6 +78,27 @@ export const authentificationStore = defineStore('authentification', () => {
         return data;
     }
 
+    async function logout(email) {
+        const response = await fetch(url + '/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+                device: current_device,
+            }),
+        });
+        const data = await response.json();
+        console.log(data)
+        if(data.success){
+            user.value = {
+                logged: false,
+            };
+        }
+        return data.success;
+    }
+
     function show() {
         fetch(url + '/user/', {
             method: 'GET',
@@ -88,5 +112,5 @@ export const authentificationStore = defineStore('authentification', () => {
         })
     }
   
-    return { user, login, register, show, checkUserLogged }
+    return { user, login, register, show, checkUserLogged, logout, menu_status }
 })
