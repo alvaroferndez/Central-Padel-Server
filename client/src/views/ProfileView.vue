@@ -19,9 +19,9 @@ import ProfileInformationComponent from "@/components/ProfileInformationComponen
 .profile{
   // size
   width: 100vw;
-  height: 80vh;
+  height: 90vh;
 
   // display
-  @include flexbox()
+  @include flexbox(row, flex-start)
 }
 </style>

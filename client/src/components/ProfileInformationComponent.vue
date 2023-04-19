@@ -35,7 +35,7 @@ const profile = profileStore();
 .information-profile{
   // size
   width: 80%;
-  height: 80vh;
+  height: 100%;
 
   // display
   @include flexbox(column);
@@ -43,13 +43,13 @@ const profile = profileStore();
   .header-profile{
     // size
     width: 100%;
-    height: 35%;
+    height: 30%;
   }
 
   .body-profile{
     // size
     width: 100%;
-    height: 65%;
+    height: 70%;
 
     // display
     @include flexbox();

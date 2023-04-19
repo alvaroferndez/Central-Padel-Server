@@ -36,7 +36,7 @@ function changeComponent(value) {
   border: 1px solid black;
   // size
   width: 20%;
-  height: 80vh;
+  height: 100%;
 
   // descoration
   //background-color: $h-c-red-logo-shade;

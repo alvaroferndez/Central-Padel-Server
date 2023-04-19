@@ -11,28 +11,28 @@ const authentification = authentificationStore();
   <section class="container">
     <div class="data">
       <div>
-        <p>Email:
-          <span v-if="authentification.user.email">{{ authentification.user.email }}</span>
+        <p>Edad:
+          <span v-if="authentification.user.age">{{ authentification.user.age }}</span>
           <span v-else>sin definir</span>
         </p>
-        <p>Email:
-          <span v-if="authentification.user.email">{{ authentification.user.email }}</span>
+        <p>Posicion:
+          <span v-if="authentification.user.position">{{ authentification.user.position }}</span>
           <span v-else>sin definir</span>
         </p>
-        <p>Email:
-          <span v-if="authentification.user.email">{{ authentification.user.email }}</span>
+        <p>Categoria:
+          <span v-if="authentification.user.category">{{ authentification.user.category }}</span>
           <span v-else>sin definir</span>
         </p>
-        <p>Email:
-          <span v-if="authentification.user.email">{{ authentification.user.email }}</span>
+        <p>Años jugados:
+          <span v-if="authentification.user.years_played">{{ authentification.user.years_played }}</span>
           <span v-else>sin definir</span>
         </p>
-        <p>Email:
-          <span v-if="authentification.user.email">{{ authentification.user.email }}</span>
+        <p>Club:
+          <span v-if="authentification.user.club">{{ authentification.user.club }}</span>
           <span v-else>sin definir</span>
         </p>
-        <p>Email:
-          <span v-if="authentification.user.email">{{ authentification.user.email }}</span>
+        <p>Fecha de creación:
+          <span v-if="authentification.user.creation_date">{{ authentification.user.creation_date }}</span>
           <span v-else>sin definir</span>
         </p>
       </div>
@@ -61,11 +61,23 @@ const authentification = authentificationStore();
 
   .data{
     border: 1px solid black;
+    // size
 
     // display
     grid-column: 1 / 2;
     grid-row: 1 / -1;
-    @include flexbox(column);
+
+    @include flexbox();
+
+    &>div{
+      // size
+      width: 100%;
+      height: 80%;
+
+      // display
+      @include flexbox(column, flex-start, space-between);
+
+    }
   }
 
   .position{

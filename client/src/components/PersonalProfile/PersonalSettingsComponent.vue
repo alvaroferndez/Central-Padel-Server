@@ -121,7 +121,7 @@ function reset(){
 
       h1{
         // size
-        height: 15%;
+        height: 20%;
 
         // decoration
         text-align: center;
