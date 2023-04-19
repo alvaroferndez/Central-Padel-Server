@@ -4,7 +4,9 @@ import PersonalInformationComponent from "@/components/PersonalProfile/PersonalI
 import PersonalShopComponent from "@/components/PersonalProfile/PersonalShopComponent.vue";
 import PersonalMatchsComponent from "@/components/PersonalProfile/PersonalMatchsComponent.vue";
 import PersonalSettingsComponent from "@/components/PersonalProfile/PersonalSettingsComponent.vue";
+import ProfileHeaderComponent from "@/components/ProfileHeaderComponent.vue";
 import {profileStore} from "@/stores/profile.js";
+
 
 // store
 const profile = profileStore();
@@ -15,12 +17,12 @@ const profile = profileStore();
 
 <template>
   <section class="information-profile">
-    <section class="header-profile"></section>
+    <ProfileHeaderComponent class="header-profile"/>
     <section class="body-profile">
-      <PersonalInformationComponent v-if="profile.acutalComponent === 'info'" />
-      <PersonalShopComponent v-if="profile.acutalComponent === 'shop'" />
-      <PersonalMatchsComponent v-if="profile.acutalComponent === 'match'" />
-      <PersonalSettingsComponent v-if="profile.acutalComponent === 'settings'" />
+      <PersonalInformationComponent class="container" v-if="profile.acutalComponent === 'info'"/>
+      <PersonalShopComponent class="container" v-if="profile.acutalComponent === 'shop'" />
+      <PersonalMatchsComponent class="container" v-if="profile.acutalComponent === 'match'" />
+      <PersonalSettingsComponent class="container" v-if="profile.acutalComponent === 'settings'||  profile.acutalComponent == undefined" />
     </section>
   </section>
 
@@ -39,17 +41,27 @@ const profile = profileStore();
   @include flexbox(column);
 
   .header-profile{
-    border: 1px solid black;
     // size
     width: 100%;
     height: 35%;
   }
 
   .body-profile{
-    border: 1px solid black;
     // size
     width: 100%;
     height: 65%;
+
+    // display
+    @include flexbox();
+
+    // decoration
+    border-top:1px solid $h-c-white-shade;
+
+    .container{
+      // size
+      width: 80%;
+      height: 90%;
+    }
   }
 }
 </style>

@@ -36,7 +36,7 @@ export const authentificationStore = defineStore('authentification', () => {
         })
     }
 
-    function checkUserLogged(email) {
+    function checkUserLogged(email, first = true) {
         fetch(url + '/user/', {
             method: 'POST',
             headers: {
@@ -49,14 +49,25 @@ export const authentificationStore = defineStore('authentification', () => {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
-            if(data.logged){
-                user.value = data;
+            const newData = data.map(item => {
+                for (const key in item) {
+                    if (item.hasOwnProperty(key) && item[key] === null) {
+                        item[key] = '';
+                    }
+                }
+                return item;
+            });
+            if(newData[0].logged){
+                user.value = newData[0];
                 console.log(user.value)
-                if(user.value.name){
-                    toast.showSuccess('Bienvenido de nuevo ' + user.value.name);
+                if(first) {
+                    if (user.value.name) {
+                        toast.showSuccess('Bienvenido de nuevo ' + user.value.name);
+                    } else {
+                        toast.showSuccess('Bienvenido de nuevo ' + user.value.email);
+                    }
                 }else{
-                    toast.showSuccess('Bienvenido de nuevo ' + user.value.email);
+                    toast.showSuccess('Datos restablecidos');
                 }
             }
         })
@@ -111,6 +122,28 @@ export const authentificationStore = defineStore('authentification', () => {
             console.log(data)
         })
     }
+
+    function changeData(){
+        fetch(url + '/user/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user: user.value,
+            })
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                if(data.success){
+                    toast.showSuccess('Datos actualizados');
+                }else{
+                    toast.showError(data.error);
+                    checkUserLogged(JSON.parse(localStorage['user']), false)
+                }
+            });
+    }
   
-    return { user, login, register, show, checkUserLogged, logout, menu_status }
+    return { user, menu_status, login, register, show, checkUserLogged, logout, changeData}
 })

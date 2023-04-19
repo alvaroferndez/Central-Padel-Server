@@ -15,7 +15,7 @@ module.exports = {
                     if (err) throw err
                     if(result.length > 0){
                         result[0].logged = true;
-                        return res.json(result[0]);
+                        return res.json(result);
                     }
                 });
                 // user_controller.selectUserByEmail(email, db, (result) => {

@@ -37,5 +37,8 @@ function changeComponent(value) {
   // size
   width: 20%;
   height: 80vh;
+
+  // descoration
+  //background-color: $h-c-red-logo-shade;
 }
 </style>
