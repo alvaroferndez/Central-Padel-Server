@@ -57,4 +57,17 @@ app.post('/api/user/update', (req, res) => {
 });
 
 
+// match
+const match = require('./controllers/match/controller')
+
+// add match
+app.post('/api/admin/match/add', (req, res) => {
+    match.add(req, res, connection);
+});
+
+// get all matchs
+app.post('/api/admin/match/getAll', (req, res) => {
+    match.getAll(req, res, connection);
+});
+
 module.exports = app;

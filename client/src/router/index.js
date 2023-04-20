@@ -1,4 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import {authentificationStore} from "../stores/authentification";
+
+var authentification = undefined;
+
+setTimeout(() => {
+  authentification = authentificationStore();
+}, 1000)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +37,23 @@ const router = createRouter({
         path: '/profile',
         name: 'profile',
         component: () => import('../views/ProfileView.vue')
+    },
+    {
+      path: '/match',
+      name: 'match',
+      component: () => import('../views/MatchView.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      beforeEnter: (to, from, next) => {
+        if(authentification.user.logged && authentification.user.admin){
+          next()
+        } else {
+            next({name: 'home'})
+        }
+      },
+      component: () => import('../views/Admin/AdminView.vue')
     },
   ]
 })

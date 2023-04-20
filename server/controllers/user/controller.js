@@ -65,7 +65,7 @@ module.exports = {
                         }{
 
                             // Insert user
-                            db.query(`INSERT INTO User (email, password, phone, salt) VALUES ('${email}', '${password}', '${phone}', '${salt}')`, (err) => {
+                            db.query(`INSERT INTO User (admin, email, password, phone, salt) VALUES (0,'${email}', '${password}', '${phone}', '${salt}')`, (err) => {
                                 if (err) throw err
                                 result.success = true;
                                 return res.json(result);

@@ -59,9 +59,10 @@ export const authentificationStore = defineStore('authentification', () => {
             });
             if(newData[0].logged){
                 user.value = newData[0];
+                console.log(user.value)
                 if(first) {
                     if (user.value.name) {
-                        toast.showSuccess('Bienvenido de nuevo ' + user.value.name);
+                        toast.showSuccess('Bienvenido de nuevo ' + user.value.user_name);
                     } else {
                         toast.showSuccess('Bienvenido de nuevo ' + user.value.email);
                     }
@@ -145,5 +146,5 @@ export const authentificationStore = defineStore('authentification', () => {
             });
     }
   
-    return { user, menu_status, login, register, show, checkUserLogged, logout, changeData}
+    return { url, user, menu_status, login, register, show, checkUserLogged, logout, changeData}
 })

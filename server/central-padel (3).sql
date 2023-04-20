@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 19-04-2023 a las 12:54:54
+-- Tiempo de generación: 20-04-2023 a las 12:51:33
 -- Versión del servidor: 5.7.34
 -- Versión de PHP: 7.2.34
 
@@ -43,10 +43,33 @@ INSERT INTO `Device` (`name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Matchs`
+--
+
+CREATE TABLE `Matchs` (
+  `id` int(11) NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `hour` varchar(255) NOT NULL,
+  `id_court` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `Matchs`
+--
+
+INSERT INTO `Matchs` (`id`, `date`, `hour`, `id_court`) VALUES
+(1, '23/12/23', '12:00', 1),
+(3, '23/12/23', '12:00', 2),
+(4, '30/06/23', '20:50', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `User`
 --
 
 CREATE TABLE `User` (
+  `admin` tinyint(1) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `phone` int(9) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -67,10 +90,10 @@ CREATE TABLE `User` (
 -- Volcado de datos para la tabla `User`
 --
 
-INSERT INTO `User` (`name`, `phone`, `email`, `user_name`, `age`, `position`, `category`, `dni`, `creation_date`, `years_played`, `experience`, `club`, `password`, `salt`) VALUES
-('Álvaro Fernández Domingo', 666638298, 'alvaro@gmail.com', 'alvarito', '20', 'derecha', '3', '', '2023-04-19', '5', '', 'central padel', 'e996e49a44f4fde78be2be5a2e3c4607871559210e048087f151b0eda0d2d5e18fc8190ef71180104ed18e4bc9168f4165c351d1b9618775d47165a60ea40508', '0877cf68fa6e986d445c6bfd99fbdf74'),
-(NULL, 847309573, 'jose@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4480ed90ba512e03192351dc141ed5ddb132daae98c46e458e912d366822e1f1f93c1583b80a7a1109a5bc179edf5668c9960e2694ed75508c84f8f8e6a541f5', 'af975d3e5486ff1fbf6210320848ea07'),
-(NULL, 674489367, 'pepe@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '10ade93c01a4d92b9eefcb4739c97711b5017f60e397cb829b76c308bf428cbdc00fbee3010e857bea106b035fdbb7582ddd2c79e1dc4f702317fbf0d9a3cf94', 'd9f78af858cf84f8c0e15cda3dc71ca1');
+INSERT INTO `User` (`admin`, `name`, `phone`, `email`, `user_name`, `age`, `position`, `category`, `dni`, `creation_date`, `years_played`, `experience`, `club`, `password`, `salt`) VALUES
+(1, 'Álvaro Fernández Domingo', 666638298, 'alvaro@gmail.com', 'alvarito', '20', 'derecha', '3', '72431736G', '2023-04-19', '5', '', 'central padel', 'e996e49a44f4fde78be2be5a2e3c4607871559210e048087f151b0eda0d2d5e18fc8190ef71180104ed18e4bc9168f4165c351d1b9618775d47165a60ea40508', '0877cf68fa6e986d445c6bfd99fbdf74'),
+(0, NULL, 847309573, 'jose@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4480ed90ba512e03192351dc141ed5ddb132daae98c46e458e912d366822e1f1f93c1583b80a7a1109a5bc179edf5668c9960e2694ed75508c84f8f8e6a541f5', 'af975d3e5486ff1fbf6210320848ea07'),
+(0, NULL, 674489367, 'pepe@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '10ade93c01a4d92b9eefcb4739c97711b5017f60e397cb829b76c308bf428cbdc00fbee3010e857bea106b035fdbb7582ddd2c79e1dc4f702317fbf0d9a3cf94', 'd9f78af858cf84f8c0e15cda3dc71ca1');
 
 -- --------------------------------------------------------
 
@@ -103,6 +126,12 @@ ALTER TABLE `Device`
   ADD PRIMARY KEY (`name`);
 
 --
+-- Indices de la tabla `Matchs`
+--
+ALTER TABLE `Matchs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `User`
 --
 ALTER TABLE `User`
@@ -114,6 +143,16 @@ ALTER TABLE `User`
 ALTER TABLE `UserDevice`
   ADD PRIMARY KEY (`email_user`,`name_device`),
   ADD KEY `name_device` (`name_device`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `Matchs`
+--
+ALTER TABLE `Matchs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas

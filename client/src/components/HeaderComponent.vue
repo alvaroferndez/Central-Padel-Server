@@ -1,10 +1,12 @@
 <script setup>
 import { authentificationStore } from "../stores/authentification";
+import {adminStore} from "../stores/Admin/admin";
 import Menu from "./MenuComponent.vue";
 import { ref } from "vue";
 
 // stores
 const authentification = authentificationStore();
+const admin = adminStore();
 
 // variables
 var last_scroll = 0;
@@ -76,6 +78,10 @@ function menuStatus(e){
 }
 
 
+function changeToAdmin(){
+  admin.admin_mode = !admin.admin_mode;
+}
+
 </script>
 
 
@@ -95,6 +101,8 @@ function menuStatus(e){
         <nav class="navigation">
             <router-link class="link" to="/">Inicio</router-link>
             <router-link class="link" to="/shop">Tienda</router-link>
+            <router-link class="link" to="/match">Partidos</router-link>
+            <p class="link" v-on:click="changeToAdmin()" v-if="authentification.user.admin">Administración</p>
         </nav>
 
         <!-- login -->
