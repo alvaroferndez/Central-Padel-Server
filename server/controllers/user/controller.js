@@ -2,6 +2,7 @@ const device_controller = require('../device/controller.js');
 const hash = require('../../middleware/hash/hash.js');
 const regEx = require('../../middleware/regEx/regEx.js');
 
+
 module.exports = {
     async login(req, res, db) {
         var { email, password, device } = req.body;
@@ -31,7 +32,9 @@ module.exports = {
     },
 
     async register(req, res, db) {
-        var { email, password, phone } = req.body;
+        var { email, password, phone, photo } = req.body;
+
+
 
         if(regEx.validateEmail(email) && regEx.validatePassword(password) && regEx.validatePhone(phone)){
 

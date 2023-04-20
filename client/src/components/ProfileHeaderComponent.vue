@@ -107,7 +107,102 @@ const authentification = authentificationStore();
           font-style: italic;
         }
       }
+
+      .friend{
+        button{
+          @include button();
+        }
+      }
     }
+
+    @media screen and (max-width: 1250px) {
+        & {
+          width: 80%;
+        }
+    }
+
+    @media screen and (max-width: 950px) {
+        & {
+          width: 90%;
+        }
+    }
+
+    @media screen and (max-width: 825px) {
+      & {
+        width: 99%;
+      }
+    }
+
+    @media screen and (max-width: 750px) {
+      & {
+        flex-direction: column;
+
+        .container-photo{
+          height: 50%;
+        }
+
+        .container-information{
+          width: 100%;
+          height: 50%;
+        }
+      }
+    }
+
+    @media screen and (max-width: 550px) {
+      & {
+        .container-information{
+          align-items: center;
+          justify-content: space-evenly;
+
+          .information{
+            // size
+            height: 100%;
+            width: 80%;
+
+            div{
+              //size
+              width: 100%;
+
+              label{
+                font-size: 0.9rem;
+              }
+            }
+          }
+
+          .friend{
+            // size
+            width: 15%;
+
+            button{
+              // decoration
+              font-size: 0.7rem;
+            }
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 450px) {
+          & {
+            .container-photo{
+              // size
+              height: 40%;
+            }
+
+            .container-information{
+              // size
+              height: 60%;
+
+              .information{
+                div{
+                  label{
+                    font-size: 0.8rem;
+                  }
+                }
+              }
+            }
+          }
+        }
   }
 }
 </style>

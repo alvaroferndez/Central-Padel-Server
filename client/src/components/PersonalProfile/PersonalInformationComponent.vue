@@ -10,6 +10,7 @@ const authentification = authentificationStore();
 <template>
   <section class="container">
     <div class="data">
+      <h2>Información personal</h2>
       <div>
         <p>Edad:
           <span v-if="authentification.user.age">{{ authentification.user.age }}</span>
@@ -38,15 +39,17 @@ const authentification = authentificationStore();
       </div>
     </div>
     <div class="position">
-      <h3>Posición favorita</h3>
+      <h2>Posición favorita</h2>
       <div class="position-image">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div v-if="authentification.user.position == 'izquierda'" class="left-top" style="background-image: url('../../assets/images/profile-photo.webp')"></div>
+        <div v-else class="left-top"></div>
+        <div v-if="authentification.user.position == 'derecha'" class="left-bot" style="background-image: url('../../assets/images/profile-photo.webp')"></div>
+        <div v-else class="left-bot"></div>
+        <div class="right-top"></div>
+        <div class="right-bot"></div>
       </div>
     </div>
-    <div></div>
+    <div class="other"></div>
   </section>
 
 </template>
@@ -60,19 +63,27 @@ const authentification = authentificationStore();
   @include grid(2, 2);
 
   .data{
-    border: 1px solid black;
     // size
 
     // display
     grid-column: 1 / 2;
     grid-row: 1 / -1;
 
-    @include flexbox();
+    @include flexbox(column);
+
+    h2{
+      // size
+      width: 100%;
+      height: 15%;
+
+      // decoration
+      text-align: center;
+    }
 
     &>div{
       // size
       width: 100%;
-      height: 80%;
+      height: 85%;
 
       // display
       @include flexbox(column, flex-start, space-between);
@@ -81,7 +92,6 @@ const authentification = authentificationStore();
   }
 
   .position{
-    border: 1px solid black;
 
     // size
     width: 100%;
@@ -91,7 +101,7 @@ const authentification = authentificationStore();
     grid-column: 2 / 3;
     grid-row: 1 / 2;
 
-    h3{
+    h2{
       // size
       height: 10%;
 
@@ -109,9 +119,84 @@ const authentification = authentificationStore();
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
+
+      &>div{
+        // size
+        height: 30px;
+        width: 30px;
+
+        // position
+        position: absolute;
+
+        // decoration
+        border: 1px solid $h-c-white;
+        border-radius: 50%;
+        background-image: url("../../assets/images/profile-photo.webp");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .left-top{
+        top: 20%;
+        left: 30%;
+      }
+
+      .left-bot{
+        top: 70%;
+        left: 15%;
+      }
+
+      .right-top{
+        top: 20%;
+        right: 15%;
+      }
+
+      .right-bot{
+        top: 70%;
+        right: 15%;
+      }
     }
   }
 
+  @media screen and (max-width: 1000px) {
+    &{
+      // display
+      @include grid(1, 3, 1fr, 2fr, 5%);
+
+      .data{
+        // size
+        height: 100%;
+
+        // display
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
+      }
+
+      .position{
+        // size
+        height: 200%;
+
+        // display
+        grid-column: 1 / -1;
+        grid-row: 2 / 3;
+
+        .position-image{
+          // margin
+          margin-top: 5%;
+        }
+      }
+
+      .other{
+        // size
+        height: 100%;
+
+        // display
+        grid-column: 1 / -1;
+        grid-row: 3 / -1;
+      }
+    }
+  }
 }
 
 </style>

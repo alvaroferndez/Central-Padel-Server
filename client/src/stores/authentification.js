@@ -59,7 +59,6 @@ export const authentificationStore = defineStore('authentification', () => {
             });
             if(newData[0].logged){
                 user.value = newData[0];
-                console.log(user.value)
                 if(first) {
                     if (user.value.name) {
                         toast.showSuccess('Bienvenido de nuevo ' + user.value.name);
@@ -83,6 +82,7 @@ export const authentificationStore = defineStore('authentification', () => {
                 email: email,
                 password: password,
                 phone: phone,
+                photo: '',
             }),
         });
         const data = await response.json();

@@ -29,7 +29,7 @@ const profile = profileStore();
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/styles.scss";
 
 .information-profile{
@@ -61,6 +61,20 @@ const profile = profileStore();
       // size
       width: 80%;
       height: 90%;
+
+      @media screen and (max-width: 900px) {
+        & {
+          // size
+          width: 95%;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1450px) {
+    &{
+      // size
+      width: 100%;
     }
   }
 }

@@ -40,27 +40,30 @@ function reset(){
           </div>
           <div>
             <label>Email</label>
-            <input type="text" v-model="authentification.user.email" placeholder="sin definir"/>
+            <input type="email" v-model="authentification.user.email" placeholder="sin definir"/>
           </div>
           <div>
             <label>Teléfono</label>
-            <input type="text" v-model="authentification.user.phone" placeholder="sin definir"/>
+            <input type="tel" v-model="authentification.user.phone" placeholder="sin definir"/>
           </div>
           <div>
             <label>Edad</label>
-            <input type="text" v-model="authentification.user.age" placeholder="sin definir"/>
+            <input type="number" v-model="authentification.user.age" placeholder="sin definir"/>
           </div>
-
           <div>
             <label>Dni</label>
             <input type="text" v-model="authentification.user.dni" placeholder="sin definir"/>
           </div>
           <div>
+            <label>Foto de perfil</label>
+            <input type="file"/>
+          </div>
+          <div>
             <label>Fecha de creación</label>
-            <input type="text" v-model="authentification.user.creation_date"/>
+            <label>{{ authentification.user.creation_date }}</label>
           </div>
           <div class="password">
-            <button>Cambiar contraseña</button>
+            <button class="button-password">Cambiar contraseña</button>
           </div>
         </div>
       </div>
@@ -102,11 +105,11 @@ function reset(){
 <style lang="scss" scoped>
 @import "@/assets/styles.scss";
 
-.container{
+.container {
   // display
   @include flexbox(column, center, space-around);
 
-  &-options{
+  &-options {
     // size
     width: 100%;
     height: 90%;
@@ -114,12 +117,12 @@ function reset(){
     // display
     @include flexbox(row, center, space-around);
 
-    .options{
+    .options {
       // size
       width: 45%;
       height: 90%;
 
-      h1{
+      h1 {
         // size
         height: 20%;
 
@@ -127,16 +130,16 @@ function reset(){
         text-align: center;
       }
 
-      &>div{
+      & > div {
         // display
         @include flexbox(column, flex-start, space-around);
         // size
         width: 100%;
         height: 80%;
 
-        &>div{
+        & > div {
           // size
-          width: 80%;
+          width: 100%;
 
           // margin
           padding-left: 10%;
@@ -144,30 +147,102 @@ function reset(){
           // display
           @include flexbox(row, center, space-between);
 
-          label, input{
+          label, input {
             // size
             width: 50%;
           }
 
-          input{
+          input {
             // decoration
             border: none;
             outline: none;
 
-            &:focus{
+            &:focus {
               border-bottom: 1px solid black;
             }
           }
         }
 
-        .password{
+        .password {
           // display
           @include flexbox(row, center, space-around);
+
+          .button-password{
+            @include button();
+          }
         }
       }
     }
   }
 
-}
+  &>div{
+    // size
+    width: 100%;
+    height: 10%;
 
+    // display
+    @include flexbox(row, center, space-evenly);
+
+    button {
+      // size
+      min-height: 40px;
+
+      // display
+      display: inline-block;
+      vertical-align: middle;
+
+      // margin
+      padding: 12px 14px;
+
+      // decoration
+      background: $h-c-red-ligth-tint;
+      border: 1px solid $h-c-red-ligth-tint;
+      border-radius: 6px;
+      box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+      box-sizing: border-box;
+      color: $h-c-white;
+      cursor: pointer;
+      font-weight: 800;
+      line-height: 16px;
+      outline: 0;
+      text-align: center;
+
+      &:hover, &:active{
+        background-color: $h-c-white;
+        background-position: 0 0;
+        color: $h-c-red-ligth-tint;
+      }
+
+      &:active{
+        opacity: .5;
+      }
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+    &-options {
+      .options {
+        h1{
+          //decoration
+          font-size: 1.7rem;
+        }
+
+        &> div {
+          & > div {
+            label, input {
+              // decoration
+              font-size: 0.7rem;
+              }
+            }
+          }
+      }
+    }
+
+    button {
+      // decoration
+      font-size: 0.7rem;
+    }
+  }
+
+}
 </style>

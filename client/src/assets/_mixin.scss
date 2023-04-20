@@ -86,3 +86,52 @@
         top: 25%;
     }
 }
+
+@mixin button(){
+    // size
+    width: auto;
+    min-height: 3rem;
+
+    // position
+    position: relative;
+
+    // display
+    display: inline-flex;
+    align-items: center;
+    vertical-align: baseline;
+    justify-content: center;
+
+    // margin
+    margin: 0;
+
+    // decoration
+    background-color: $h-c-white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: .5rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: 600;
+    line-height: 1.25;
+
+    // transition
+    transition: all 250ms;
+
+    &:hover, &:focus{
+        border-color: rgba(0, 0, 0, 0.15);
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+        color: rgba(0, 0, 0, 0.65);
+    }
+
+    &:hover{
+        transform: translateY(-1px);
+    }
+
+    &:active{
+        background-color: #F0F0F1;
+        border-color: rgba(0, 0, 0, 0.15);
+        box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+        color: rgba(0, 0, 0, 0.65);
+        transform: translateY(0);
+    }
+}

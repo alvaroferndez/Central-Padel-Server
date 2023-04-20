@@ -1,6 +1,7 @@
 // libraries imports
 const express = require('express')
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
 
 
 // init express
@@ -10,6 +11,7 @@ const app = express()
 // librearies init
 app.use(cors())
 app.use(express.json())
+app.use(fileUpload())
 
 
 // import files
