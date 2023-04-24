@@ -1,3 +1,13 @@
+const usermatch = require('../usermatch/controller');
+
+
+// async function getMatchPlayers(match, db){
+//     await usermatch.getPlayers(match, db).then(response => {
+//         console.log(response)
+//         return response;
+//     });
+// }
+
 module.exports = {
     async add(req, res, db) {
         var match = req.body.match
@@ -31,41 +41,32 @@ module.exports = {
         });
     },
 
-    getAll(req, res, db) {
+    async getAll(req, res, db) {
         var {first, last} = req.body;
 
         var matchs = [];
 
         var sql = `SELECT * FROM Matchs WHERE date >= '${first}' AND date <= '${last}' ORDER BY date ASC, hour DESC`
 
-        db.query(sql, (err, data) => {
+        await db.query(sql, (err, data) => {
             if (err) {
                 return res.json(err)
             } else {
                 for (let i = 0; i < data.length; i++) {
-                    var match = {
+                    let match = {
                         id: data[i].id,
                         date: data[i].date,
                         hour: data[i].hour,
                         court: data[i].id_court,
                         players: [],
                     }
-                    // sql = `SELECT * FROM Matchs_Players WHERE id_match = '${match.id}'`
-                    // db.query(sql, (err, data) => {
-                    //     if (err) {
-                    //         result.error = err;
-                    //         return res.json(result)
-                    //     } else {
-                    //         for (let j = 0; j < data.length; j++) {
-                    //             match.players.push(data[j].id_player)
-                    //         }
-                    //         matchs.push(match);
-                    //     }
-                    // })
-                    matchs.push(match);
+                        // getMatchPlayers(match, db).then(response => {
+                        //     matchs.push(response);
+                        // })
+                    matchs.push(match);      
                 }
                 return res.json(matchs)
             }
         });
-    }
+    },
 }

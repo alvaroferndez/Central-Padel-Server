@@ -12,10 +12,12 @@ export const adminMatchStore = defineStore('adminMatch', () => {
     const admin = adminStore();
 
     // variables
-    const url = authentification.url
+    const url = authentification.url;
+    var all_matchs = ref([]);
+    var matchs_getted = ref(false);
 
     // functions
-    async function addMatch(match) {
+    async function addMatch(match, fist = null, last = null) {
         const response = await fetch(url + '/admin/match/add', {
             method: 'POST',
             headers: {
@@ -29,13 +31,16 @@ export const adminMatchStore = defineStore('adminMatch', () => {
         if(data.success){
             toast.showSuccess("Partido añadido correctamente");
             admin.changeSubcomponent("home");
+            getAllWeekMatchs(fist, last)
         }else{
             toast.showError(data.error);
         }
     }
 
     async function getAllWeekMatchs(first, last) {
-        const response = await fetch(url + '/admin/match/getAll', {
+        console.log(first, last)
+        var matchs=[];
+        var response = await fetch(url + '/admin/match/getAll', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,8 +51,36 @@ export const adminMatchStore = defineStore('adminMatch', () => {
             }),
         });
         const data = await response.json();
-        console.log(data)
+        for(let match of data){
+            var response = await fetch(url + '/admin/match/getAll2', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    match: match,
+                }),
+            });
+            const data2 = await response.json();
+            matchs.push(data2);
+        }
+        all_matchs.value = matchs;
+        changeDate();
     }
 
-    return { addMatch, getAllWeekMatchs }
+    function changeDate() {
+        for (let match of all_matchs.value) {
+            if(match.date.length > 2){
+                let dateString = match.date;
+                let parts = dateString.split('/');
+                let year = '20' + parts[2];
+                let month = parts[1] - 1;
+                let day = parts[0];
+                let date = new Date(year, month, day);
+                match.date = date.getDate();
+            }
+        }
+    }
+
+    return { all_matchs, matchs_getted, addMatch, getAllWeekMatchs }
 })

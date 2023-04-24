@@ -6,10 +6,10 @@ const profile = profileStore();
 
 // variables
 var options = [
-  { value: 'info', label: 'Infor' },
-  { value: 'match', label: 'Partiods' },
-  { value: 'settings', label: 'Settings' },
-  { value: 'shop', label: 'Tienda' }
+  { value: 'info', label: 'Información' },
+  { value: 'match', label: 'Partidos' },
+  { value: 'shop', label: 'Tienda' },
+  { value: 'settings', label: 'Configuración' },
 ]
 
 function changeComponent(value) {
@@ -21,8 +21,10 @@ function changeComponent(value) {
 
 <template>
   <section class="menu-profile">
-    <div v-for="item of options" :class="item.value" v-on:click="changeComponent(item.value)">
-      <label>{{ item.label }}</label>
+    <div class="container">
+      <div v-for="item of options" :class="item.value" v-on:click="changeComponent(item.value)">
+        <label>{{ item.label }}</label>
+      </div>
     </div>
   </section>
 
@@ -33,12 +35,64 @@ function changeComponent(value) {
 @import "@/assets/styles.scss";
 
 .menu-profile{
-  border: 1px solid black;
   // size
   width: 20%;
   height: 100%;
 
+  // display
+  @include flexbox();
+
   // descoration
-  //background-color: $h-c-red-logo-shade;
+  background-color: $h-c-red-logo-shade;
+
+  .container{
+    // size
+    width: 80%;
+    height: 80%;
+
+    // display
+    @include flexbox(column);
+
+    &>div{
+      // size
+      width: 100%;
+      height: 20%;
+
+      // display
+      @include flexbox();
+
+      // margin
+      margin-bottom: 10px;
+
+
+      // decoration
+      background-color: $h-c-red-logo;
+      border-radius: 10px;
+
+      // text
+      label{
+        // size
+        width: 100%;
+        height: 100%;
+
+        // display
+        @include flexbox();
+
+        // text
+        font-size: 1.5em;
+        color: $h-c-white;
+      }
+
+      &:hover{
+        //decoration
+        cursor: pointer;
+        background-color: $h-c-white;
+
+        label{
+          color: $h-c-red-logo;
+        }
+      }
+    }
+  }
 }
 </style>

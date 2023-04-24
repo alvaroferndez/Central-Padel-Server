@@ -59,6 +59,7 @@ app.post('/api/user/update', (req, res) => {
 
 // match
 const match = require('./controllers/match/controller')
+const usermatch = require('./controllers/usermatch/controller')
 
 // add match
 app.post('/api/admin/match/add', (req, res) => {
@@ -68,6 +69,10 @@ app.post('/api/admin/match/add', (req, res) => {
 // get all matchs
 app.post('/api/admin/match/getAll', (req, res) => {
     match.getAll(req, res, connection);
+});
+
+app.post('/api/admin/match/getAll2', (req, res) => {
+    usermatch.getPlayers(req, res, connection);
 });
 
 module.exports = app;

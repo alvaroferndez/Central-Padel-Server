@@ -46,19 +46,19 @@ var sections = [
 
 var news = [
     {
-        title: "Ganador del sorteo",
+        title: "Lorem ipsum",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
         image: "https://revista.une.org/images/revistas/articulos/grandes/565ca2444ee5c66129769cb37567f680.jpg",
         principal: false
     },
     {
-        title: "Has ganado un iphone 32",
+        title: "Lorem ipsum",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-        image: "https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/337090655_1248689012711221_156993625834859439_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=730e14&_nc_ohc=iIk6U9UyocQAX9X9gZd&_nc_ht=scontent-mad1-1.xx&oh=00_AfDQU_fbGZSwygapobR5QwyAUoTf9oYBzRK4gDENOAM2hQ&oe=64389414",
+        image: "https://s1.eestatic.com/2017/11/22/deportes/otros-deportes/padel-otros_deportes-bilbao_263987683_55041202_1706x960.jpg",
         principal: true
     },
     {
-        title: "Que pasa chulo",
+        title: "Lorem ipsum",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
         image: "https://worldpadeltour.com/assets/themes/worldpadeltour.com/img/posts/1681062542_Jose%20Jimenez_Jaime%20Fermosell_Cervezas%20Victoria%20Granada%20Open%202023_Previas-_DSC1358%20copia.thigh.jpg",
 

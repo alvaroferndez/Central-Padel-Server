@@ -173,7 +173,7 @@ function changeToAdmin(){
 
                 .logo{
                   /* size */
-                  width: 100%;
+                  width: 150%;
                   height: 100%;
                 }
 
@@ -221,10 +221,6 @@ function changeToAdmin(){
             align-items: center;
         }
 
-
-    }
-
-    .menu{
 
     }
 
