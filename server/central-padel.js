@@ -61,6 +61,11 @@ app.post('/api/user/all', (req, res) => {
     user.getAll(req, res, connection);
 });
 
+// get user by email
+app.post('/api/user/get_user', (req, res) => {
+    user.getUserByEmail(req, res, connection);
+});
+
 
 
 // match

@@ -149,7 +149,7 @@ export const authentificationStore = defineStore('authentification', () => {
     }
 
     async function getUserByEmail(email){
-        var response = await fetch(url + '/user/', {
+        var response = await fetch(url + '/user/get_user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

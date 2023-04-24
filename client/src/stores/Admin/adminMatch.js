@@ -76,7 +76,19 @@ export const adminMatchStore = defineStore('adminMatch', () => {
         }
     }
 
-    function addUserToMatch(user){
+    async function addUserToMatch(user){
+        var user = await authentification.getUserByEmail(user);
+        for (let i = 0; i< current_match.value.players.length; i++){
+            if(current_match.value.players[i].email == user.email){
+                toast.showError("El usuario ya está en el partido");
+                return;
+            }else if(current_match.value.players[i].email == ''){
+                current_match.value.players[i] = user.data;
+                toast.showSuccess("Jugador añadido correctamente");
+                console.log(current_match.value);
+                return
+            }
+        }
 
     }
 
@@ -151,5 +163,5 @@ export const adminMatchStore = defineStore('adminMatch', () => {
     }
 
 
-    return { all_matchs, matchs_getted, current_match, addMatch, deleteMatch, editMatch, getAllWeekMatchs, getMatchById }
+    return { all_matchs, matchs_getted, current_match, addMatch, deleteMatch, editMatch, addUserToMatch, getAllWeekMatchs, getMatchById }
 })

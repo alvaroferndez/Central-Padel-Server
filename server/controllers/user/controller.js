@@ -84,13 +84,28 @@ module.exports = {
         }
     },
 
-    selectUserByEmail(email,db) {
-        db.query(`SELECT * FROM User WHERE email = '${email}'`, (err, result) => {
-            if (err) throw err
-            if(result.length > 0){
-                return result;
+    async getUserByEmail(req, res, db) {
+        var { email } = req.body;
+
+        var result = {
+            success: false,
+            error: '',
+            data: []
+        }
+
+        db.query(`SELECT * FROM User WHERE email = '${email}'`, (err, data) => {
+            if (err){
+                result.error = err;
+                return res.json(result);
             }else{
-                return null;
+                if(data.length > 0){
+                    result.success = true;
+                    result.data = data;
+                    return res.json(result);
+                }else{
+                    result.error = 'El usuario no existe';
+                    return res.json(result);
+                }
             }
         });
     },

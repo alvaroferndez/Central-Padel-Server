@@ -62,7 +62,7 @@ function addUserToMatch(email) {
       <input type="text" v-model="search_text" @input="filterUsers()" placeholder="Buscar...">
     </div>
     <ul>
-      <li v-if="filter_users.length != authentification.users.length && authentification.users.length > 1" v-for="user of filter_users" v-on:click="addUserToMatch" :key="user.email">
+      <li v-if="filter_users.length != authentification.users.length && authentification.users.length > 1" v-for="user of filter_users" v-on:click="addUserToMatch(user.email)" :key="user.email">
         {{ user.email }}
       </li>
     </ul>
