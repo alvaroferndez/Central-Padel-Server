@@ -174,7 +174,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
                 <div class="container-players">
                   <div class="players" v-on:click="viewMatch($event, day, hour, 1, result.id)">
                     <label v-for="player of result.players">
-                      {{ player.name ? player.name : 'sin definir ' }}
+                      {{ player.email ? player.email : 'sin definir ' }}
                     </label>
                   </div>
                   <div class="options">
@@ -187,7 +187,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
                 <div class="container-players">
                   <div class="players" v-on:click="viewMatch($event, day, hour, 2, result.id)">
                     <label v-for="player of result.players">
-                      {{ player.name ? player.name : 'sin definir ' }}
+                      {{ player.email ? player.email : 'sin definir ' }}
                     </label>
                   </div>
                   <div class="options">
@@ -200,7 +200,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
                 <div class="container-players">
                   <div class="players" v-on:click="viewMatch($event, day, hour, 3, result.id)">
                     <label v-for="player of result.players">
-                      {{ player.name ? player.name : 'sin definir ' }}
+                      {{ player.email ? player.email : 'sin definir ' }}
                     </label>
                   </div>
                   <div class="options">

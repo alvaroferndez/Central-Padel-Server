@@ -55,8 +55,6 @@ module.exports = {
     async edit(req, res, db) {
         var match = req.body.match
 
-        console.log(match)
-
         var result = {
             success: false,
             error: '',
@@ -72,7 +70,67 @@ module.exports = {
                     result.error = 'Ya existe un partido en esa pista a esa hora y fecha';
                     return res.json(result)
                 }else{
-                    sql = `UPDATE Matchs SET date = '${match.date}', id_court = '${match.court}', hour = '${match.hour}' WHERE id = '${match.id}'`
+                    // comprobar que ninguno de los jugadores tiene partido a esa hora
+                    sql = `SELECT * FROM UserMatch WHERE id_match = '${match.id}'`;
+
+                    db.query(sql, (err, data) => {
+                        if(err){
+                            result.error = err;
+                            return res.json(result)
+                        }else{
+                            console.log(data)
+                            if(data.length > 0){
+                                sql = `DELETE FROM UserMatch WHERE id_match = '${match.id}'`;
+
+                                db.query(sql, (err, data) => {
+                                    if(err){
+                                        result.error = err;
+                                        return res.json(result)
+                                    }else{
+                                        for (let i = 0; i < data.length; i++) {
+                                            sql = `SELECT * FROM UserMatch WHERE id_user = '${data[i].id_user}' AND id_match IN (SELECT id FROM Matchs WHERE date = '${match.date}' AND hour = '${match.hour}')`;
+                                            db.query(sql, (err, data) => {
+                                                if(err){
+                                                    result.error = err;
+                                                    return res.json(result)
+                                                }else{
+                                                    if(data.length > 0){
+                                                        result.error = 'Uno de los jugadores ya tiene partido a esa hora';
+                                                        return res.json(result)
+                                                    }else{
+                                                        // insertar los jugadores en el partido
+        
+                                                        sql = `INSERT INTO UserMatch (id_user, id_match) VALUES ('${data[i].id_user}', '${data[i].id_match})`;
+        
+                                                        db.query(sql, (err, data) => {
+                                                            if(err){
+                                                                result.error = err;
+                                                                return res.json(result)
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+
+                                
+                            }else{
+                                for (let i = 0; i < match.players.length; i++) {        
+                                    sql = `INSERT INTO UserMatch (email_user, id_match) VALUES ('${match.players[i].email}', '${match.id}')`;
+                                        
+                                    db.query(sql, (err, data) => {
+                                        if(err){
+                                            console.log(err)
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });            
+                    
+                    sql = `UPDATE Matchs SET date = '${match.date}', hour = '${match.hour}', id_court = '${match.court}' WHERE id = '${match.id}'`;
 
                     db.query(sql, (err, data) => {
                         if(err){
@@ -107,9 +165,6 @@ module.exports = {
                         court: data[i].id_court,
                         players: [],
                     }
-                        // getMatchPlayers(match, db).then(response => {
-                        //     matchs.push(response);
-                        // })
                     matchs.push(match);      
                 }
                 return res.json(matchs)

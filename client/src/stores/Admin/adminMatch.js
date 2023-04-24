@@ -79,13 +79,12 @@ export const adminMatchStore = defineStore('adminMatch', () => {
     async function addUserToMatch(user){
         var user = await authentification.getUserByEmail(user);
         for (let i = 0; i< current_match.value.players.length; i++){
-            if(current_match.value.players[i].email == user.email){
+            if(current_match.value.players[i].email == user.data[0].email){
                 toast.showError("El usuario ya está en el partido");
                 return;
             }else if(current_match.value.players[i].email == ''){
-                current_match.value.players[i] = user.data;
+                current_match.value.players[i] = user.data[0];
                 toast.showSuccess("Jugador añadido correctamente");
-                console.log(current_match.value);
                 return
             }
         }
@@ -106,6 +105,7 @@ export const adminMatchStore = defineStore('adminMatch', () => {
         });
         const data = await response.json();
         for(let match of data){
+            console.log(match + " asda")
             var response = await fetch(url + '/admin/match/getAll2', {
                 method: 'POST',
                 headers: {

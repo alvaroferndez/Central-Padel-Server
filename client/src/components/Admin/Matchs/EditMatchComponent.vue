@@ -50,13 +50,13 @@ function addUserToMatch(email) {
     </div>
     <div>
       <label >Jugador 1</label>
-      <input type="text" v-model="adminMatch.current_match.players[0].name" placeholder="jugador reves 1">
+      <input type="text" v-model="adminMatch.current_match.players[0].email" placeholder="jugador reves 1">
       <label >Jugador 2</label>
-      <input type="text" v-model="adminMatch.current_match.players[1].name" placeholder="jugador derecha 1">
+      <input type="text" v-model="adminMatch.current_match.players[1].email" placeholder="jugador derecha 1">
       <label >Jugador 3</label>
-      <input type="text" v-model="adminMatch.current_match.players[2].name" placeholder="jugador reves 2">
+      <input type="text" v-model="adminMatch.current_match.players[2].email" placeholder="jugador reves 2">
       <label >Jugador 4</label>
-      <input type="text" v-model="adminMatch.current_match.players[3].name" placeholder="jugador derecha 2">
+      <input type="text" v-model="adminMatch.current_match.players[3].email" placeholder="jugador derecha 2">
     </div>
     <div>
       <input type="text" v-model="search_text" @input="filterUsers()" placeholder="Buscar...">
