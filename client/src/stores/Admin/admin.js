@@ -6,7 +6,8 @@ export const adminStore = defineStore('admin', () => {
     var admin_mode = ref(false)
     var actual_component = ref({
         name: 'home',
-        subcomponent: 'home'
+        subcomponent: 'home',
+        props: null,
     })
 
     function changeActualComponent(value){
@@ -17,5 +18,9 @@ export const adminStore = defineStore('admin', () => {
         actual_component.value.subcomponent = value;
     }
 
-    return { admin_mode, actual_component, changeActualComponent, changeSubcomponent }
+    function changeProps(value){
+        actual_component.value.props = value;
+    }
+
+    return { admin_mode, actual_component, changeActualComponent, changeSubcomponent, changeProps }
 })

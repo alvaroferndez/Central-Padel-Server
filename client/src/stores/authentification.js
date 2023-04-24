@@ -11,6 +11,8 @@ export const authentificationStore = defineStore('authentification', () => {
 
     const toast = toastStore();
 
+    const users = ref([]);
+
     var user = ref(
         {
             logged: false,
@@ -145,6 +147,34 @@ export const authentificationStore = defineStore('authentification', () => {
                 }
             });
     }
+
+    async function getUserByEmail(email){
+        var response = await fetch(url + '/user/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+            }),
+        })
+        const data = await response.json();
+        return data;
+    }
+
+    async function getAllUsers(){
+        var response = await fetch(url + '/user/all', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        const data = await response.json();
+        if(data.success){
+            users.value = data.data;
+            console.log(users.value)
+        }
+    }
   
-    return { url, user, menu_status, login, register, show, checkUserLogged, logout, changeData}
+    return { url, user, menu_status, users, login, register, show, checkUserLogged, logout, changeData, getUserByEmail, getAllUsers}
 })

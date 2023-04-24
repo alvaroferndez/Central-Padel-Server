@@ -15,6 +15,7 @@ export const adminMatchStore = defineStore('adminMatch', () => {
     const url = authentification.url;
     var all_matchs = ref([]);
     var matchs_getted = ref(false);
+    var current_match = ref(false);
 
     // functions
     async function addMatch(match, fist = null, last = null) {
@@ -30,14 +31,53 @@ export const adminMatchStore = defineStore('adminMatch', () => {
         const data = await response.json();
         if(data.success){
             toast.showSuccess("Partido añadido correctamente");
-            admin.changeSubcomponent("home");
             getAllWeekMatchs(fist, last)
         }else{
             toast.showError(data.error);
         }
     }
 
-    async function deleteMatch(match, fist = null, last = null){
+    async function deleteMatch(id, fist = null, last = null){
+        const response = await fetch(url + '/admin/match/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id_match: id,
+            }),
+        });
+        const data = await response.json();
+        console.log(data);
+        if(data.success){
+            toast.showSuccess("Partido borrado correctamente");
+            getAllWeekMatchs(fist, last)
+        }else{
+            toast.showError(data.error);
+        }
+    }
+
+    async function editMatch(){
+        const response = await fetch(url + '/admin/match/edit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                match: current_match.value,
+            }),
+        });
+        const data = await response.json();
+        if(data.success){
+            toast.showSuccess("Partido editado correctamente");
+            admin.changeSubcomponent('home')
+        }else{
+            toast.showError(data.error);
+        }
+    }
+
+    function addUserToMatch(user){
+
     }
 
     async function getAllWeekMatchs(first, last) {
@@ -70,6 +110,32 @@ export const adminMatchStore = defineStore('adminMatch', () => {
         changeDate();
     }
 
+    async function getMatchById(id){
+        var response = await fetch(url + '/admin/match/getById', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id_match: id,
+            }),
+        });
+        const data = await response.json();
+        current_match.value = data;
+        response = await fetch(url + '/admin/match/getAll2', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                match: current_match.value,
+            }),
+        });
+        const data2 = await response.json();
+        current_match.value = data2;
+        console.log(data2)
+    }
+
     function changeDate() {
         for (let match of all_matchs.value) {
             if(match.date.length > 2){
@@ -84,5 +150,6 @@ export const adminMatchStore = defineStore('adminMatch', () => {
         }
     }
 
-    return { all_matchs, matchs_getted, addMatch, deleteMatch, getAllWeekMatchs }
+
+    return { all_matchs, matchs_getted, current_match, addMatch, deleteMatch, editMatch, getAllWeekMatchs, getMatchById }
 })

@@ -56,6 +56,12 @@ app.post('/api/user/update', (req, res) => {
    user.update(req, res, connection);
 });
 
+// get all users
+app.post('/api/user/all', (req, res) => {
+    user.getAll(req, res, connection);
+});
+
+
 
 // match
 const match = require('./controllers/match/controller')
@@ -66,6 +72,16 @@ app.post('/api/admin/match/add', (req, res) => {
     match.add(req, res, connection);
 });
 
+// delete match
+app.post('/api/admin/match/delete', (req, res) => {
+    match.delete(req, res, connection);
+});
+
+// edit match
+app.post('/api/admin/match/edit', (req, res) => {
+    match.edit(req, res, connection);
+});
+
 // get all matchs
 app.post('/api/admin/match/getAll', (req, res) => {
     match.getAll(req, res, connection);
@@ -74,5 +90,11 @@ app.post('/api/admin/match/getAll', (req, res) => {
 app.post('/api/admin/match/getAll2', (req, res) => {
     usermatch.getPlayers(req, res, connection);
 });
+
+// get by id
+app.post('/api/admin/match/getById', (req, res) => {
+    match.getById(req, res, connection);
+});
+
 
 module.exports = app;

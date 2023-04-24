@@ -130,16 +130,19 @@ function viewMatch(e, day, hour, court, id){
     addPreparerMatch(day, hour, court)
   }else{
     console.log('ver ' + id)
-    // adminMatch.editMatch(match);
+    adminMatch.viewMatch(match);
   }
 }
 
 function editMatch(e, id){
-  console.log('editar ' + id)
+  e.stopPropagation()
+  admin.changeProps(id);
+  admin.changeSubcomponent("edit");
 }
 
 function deleteMatch(e, id){
-  console.log('eliminar ' + id)
+  e.stopPropagation()
+  adminMatch.deleteMatch(id, days[0], days[6]);
 }
 
 
@@ -167,7 +170,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
           <tbody>
             <tr v-for="hour of hours_play">
               <td>{{ hour.hour_start + ' - ' + hour.hour_finish}}</td>
-              <td :key="{day:day, hour:hour, court:1}" v-on:click="addPreparerMatch($event,day,hour,1)" v-for="result of setTable(1,day.number,hour.hour_start)">
+              <td :key="{day:day, hour:hour, court:1}" v-for="result of setTable(1,day.number,hour.hour_start)">
                 <div class="container-players">
                   <div class="players" v-on:click="viewMatch($event, day, hour, 1, result.id)">
                     <label v-for="player of result.players">
@@ -180,7 +183,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
                   </div>
                 </div>
               </td>
-              <td :key="{day:day, hour:hour, court:2}" v-on:click="addPreparerMatch($event,day,hour,2)" v-for="result of setTable(2,day.number,hour.hour_start)">
+              <td :key="{day:day, hour:hour, court:2}" v-for="result of setTable(2,day.number,hour.hour_start)">
                 <div class="container-players">
                   <div class="players" v-on:click="viewMatch($event, day, hour, 2, result.id)">
                     <label v-for="player of result.players">
@@ -193,7 +196,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
                   </div>
                 </div>
               </td>
-              <td :key="{day:day, hour:hour, court:3}" v-on:click="addPreparerMatch($event,day,hour,3)" v-for="result of setTable(3,day.number,hour.hour_start)">
+              <td :key="{day:day, hour:hour, court:3}" v-for="result of setTable(3,day.number,hour.hour_start)">
                 <div class="container-players">
                   <div class="players" v-on:click="viewMatch($event, day, hour, 3, result.id)">
                     <label v-for="player of result.players">

@@ -95,6 +95,28 @@ module.exports = {
         });
     },
 
+    async getAll(req, res, db) {
+        result = {
+            success: false,
+            error: '',
+            data: []
+        }
+
+        console.log(1)
+
+        db.query(`SELECT * FROM User`, (err, data) => {
+            if (err){
+                result.error = 'Ha ocurrido un error';
+                return res.json(result);
+            }
+            else{
+                result.success = true;
+                result.data = data;
+                return res.json(result);
+            }
+        });
+    },
+
     async update(req, res, db) {
         var { user } = req.body;
 

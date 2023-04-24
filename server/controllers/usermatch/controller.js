@@ -7,6 +7,8 @@ module.exports = {
             error: ''
         }
 
+        match.players = [];
+
         sql = `SELECT * FROM UserMatch WHERE id_match = '${match.id}'`
         await db.query(sql, (err, data) => {
             if (err) {
@@ -19,6 +21,7 @@ module.exports = {
                         surname: '',
                         email: '',
                         position: '',
+                        username: '',
                     })
                 }
                                  
@@ -36,6 +39,7 @@ module.exports = {
             //                     surname: data[0].surname,
             //                     email: data[0].email,
             //                     position: data[0].position,
+            //                     username: data[0].username,
             //                 })   
             //             }
             //         })

@@ -4,6 +4,7 @@ import { createPinia } from 'pinia'
 // icons import
 import { OhVueIcon, addIcons } from "oh-vue-icons";
 import { OiThreeBars, BiArrowUp, IoTennisballSharp, RiUser3Fill, HiLogout, IoClose } from "oh-vue-icons/icons";
+import Paginate from 'vue3-paginate'
 
 import App from './App.vue'
 import router from './router'
@@ -15,6 +16,7 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(Paginate)
 
 // icons
 addIcons(OiThreeBars, BiArrowUp, IoTennisballSharp, RiUser3Fill, HiLogout, IoClose);
