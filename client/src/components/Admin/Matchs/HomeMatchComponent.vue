@@ -114,23 +114,35 @@ function setTable(court, day, hour) {
   return result;
 }
 
-function addPreparerMatch(e,day, hour, court) {
+function addPreparerMatch(day, hour, court) {
   var match = {
     date: day.date,
     hour: hour.hour_start,
     court: court,
   }
 
+  adminMatch.addMatch(match, days[0], days[6]);
+}
+
+function viewMatch(e, day, hour, court, id){
+  e.stopPropagation()
   if(e.target.innerHTML == "+") {
-    adminMatch.addMatch(match, days[0], days[6]);
-  }else if(e.target.innerHTML == "<label>+</label>" || e.target.innerHTML == `<div class="container-players"><div class="players"><label>+</label></div><div class="options"><!--v-if--><!--v-if--></div></div>` || e.target.innerHTML == `<div class="players"><label>+</label></div><div class="options"><!--v-if--><!--v-if--></div>`) {
-    console.log('nulo')
+    addPreparerMatch(day, hour, court)
   }else{
-    console.log('editar')
+    console.log('ver ' + id)
     // adminMatch.editMatch(match);
   }
-
 }
+
+function editMatch(e, id){
+  console.log('editar ' + id)
+}
+
+function deleteMatch(e, id){
+  console.log('eliminar ' + id)
+}
+
+
 getNextSevenDays();
 
 adminMatch.getAllWeekMatchs(days[0], days[6]);
@@ -157,40 +169,40 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
               <td>{{ hour.hour_start + ' - ' + hour.hour_finish}}</td>
               <td :key="{day:day, hour:hour, court:1}" v-on:click="addPreparerMatch($event,day,hour,1)" v-for="result of setTable(1,day.number,hour.hour_start)">
                 <div class="container-players">
-                  <div class="players">
+                  <div class="players" v-on:click="viewMatch($event, day, hour, 1, result.id)">
                     <label v-for="player of result.players">
                       {{ player.name ? player.name : 'sin definir ' }}
                     </label>
                   </div>
                   <div class="options">
-                    <label v-if="result.edit" for="">editar</label>
-                    <label v-if="result.edit" for="">borrar</label>
+                    <label v-if="result.edit" v-on:click="editMatch($event ,result.id)" for="">editar</label>
+                    <label v-if="result.edit" v-on:click="deleteMatch($event ,result.id)" for="">borrar</label>
                   </div>
                 </div>
               </td>
               <td :key="{day:day, hour:hour, court:2}" v-on:click="addPreparerMatch($event,day,hour,2)" v-for="result of setTable(2,day.number,hour.hour_start)">
                 <div class="container-players">
-                  <div class="players">
+                  <div class="players" v-on:click="viewMatch($event, day, hour, 2, result.id)">
                     <label v-for="player of result.players">
                       {{ player.name ? player.name : 'sin definir ' }}
                     </label>
                   </div>
                   <div class="options">
-                    <label v-if="result.edit" for="">editar</label>
-                    <label v-if="result.edit" for="">borrar</label>
+                    <label v-if="result.edit" v-on:click="editMatch($event ,result.id)" for="">editar</label>
+                    <label v-if="result.edit" v-on:click="deleteMatch($event ,result.id)" for="">borrar</label>
                   </div>
                 </div>
               </td>
               <td :key="{day:day, hour:hour, court:3}" v-on:click="addPreparerMatch($event,day,hour,3)" v-for="result of setTable(3,day.number,hour.hour_start)">
                 <div class="container-players">
-                  <div class="players">
+                  <div class="players" v-on:click="viewMatch($event, day, hour, 3, result.id)">
                     <label v-for="player of result.players">
                       {{ player.name ? player.name : 'sin definir ' }}
                     </label>
                   </div>
                   <div class="options">
-                    <label v-if="result.edit" for="">editar</label>
-                    <label v-if="result.edit" for="">borrar</label>
+                    <label v-if="result.edit" v-on:click="editMatch($event ,result.id)" for="">editar</label>
+                    <label v-if="result.edit" v-on:click="deleteMatch($event ,result.id)" for="">borrar</label>
                   </div>
                 </div>
               </td>

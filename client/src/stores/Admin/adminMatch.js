@@ -37,8 +37,10 @@ export const adminMatchStore = defineStore('adminMatch', () => {
         }
     }
 
+    async function deleteMatch(match, fist = null, last = null){
+    }
+
     async function getAllWeekMatchs(first, last) {
-        console.log(first, last)
         var matchs=[];
         var response = await fetch(url + '/admin/match/getAll', {
             method: 'POST',
@@ -82,5 +84,5 @@ export const adminMatchStore = defineStore('adminMatch', () => {
         }
     }
 
-    return { all_matchs, matchs_getted, addMatch, getAllWeekMatchs }
+    return { all_matchs, matchs_getted, addMatch, deleteMatch, getAllWeekMatchs }
 })
