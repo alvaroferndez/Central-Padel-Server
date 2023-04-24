@@ -3,6 +3,10 @@ module.exports = {
     async getPlayers(req, res, db) {
         var match = req.body.match;
 
+        result = {
+            error: ''
+        }
+
         sql = `SELECT * FROM UserMatch WHERE id_match = '${match.id}'`
         await db.query(sql, (err, data) => {
             if (err) {
