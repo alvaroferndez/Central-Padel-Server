@@ -104,7 +104,6 @@ export const authentificationStore = defineStore('authentification', () => {
             }),
         });
         const data = await response.json();
-        console.log(data)
         if(data.success){
             user.value = {
                 logged: false,
@@ -122,7 +121,6 @@ export const authentificationStore = defineStore('authentification', () => {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
         })
     }
 
@@ -138,7 +136,6 @@ export const authentificationStore = defineStore('authentification', () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
                 if(data.success){
                     toast.showSuccess('Datos actualizados');
                 }else{
@@ -172,7 +169,6 @@ export const authentificationStore = defineStore('authentification', () => {
         const data = await response.json();
         if(data.success){
             users.value = data.data;
-            console.log(users.value)
         }
     }
   

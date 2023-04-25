@@ -106,7 +106,7 @@ function setTable(court, day, hour) {
     result.push({
       players: [
         {
-          name: "+"
+          email: "+"
         }
       ]
     })
@@ -129,8 +129,8 @@ function viewMatch(e, day, hour, court, id){
   if(e.target.innerHTML == "+") {
     addPreparerMatch(day, hour, court)
   }else{
-    console.log('ver ' + id)
-    adminMatch.viewMatch(match);
+    admin.changeProps(id);
+    admin.changeSubcomponent("view");
   }
 }
 

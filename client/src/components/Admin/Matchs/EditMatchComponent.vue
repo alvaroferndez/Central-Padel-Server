@@ -18,18 +18,34 @@ var filter_users = ref([]);
 adminMatch.getMatchById(admin.actual_component.props);
 authentification.getAllUsers();
 
+// edit the match in the database
 function editMatch() {
+  // call the function editMatch from the store adminMatch
   adminMatch.editMatch();
 }
 
+// filter the users by the search text of the variable search_text
 function filterUsers() {
   filter_users.value =  authentification.users.filter((user) => {
     return user.email.toLowerCase().includes(search_text.value.toLowerCase());
   });
 }
 
+// add a player to the variable current_match of the store adminMatch. Only add to the client until edit button is pressed
 function addUserToMatch(email) {
+  // call the function addUserToMatch from the store adminMatch
+  //
+  // email: email of the player to add
   adminMatch.addUserToMatch(email);
+}
+
+// delete a player from the variable current_match of the store adminMatch. Only delete from the client until edit button is pressed
+function deletePlayer(index) {
+  // call the function deletePlayer from the store adminMatch
+  //
+  // index: index of the player to delete
+
+  adminMatch.deletePlayer(index);
 }
 </script>
 
@@ -49,14 +65,11 @@ function addUserToMatch(email) {
       <input type="text" v-model="adminMatch.current_match.court" placeholder="3">
     </div>
     <div>
-      <label >Jugador 1</label>
-      <input type="text" v-model="adminMatch.current_match.players[0].email" placeholder="jugador reves 1">
-      <label >Jugador 2</label>
-      <input type="text" v-model="adminMatch.current_match.players[1].email" placeholder="jugador derecha 1">
-      <label >Jugador 3</label>
-      <input type="text" v-model="adminMatch.current_match.players[2].email" placeholder="jugador reves 2">
-      <label >Jugador 4</label>
-      <input type="text" v-model="adminMatch.current_match.players[3].email" placeholder="jugador derecha 2">
+      <div v-for="player of adminMatch.current_match.players">
+        <label >Jugador {{adminMatch.current_match.players.indexOf(player)+1}}</label>
+        <input type="text" v-model="player.email" placeholder="seleccione un jugador...">
+        <v-icon v-on:click="deletePlayer(adminMatch.current_match.players.indexOf(player))" name="ri-delete-back-2-fill"></v-icon>
+      </div> 
     </div>
     <div>
       <input type="text" v-model="search_text" @input="filterUsers()" placeholder="Buscar...">

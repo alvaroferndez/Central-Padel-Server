@@ -12,6 +12,7 @@ export const adminStore = defineStore('admin', () => {
 
     function changeActualComponent(value){
         actual_component.value.name = value;
+        changeSubcomponent('home');
     }
 
     function changeSubcomponent(value){

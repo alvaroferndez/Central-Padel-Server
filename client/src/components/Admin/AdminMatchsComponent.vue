@@ -1,6 +1,6 @@
 <script setup>
 import {adminStore} from "../../stores/Admin/admin.js";
-import AddMatchComponent from "./Matchs/AddMatchComponent.vue";
+import ViewMatchComponent from "./Matchs/ViewMatchComponent.vue";
 import EditMatchComponent from "./Matchs/EditMatchComponent.vue";
 import HomeMatchComponent from "./Matchs/HomeMatchComponent.vue";
 
@@ -15,7 +15,7 @@ const admin = adminStore();
 
 <template>
   <section v-if="admin.actual_component.name == 'matchs'">
-    <AddMatchComponent v-if="admin.actual_component.subcomponent == 'add'"/>
+    <ViewMatchComponent v-if="admin.actual_component.subcomponent == 'view'"/>
     <EditMatchComponent v-if="admin.actual_component.subcomponent == 'edit'"/>
     <HomeMatchComponent v-if="admin.actual_component.subcomponent == 'home'"/>
   </section>

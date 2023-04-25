@@ -3,7 +3,7 @@ import { createPinia } from 'pinia'
 
 // icons import
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { OiThreeBars, BiArrowUp, IoTennisballSharp, RiUser3Fill, HiLogout, IoClose } from "oh-vue-icons/icons";
+import { OiThreeBars, BiArrowUp, IoTennisballSharp, RiUser3Fill, HiLogout, IoClose, RiDeleteBack2Fill } from "oh-vue-icons/icons";
 import Paginate from 'vue3-paginate'
 
 import App from './App.vue'
@@ -19,7 +19,7 @@ app.use(router)
 app.use(Paginate)
 
 // icons
-addIcons(OiThreeBars, BiArrowUp, IoTennisballSharp, RiUser3Fill, HiLogout, IoClose);
+addIcons(OiThreeBars, BiArrowUp, IoTennisballSharp, RiUser3Fill, HiLogout, IoClose, RiDeleteBack2Fill);
 app.component("v-icon", OhVueIcon);
 
 app.mount('#app')
