@@ -117,8 +117,6 @@ module.exports = {
             data: []
         }
 
-        console.log(1)
-
         db.query(`SELECT * FROM User`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
@@ -180,6 +178,48 @@ module.exports = {
             } else {
                 result.error = 'El usuario no existe, porfavor, inicie sesión de nuevo';
                 return res.json(result);
+            }
+        });
+    },
+
+    async delete(req, res, db) {
+        var { email } = req.body;
+
+        console.log(email)
+
+        // result to send
+        var result = {
+            success: false,
+            error: ''
+        };
+
+        var sql = `DELETE UserDevice SET email_user = '' WHERE email_user = '${email}'`;
+
+        db.query(sql, (err) => {
+            if (err) {
+                result.error = 'Ha ocurrido un error';
+                return res.json(result);
+            }else{
+                sql = `UPDATE UserMatch WHERE email_user = '${email}'`;
+
+                db.query(sql, (err) => {
+                    if (err) {
+                        result.error = 'Ha ocurrido un error';
+                        return res.json(result);
+                    }else{
+                        sql = `DELETE FROM User WHERE email = '${email}'`;
+
+                        db.query(sql, (err) => {
+                            if (err) {
+                                result.error = 'Ha ocurrido un error';
+                                return res.json(result);
+                            }
+                            console.log(1)
+                            result.success = true;
+                            return res.json(result);
+                        });
+                    }
+                });
             }
         });
     }

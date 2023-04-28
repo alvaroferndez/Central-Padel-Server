@@ -56,6 +56,10 @@ app.post('/api/user/update', (req, res) => {
    user.update(req, res, connection);
 });
 
+app.delete('/api/admin/user/delete', (req, res) => {
+    user.delete(req, res, connection);
+ });
+
 // get all users
 app.post('/api/user/all', (req, res) => {
     user.getAll(req, res, connection);

@@ -48,12 +48,12 @@ function goHome(){
                 </div>
             </section>
         </div>
+        <button type="button" @click="goHome()">Volver a los partidos</button>
     </div>
-    <button type="button" @click="goHome()">Volver a los partidos</button>
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/styles.scss";
 
 .global-container {
@@ -62,7 +62,7 @@ function goHome(){
     width: 100%;
 
     // display
-    @include flexbox();
+    @include flexbox(column);
 
     .container{
 
