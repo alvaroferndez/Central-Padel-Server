@@ -155,7 +155,6 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
 <template>
   <div class="global-container">
     <div class="container-matchs">
-      <h3 class="add-match" v-on:click="admin.changeSubcomponent('add')">Añadir partido</h3>
       <div class="container-day">
         <table v-for="day of days_complete">
           <thead>

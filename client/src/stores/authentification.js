@@ -4,6 +4,7 @@ import {toastStore} from "./toast";
 
 export const authentificationStore = defineStore('authentification', () => {
     const url = 'http://localhost:3080/api'
+    // const url = 'http://centralpadelgranada.me:3080/api';
 
     const current_device = navigator.userAgent;
 
@@ -51,6 +52,7 @@ export const authentificationStore = defineStore('authentification', () => {
         })
         .then((response) => response.json())
         .then((data) => {
+            console.log(data)
             const newData = data.map(item => {
                 for (const key in item) {
                     if (item.hasOwnProperty(key) && item[key] === null) {

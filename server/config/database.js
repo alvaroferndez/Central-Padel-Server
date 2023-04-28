@@ -15,6 +15,15 @@ module.exports = {
         database: 'central-padel',
     },
 
+    // dev
+    // db : {
+    //     host: '127.0.0.1',
+    //     user: 'root',
+    //     password: 'cpnvon',
+    //     database: 'centralpadel',
+    // },
+
+
 
     port: 3080
 }

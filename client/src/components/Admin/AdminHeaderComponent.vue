@@ -2,7 +2,6 @@
 import { authentificationStore } from "../../stores/authentification";
 import {adminStore} from "../../stores/Admin/admin";
 import Menu from ".././MenuComponent.vue";
-import { ref } from "vue";
 
 // stores
 const authentification = authentificationStore();
@@ -226,10 +225,6 @@ header{
     align-items: center;
   }
 
-
-}
-
-.menu{
 
 }
 

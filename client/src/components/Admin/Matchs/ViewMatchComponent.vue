@@ -14,6 +14,11 @@ var authentification = authentificationStore();
 
 // functions
 adminMatch.getMatchById(admin.actual_component.props);
+
+function goHome(){
+    admin.changeSubcomponent('home');
+    admin.changeProps({});
+}
 </script>
 
 
@@ -24,27 +29,27 @@ adminMatch.getMatchById(admin.actual_component.props);
                 <div>
                     <div>
                         <label>Dia</label>
-                        <input type="text" v-model="adminMatch.current_match.date" placeholder="22/04/23">
+                        <span>{{ adminMatch.current_match.date }}</span>
                     </div>
                     <div>
                         <label>Hora</label>
-                        <input type="text" v-model="adminMatch.current_match.hour" placeholder="22:00">
+                        <span>{{ adminMatch.current_match.hour }}</span>
                     </div>
                     <div>
                         <label>Pista</label>
-                        <input type="text" v-model="adminMatch.current_match.court" placeholder="Campo de futebol">
+                        <span>{{ adminMatch.current_match.court }}</span>
                     </div>
                 </div>
             </section>
             <section class="container-image">
-                <div v-for="player of adminMatch.current_match.players">
-                    <p>
-                        {{ player.email ? player.email : 'sin definir' }}
-                    </p>
+                <div v-for="player of adminMatch.current_match.players" class="position">
+                    <img :title="player.email ? player.email : 'sin definir'" :src="player.photo ? player.photo : '../../../src/assets/images/profile-photo.webp'" :alt="player.email">
+                    <p>{{ player.email ? player.email : 'sin definir' }}</p>
                 </div>
             </section>
         </div>
     </div>
+    <button type="button" @click="goHome()">Volver a los partidos</button>
 </template>
 
 
@@ -60,11 +65,126 @@ adminMatch.getMatchById(admin.actual_component.props);
     @include flexbox();
 
     .container{
-        border: 1px solid $h-c-black;
 
         // size
-        height: 60%;
+        height: 60vh;
         width: 80%;
+
+        // display
+        @include flexbox(column);
+
+        // margin
+        margin-top: 5%;
+
+        &-data{
+
+            //size
+            width: 50%;
+            height: 50%;
+
+            // display
+            @include flexbox();
+
+            &>div{
+                // size
+                width: 60%;
+                height: 100%;
+
+                // display
+                @include flexbox(column, flex-start);
+
+                &>div{
+                    // size
+                    width: 100%;
+                    height: calc(100% / 3);
+
+                    // display
+                    @include flexbox();
+
+                    &>label{
+                        // size
+                        width: 50%;
+                        height: 100%;
+
+                        // display
+                        @include flexbox();
+
+                        // decoration
+                    }
+
+                    &>span{
+                        // size
+                        width: 50%;
+                        height: 100%;
+
+                        // display
+                        @include flexbox();
+                    }
+                }
+            }
+
+        }
+
+        &-image{
+            //size
+            width: 50%;
+            height: 50%;
+
+            // decoration
+            background-image: url('../../../assets/images/padel-court.webp');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            .position{
+                // size
+                width: 50px;
+                height: 50px;
+
+                // display
+                @include flexbox(column);
+
+                // decoration
+                border-radius: 50%;
+
+                &:nth-child(1){
+                    // position
+                    position: absolute;
+                    top: 10%;
+                    left: 30%;
+                }
+
+                &:nth-child(2){
+                    // position
+                    position: absolute;
+                    top: 10%;
+                    right: 10%;
+                }
+
+                &:nth-child(3){
+                    // position
+                    position: absolute;
+                    bottom: 10%;
+                    left: 10%;
+                }
+
+                &:nth-child(4){
+                    // position
+                    position: absolute;
+                    bottom: 10%;
+                    right: 10%;
+                }
+
+                img{
+                    // size
+                    width: 100%;
+                    height: 100%;
+
+                    // decoration
+                    border-radius: 50%;
+                }
+            }
+        }
     }
 
 }
