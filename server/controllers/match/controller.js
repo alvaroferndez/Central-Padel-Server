@@ -104,7 +104,7 @@ module.exports = {
                 result.error = err;
                 return res.json(result)
             }else{
-                if (data.length > 0) {
+                if (data.length > 0 && data[0].id == match.id) {
                     sql = `SELECT * FROM UserMatch WHERE id_match = '${match.id}'`;
 
                     db.query(sql, (err, data) => {
@@ -129,6 +129,9 @@ module.exports = {
                             usermatch.updateMatch(match, res, db);
                         }
                     });
+                }else if(data.length > 0 && data[0].id != match.id){
+                    result.error = 'Ya existe un partido en esa pista a esa hora y fecha';
+                    return res.json(result)
                 }else{
                     usermatch.updateMatch(match, res, db);
                 }

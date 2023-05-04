@@ -1,6 +1,7 @@
 <script setup>
 import {adminStore} from "../../../stores/Admin/admin";
 import {adminMatchStore} from "../../../stores/Admin/adminMatch";
+import Pagination from 'v-pagination-3';
 
 // stores
 const admin = adminStore();
@@ -70,6 +71,7 @@ var hours_play = [
   }
 ];
 var courts = [1,2,3]
+var page = 1;
 
 // functions
 
@@ -147,7 +149,6 @@ function deleteMatch(e, id){
 
 
 getNextSevenDays();
-
 adminMatch.getAllWeekMatchs(days[0], days[6]);
 </script>
 
@@ -156,6 +157,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
   <div class="global-container">
     <div class="container-matchs">
       <div class="container-day">
+<!--        <pagination v-model="page" :records="days_complete.length" :per-page="1" v-on:click="paginateChange"/>-->
         <table v-for="day of days_complete">
           <thead>
             <h3 :key="day.day">{{ day.day + ' ' + day.number}}</h3>
