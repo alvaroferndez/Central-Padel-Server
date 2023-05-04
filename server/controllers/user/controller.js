@@ -84,6 +84,17 @@ module.exports = {
         }
     },
 
+    async uploadImage(req, res, db) {
+        console.log(req.body);
+
+        var result = {
+            success: false,
+            error: ''
+        };
+
+        res.json(result);
+    },
+    
     async getUserByEmail(req, res, db) {
         var { email } = req.body;
 

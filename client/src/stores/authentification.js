@@ -114,6 +114,21 @@ export const authentificationStore = defineStore('authentification', () => {
         return data.success;
     }
 
+    function uploadImage(image) {
+        fetch(url + '/user/upload_image', {
+            method: 'POST',
+            body: image,
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if(data.success){
+                    toast.showSuccess('Imagen subida');
+                }else{
+                    toast.showError(data.error);
+                }
+            });
+    }
+
     function show() {
         fetch(url + '/user/', {
             method: 'GET',
@@ -174,5 +189,5 @@ export const authentificationStore = defineStore('authentification', () => {
         }
     }
   
-    return { url, user, menu_status, users, login, register, show, checkUserLogged, logout, changeData, getUserByEmail, getAllUsers}
+    return { url, user, menu_status, users, login, register, uploadImage, show, checkUserLogged, logout, changeData, getUserByEmail, getAllUsers}
 })

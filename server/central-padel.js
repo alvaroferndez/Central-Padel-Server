@@ -2,6 +2,7 @@
 const express = require('express')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
+const multer = require('multer')
 
 
 // init express
@@ -12,6 +13,15 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(fileUpload())
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${Date.now()}-${file.originalname}`)
+    }
+})
+const upload = multer({ storage: storage });
 
 
 // import files
@@ -56,6 +66,12 @@ app.post('/api/user/update', (req, res) => {
    user.update(req, res, connection);
 });
 
+// upload user image
+app.post('/api/user/upload_image', upload.single('file'), (req, res) => {
+    user.uploadImage(req, res, connection);
+});
+
+// delete user
 app.delete('/api/admin/user/delete', (req, res) => {
     user.delete(req, res, connection);
  });

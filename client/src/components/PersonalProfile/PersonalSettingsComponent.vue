@@ -21,6 +21,10 @@ function reset(){
   authentification.checkUserLogged(email, false);
   can_edit.value = false;
 }
+
+function uploadImage(e){
+  authentification.uploadImage(e.target.files[0]);
+}
 </script>
 
 
@@ -55,8 +59,10 @@ function reset(){
             <input type="text" v-model="authentification.user.dni" placeholder="sin definir"/>
           </div>
           <div>
-            <label>Foto de perfil</label>
-            <input type="file"/>
+            <form action="" enctype="multipart/form-data">
+              <label>Foto de perfil</label>
+              <input type="file" name="image" v-on:change="uploadImage($event)"/>
+            </form>
           </div>
           <div>
             <label>Fecha de creación</label>
