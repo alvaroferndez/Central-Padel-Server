@@ -122,4 +122,17 @@ app.post('/api/admin/match/getById', (req, res) => {
 });
 
 
+// products
+const product = require('./controllers/product/controller')
+
+// get all products
+app.post('/api/admin/product', (req, res) => {
+    product.getAll(req, res, connection);
+});
+
+// add product
+app.post('/api/admin/product/add', (req, res) => {
+    product.add(req, res, connection);
+});
+
 module.exports = app;

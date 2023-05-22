@@ -68,7 +68,7 @@ function login(e) {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/styles.scss";
 
 .global-container{

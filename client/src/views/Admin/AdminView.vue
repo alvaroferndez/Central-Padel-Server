@@ -1,6 +1,5 @@
 <script setup>
 import {adminStore} from "../../stores/Admin/admin.js";
-import AdminHomeComponent from "../../components/Admin/AdminHomeComponent.vue";
 import AdminShopComponent from "../../components/Admin/AdminShopComponent.vue";
 import AdminMatchsComponent from "../../components/Admin/AdminMatchsComponent.vue";
 import AdminUsersComponent from "../../components/Admin/AdminUsersComponent.vue";
@@ -11,11 +10,18 @@ const admin = adminStore();
 
 
 <template>
-  <AdminHomeComponent v-if="admin.actual_component.name == 'home'"/>
-  <AdminShopComponent v-if="admin.actual_component.name == 'shop'"/>
+  <AdminShopComponent v-if="admin.actual_component.name == 'shops'"/>
   <AdminMatchsComponent v-if="admin.actual_component.name == 'matchs'"/>
   <AdminUsersComponent v-if="admin.actual_component.name == 'users'"/>
 </template>
 
 
-<style lang="scss"></style>
+<style lang="scss">
+
+template{
+@import "@/assets/styles.scss";
+
+  background-color: $h-c-white;
+  background-image: none;
+}
+</style>

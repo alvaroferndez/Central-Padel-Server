@@ -83,89 +83,94 @@ authentification.getAllUsers();
 <style lang="scss">
 @import '@/assets/styles.scss';
 
-.container{
+
+.global-container{
+
+    .container{
     // size
     width: 100%;
 
     // display
     @include flexbox();
 
-    table {
-        // size
-        width: 80%;
+        table {
+            // size
+            width: 80%;
 
-        // margin
-        margin-bottom: 20px;
-
-        // decoration
-        border-collapse: collapse;
-
-        tbody{
-            tr{
-                // decoration
-                cursor: pointer;
-                
-                .overflow{
-                    // decoration
-                    overflow: hidden;
-                }
-            }
-        }
-        
-        th, td{
             // margin
-            padding: 8px;
+            margin-bottom: 20px;
 
             // decoration
-            border: 1px solid #ddd;
-            text-align: left;
-        }
+            border-collapse: collapse;
 
-        th{
-            // decoration
-            background-color: #f2f2f2;
-            font-weight: bold;
-
-            img{
-                // size
-                max-width: 50px;
-            }
-        }
-
-        td {
-            .actions{
-                // decoration
-                white-space: nowrap;
-                
-                button{
-                    // margin
-                    margin: 0 4px;
-                    padding: 4px 8px;
-
+            tbody{
+                tr{
                     // decoration
-                    border-radius: 4px;
-                    border: none;
                     cursor: pointer;
+                    
+                    .overflow{
+                        // decoration
+                        overflow: hidden;
+                    }
                 }
+            }
+            
+            th, td{
+                // margin
+                padding: 8px;
 
-                .edit-button{
-                    // decoration
-                    background-color: $h-c-blue;
-                    color: $h-c-white;
-                }
+                // decoration
+                border: 1px solid #ddd;
+                text-align: left;
+            }
 
-                .delete-button{
-                    background-color: $h-c-red-ligth;
-                    color: $h-c-white;
+            th{
+                // decoration
+                background-color: #f2f2f2;
+                font-weight: bold;
+
+                img{
+                    // size
+                    max-width: 50px;
                 }
             }
 
-            img{
-                max-width: 50px;
+            td {
+                .actions{
+                    // decoration
+                    white-space: nowrap;
+                    
+                    button{
+                        // margin
+                        margin: 0 4px;
+                        padding: 4px 8px;
+
+                        // decoration
+                        border-radius: 4px;
+                        border: none;
+                        cursor: pointer;
+                    }
+
+                    .edit-button{
+                        // decoration
+                        background-color: $h-c-blue;
+                        color: $h-c-white;
+                    }
+
+                    .delete-button{
+                        background-color: $h-c-red-ligth;
+                        color: $h-c-white;
+                    }
+                }
+
+                img{
+                    max-width: 50px;
+                }
             }
         }
     }
 }
+
 
 </style>
 

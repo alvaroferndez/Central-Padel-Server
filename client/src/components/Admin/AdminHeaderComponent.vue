@@ -12,7 +12,7 @@ var last_scroll = 0;
 var options = [
   { value: 'users', label: 'Usuarios' },
   { value: 'matchs', label: 'Partidos' },
-  { value: 'shop', label: 'Tienda' },
+  { value: 'shops', label: 'Tienda' },
 ]
 
 // styles
@@ -114,12 +114,8 @@ function changeToAdmin(){
       <router-link v-if="!authentification.user.logged" class="link" to="/login">
         <v-icon name="ri-user-3-fill" scale="1.5"/>
       </router-link>
-      <v-icon v-else v-on:click="menuStatus($event)" class="link" name="oi-three-bars" scale="2" />
     </div>
   </header>
-
-  <!-- menu -->
-  <Menu class="menu" v-if="authentification.menu_status && authentification.user.logged" />
 
   <!-- button to scroll to the top -->
   <div class="scrolling-top">

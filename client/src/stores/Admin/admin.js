@@ -1,18 +1,23 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { adminShopStore } from './adminShop'
 
 
 export const adminStore = defineStore('admin', () => {
     var admin_mode = ref(false)
     var actual_component = ref({
-        name: 'home',
+        name: 'users',
         subcomponent: 'home',
         props: null,
     })
+    var adminShop = adminShopStore();
 
     function changeActualComponent(value){
         actual_component.value.name = value;
         changeSubcomponent('home');
+        if(value == 'shops'){
+            adminShop.changeCategoryComponent('any');
+        }
     }
 
     function changeSubcomponent(value){
