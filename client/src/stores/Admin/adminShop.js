@@ -53,6 +53,36 @@ export const adminShopStore = defineStore('asminShop', () => {
         toast.showError('Ha ocurrido un error');
     }
   }
+  
+  async function getImage(image){
+    let new_image = image.split('.')[0] + '/' + image.split('.')[1]
+    var response = await fetch(url + '/admin/product/image', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        image: new_image
+      })
+    }).then(response => response.blob())
+    .then(blob => URL.createObjectURL(blob))
+    .catch(error => console.log(error));
+    return response;
+  }
 
-  return { products, category_component, categories, changeCategoryComponent, addProduct, getAllProducts }
+  async function getProductsOfCategory(category) {
+    var response = await fetch(url + '/admin/product/category', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        category: category
+      })
+    })
+    var result = await response.json();
+    return result.data;
+  }
+
+  return { products, category_component, categories, changeCategoryComponent, addProduct, getAllProducts, getImage, getProductsOfCategory }
 })

@@ -3,10 +3,7 @@ import {adminStore} from "../../../stores/Admin/admin";
 import {adminMatchStore} from "../../../stores/Admin/adminMatch";
 import {adminShopStore} from "../../../stores/Admin/adminShop";
 import { ref } from "vue";
-import MenProductComponent from "./Categorys/MenProductComponent.vue";
-import WomenProductComponent from "./Categorys/WomenProductComponent.vue";
-import BladeProductComponent from "./Categorys/BladeProductComponent.vue";
-
+import CategoryProductComponent from "./CategoryProductComponent.vue";
 
 // stores
 const admin = adminStore();
@@ -56,6 +53,7 @@ function deleteMatch(e, id){
 
 <template>
     <div class="global-container">
+        <button type="button" @click="admin.changeSubcomponent('add')">Añadir producto</button>
         <div class="container">
             <div class="container-category" v-if="adminShop.category_component == 'any'">
                 <div class="category hover" v-for="category of adminShop.categories" @click="adminShop.changeCategoryComponent(category.value)" :key="category.value">
@@ -65,9 +63,9 @@ function deleteMatch(e, id){
                     </div>
                 </div>
             </div>
-            <MenProductComponent v-if="adminShop.category_component == 'men'"/>
-            <BladeProductComponent v-if="adminShop.category_component == 'blade'"/>
-            <WomenProductComponent v-if="adminShop.category_component == 'women'"/>
+            <CategoryProductComponent v-if="adminShop.category_component == 'men'" category="men"/>
+            <CategoryProductComponent v-if="adminShop.category_component == 'blade'" category="blade"/>
+            <CategoryProductComponent v-if="adminShop.category_component == 'women'" category="women"/>
         </div>
     </div>
 </template>
@@ -81,6 +79,8 @@ function deleteMatch(e, id){
     width: 100%;
     height: 80vh;
 
+    // display
+    @include flexbox(column);
     .container{
         .container-category{
             // size

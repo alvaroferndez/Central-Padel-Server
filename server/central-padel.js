@@ -22,7 +22,6 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage });
 
-
 // import files
 const handleDisconnect = require('./config/handle').handleDisconnect
 const port = require('./config/database').port;
@@ -34,6 +33,9 @@ handleDisconnect();
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
+// acceso a imagenes
+app.use('/uploads', express.static('uploads'));
 
 
 // user
@@ -132,6 +134,16 @@ app.post('/api/admin/product', (req, res) => {
 // add product
 app.post('/api/admin/product/add', upload.single('image'), (req, res) => {
     product.add(req, res, connection);
+});
+
+// get product by category
+app.post('/api/admin/product/category', (req, res) => {
+    product.getByCategory(req, res, connection);
+});
+
+//get image of product
+app.post('/api/admin/product/image', (req, res) => {
+    product.getImage(req, res, connection);
 });
 
 module.exports = app;
