@@ -33,21 +33,20 @@ module.exports = {
             error: '',
             data: []
         }
-        var carpetaFotos = path.join(__dirname, 'uploads/shop');
-        var product = req.body;
-        var rutaArchivo = path.join(carpetaFotos, product.image.new_name);
 
-        fs.writeFileSync(rutaArchivo, product.image.data, 'base64');
-        // db.query(`INSERT INTO Product (name, price, description, category, images) VALUES ('${product.name}', '${product.price}', '${product.description}', '${product.category}', '${product.images}')`, (err, data) => {
-        //     if (err){
-        //         result.error = 'Ha ocurrido un error';
-        //         return res.json(result);
-        //     }
-        //     else{
-        //         result.success = true;
-        //         result.data = data;
-        //         return res.json(result);
-        //     }
-        // });
+        console.log(req.file);
+        console.log(req.body.name);
+
+        db.query(`INSERT INTO Product (name, price, description, category, path) VALUES ('${req.body.name}', '${req.body.price}', '${req.body.description}', '${req.body.category}', '${req.file.path}')`, (err, data) => {
+            if (err){
+                result.error = 'Ha ocurrido un error';
+                return res.json(result);
+            }
+            else{
+                result.success = true;
+                result.data = data;
+                return res.json(result);
+            }
+        });
     }
 }

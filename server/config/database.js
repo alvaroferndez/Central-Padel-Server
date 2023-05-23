@@ -5,6 +5,7 @@ module.exports = {
         user: 'root',
         password: 'root',
         database: 'central-padel',
+        port: 8889,
     },
 
     // windows

@@ -11,13 +11,22 @@ const adminShop = adminShopStore();
 
 // variables
 var image = ref('');
-var product = {};
+var product = {
+  name: '',
+  price: '',
+  description: '',
+  image: '',
+  category: '',
+};
 
 // functions
 function setImage(e) {
     image.value = e.target.files[0]
-    image.value.new_name = `${uuidv4()}.${image.value.name.split('.').pop()}`;
-    product.image = image.value
+    product.image = image.value;
+}
+
+function addProduct() {
+    adminShop.addProduct(product);
 }
 </script>
 
@@ -27,6 +36,10 @@ function setImage(e) {
         <h1>WomenProductComponent</h1>
     </div>
     <input type="file" @change="setImage($event)" name="image" id="image">
+    <input type="text" v-model="product.name" placeholder="Nombre del producto">
+    <input type="text" v-model="product.price" placeholder="Precio del producto">
+    <input type="text" v-model="product.description" placeholder="Descripcion del producto">
+    <input type="text" v-model="product.category" placeholder="Categoria del producto">
     <button type="button" @click="adminShop.addProduct(product)">Guardar producto</button>
 </template>
 

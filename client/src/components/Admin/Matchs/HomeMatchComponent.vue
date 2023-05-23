@@ -1,7 +1,6 @@
 <script setup>
 import {adminStore} from "../../../stores/Admin/admin";
 import {adminMatchStore} from "../../../stores/Admin/adminMatch";
-import Pagination from 'v-pagination-3';
 
 // stores
 const admin = adminStore();
@@ -157,7 +156,6 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
   <div class="global-container">
     <div class="container-matchs">
       <div class="container-day">
-<!--        <pagination v-model="page" :records="days_complete.length" :per-page="1" v-on:click="paginateChange"/>-->
         <table v-for="day of days_complete">
           <thead>
             <h3 :key="day.day">{{ day.day + ' ' + day.number}}</h3>

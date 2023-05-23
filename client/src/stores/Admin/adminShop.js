@@ -1,10 +1,12 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { authentificationStore } from '../authentification';
+import {toastStore} from "../toast";
 
 export const adminShopStore = defineStore('asminShop', () => {
   const url = authentificationStore().url;
   const products = ref([]);
+  const toast = toastStore();
 
   var category_component = ref('any');
   var categories = [
@@ -30,19 +32,26 @@ export const adminShopStore = defineStore('asminShop', () => {
   }
 
   async function addProduct(product) {
-    console.log(product);
-    // var response = await fetch(url + '/admin/product/add', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(product)
-    // })
-    // var data = await response.json();
 
-    // if (data.success) {
-      
-    // }
+    let form_data = new FormData();
+    form_data.append('name', product.name);
+    form_data.append('price', product.price);
+    form_data.append('description', product.description);
+    form_data.append('category', product.category);
+    form_data.append('image', product.image);
+
+
+    var response = await fetch(url + '/admin/product/add', {
+      method: 'POST',
+      body: form_data,
+    })
+    var data = await response.json();
+
+    if (data.success) {
+        toast.showSuccess('Producto añadido correctamente');
+    }else{
+        toast.showError('Ha ocurrido un error');
+    }
   }
 
   return { products, category_component, categories, changeCategoryComponent, addProduct, getAllProducts }
