@@ -99,10 +99,10 @@ function changeToAdmin(){
 
         <!-- navigation menu -->
         <nav class="navigation">
-            <router-link class="link" to="/">Inicio</router-link>
-            <router-link class="link" to="/shop">Tienda</router-link>
-            <router-link class="link" to="/match">Partidos</router-link>
-            <p class="link" v-on:click="changeToAdmin()" v-if="authentification.user.admin">Administración</p>
+            <router-link class="link hover" to="/">Inicio</router-link>
+            <router-link class="link hover" to="/shop">Tienda</router-link>
+            <router-link class="link hover" to="/match">Partidos</router-link>
+            <p class="link hover" v-on:click="changeToAdmin()" v-if="authentification.user.admin">Administración</p>
         </nav>
 
         <!-- login -->

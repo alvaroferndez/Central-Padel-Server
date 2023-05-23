@@ -193,9 +193,11 @@ function closeMenu() {
   .logout{
     // decoration
     border: none;
+    border-radius: 15px;
 
     &:hover{
       cursor: pointer;
+      background-color: $h-c-red-ligth-tint;
     }
   }
 }

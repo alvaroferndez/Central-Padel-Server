@@ -2,8 +2,8 @@
 
 
 <template>
-  dasdasdasdadasda
 </template>
 
 
-<style lang="scss"></style>
+<style scoped>
+</style>
