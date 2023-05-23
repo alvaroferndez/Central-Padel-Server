@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 27-04-2023 a las 16:01:32
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Servidor: localhost:8889
+-- Tiempo de generación: 23-05-2023 a las 07:55:32
+-- Versión del servidor: 5.7.39
+-- Versión de PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `device`
+-- Estructura de tabla para la tabla `Device`
 --
 
 CREATE TABLE `Device` (
@@ -32,46 +32,19 @@ CREATE TABLE `Device` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `device`
+-- Volcado de datos para la tabla `Device`
 --
 
 INSERT INTO `Device` (`name`) VALUES
 ('Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1'),
-('Mozilla/5.0 (Linux; AnDroid 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36'),
+('Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36'),
 ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'),
-('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36');
+('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `garmet`
---
-
-CREATE TABLE `Garmet` (
-  `brand` varchar(255) NOT NULL,
-  `id` int(11) NOT NULL,
-  `photo` varchar(255) NOT NULL,
-  `price` float NOT NULL,
-  `stock` int(11) NOT NULL,
-  `type` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `garmetline`
---
-
-CREATE TABLE `GarmetLine` (
-  `email_user` varchar(255) NOT NULL,
-  `id_garmet` int(11) NOT NULL,
-  `stock` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `matchs`
+-- Estructura de tabla para la tabla `Matchs`
 --
 
 CREATE TABLE `Matchs` (
@@ -82,29 +55,39 @@ CREATE TABLE `Matchs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `matchs`
+-- Volcado de datos para la tabla `Matchs`
 --
 
 INSERT INTO `Matchs` (`id`, `date`, `hour`, `id_court`) VALUES
-(9, '21/04/2023', '15:00', 1),
-(10, '21/04/2023', '12:00', 1),
-(11, '21/04/2023', '13:00', 2),
-(12, '21/04/2023', '18:00', 1),
-(13, '21/04/2023', '20:00', 2),
-(14, '21/04/2023', '10:00', 2),
-(15, '21/04/2023', '19:00', 1),
-(16, '21/04/2023', '11:00', 1),
-(17, '21/04/2023', '14:00', 1),
-(18, '22/04/2023', '18:00', 1),
-(19, '22/04/2023', '19:00', 2),
-(20, '24/04/2023', '10:00', 2),
-(24, '25/04/2023', '10:00', 3),
-(26, '25/04/2023', '12:00', 1);
+(5, '24/04/2023', '9:00', 2),
+(8, '24/04/2023', '20:00', 3),
+(9, '24/04/2023', '17:00', 3),
+(15, '24/04/2023', '14:00', 2),
+(18, '27/04/2023', '9:00', 2),
+(19, '24/04/2023', '9:00', 3),
+(29, '04/05/2023', '19:00', 2),
+(30, '04/05/2023', '11:00', 1),
+(31, '04/05/2023', '14:00', 3);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `user`
+-- Estructura de tabla para la tabla `Product`
+--
+
+CREATE TABLE `Product` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL,
+  `price` int(11) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `User`
 --
 
 CREATE TABLE `User` (
@@ -126,7 +109,7 @@ CREATE TABLE `User` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `user`
+-- Volcado de datos para la tabla `User`
 --
 
 INSERT INTO `User` (`admin`, `name`, `phone`, `email`, `user_name`, `age`, `position`, `category`, `dni`, `creation_date`, `years_played`, `experience`, `club`, `password`, `salt`) VALUES
@@ -137,7 +120,7 @@ INSERT INTO `User` (`admin`, `name`, `phone`, `email`, `user_name`, `age`, `posi
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `userdevice`
+-- Estructura de tabla para la tabla `UserDevice`
 --
 
 CREATE TABLE `UserDevice` (
@@ -146,137 +129,119 @@ CREATE TABLE `UserDevice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `userdevice`
+-- Volcado de datos para la tabla `UserDevice`
 --
 
 INSERT INTO `UserDevice` (`email_user`, `name_device`) VALUES
 ('alvaro@gmail.com', 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1'),
 ('alvaro@gmail.com', 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36'),
 ('alvaro@gmail.com', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'),
-('alvaro@gmail.com', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36');
+('alvaro@gmail.com', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usermatch`
+-- Estructura de tabla para la tabla `UserMatch`
 --
 
 CREATE TABLE `UserMatch` (
   `id` int(11) NOT NULL,
   `email_user` varchar(255) NOT NULL,
   `id_match` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `usermatch`
+-- Volcado de datos para la tabla `UserMatch`
 --
 
 INSERT INTO `UserMatch` (`id`, `email_user`, `id_match`) VALUES
-(41, 'alvaro@gmail.com', 24),
-(42, 'jose@gmail.com', 24),
-(43, 'pepe@gmail.com', 24),
-(44, '', 24),
-(54, 'alvaro@gmail.com', 26),
-(55, 'pepe@gmail.com', 26),
-(56, 'jose@gmail.com', 26),
-(57, '', 26);
+(1, '', 18),
+(3, 'alvaro@gmail.com', 18),
+(6, 'pepe@gmail.com', 18),
+(7, 'jose@gmail.com', 22),
+(8, 'alvaro@gmail.com', 22),
+(9, '', 22),
+(10, '', 22),
+(15, 'alvaro@gmail.com', 21),
+(16, 'alvaro@gmail.com', 23),
+(37, 'alvaro@gmail.com', 29),
+(38, '', 29),
+(39, '', 29),
+(40, '', 29);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `device`
+-- Indices de la tabla `Device`
 --
 ALTER TABLE `Device`
   ADD PRIMARY KEY (`name`);
 
 --
--- Indices de la tabla `garmet`
---
-ALTER TABLE `Garmet`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `garmetline`
---
-ALTER TABLE `GarmetLine`
-  ADD PRIMARY KEY (`email_user`,`id_garmet`),
-  ADD KEY `id_garmet` (`id_garmet`),
-  ADD KEY `email_user` (`email_user`);
-
---
--- Indices de la tabla `matchs`
+-- Indices de la tabla `Matchs`
 --
 ALTER TABLE `Matchs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `user`
+-- Indices de la tabla `Product`
+--
+ALTER TABLE `Product`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `User`
 --
 ALTER TABLE `User`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indices de la tabla `userdevice`
+-- Indices de la tabla `UserDevice`
 --
 ALTER TABLE `UserDevice`
   ADD PRIMARY KEY (`email_user`,`name_device`),
-  ADD KEY `name_device` (`name_device`),
-  ADD KEY `email_user` (`email_user`);
+  ADD KEY `name_device` (`name_device`);
 
 --
--- Indices de la tabla `usermatch`
+-- Indices de la tabla `UserMatch`
 --
 ALTER TABLE `UserMatch`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_match` (`id_match`),
-  ADD KEY `email_user` (`email_user`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `garmet`
---
-ALTER TABLE `Garmet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `matchs`
+-- AUTO_INCREMENT de la tabla `Matchs`
 --
 ALTER TABLE `Matchs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT de la tabla `usermatch`
+-- AUTO_INCREMENT de la tabla `Product`
+--
+ALTER TABLE `Product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `UserMatch`
 --
 ALTER TABLE `UserMatch`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `garmetline`
---
-ALTER TABLE `GarmetLine`
-  ADD CONSTRAINT `garmetline_ibfk_1` FOREIGN KEY (`id_garmet`) REFERENCES `Garmet` (`id`);
-
---
--- Filtros para la tabla `userdevice`
+-- Filtros para la tabla `UserDevice`
 --
 ALTER TABLE `UserDevice`
   ADD CONSTRAINT `userdevice_ibfk_1` FOREIGN KEY (`email_user`) REFERENCES `User` (`email`),
   ADD CONSTRAINT `userdevice_ibfk_2` FOREIGN KEY (`name_device`) REFERENCES `Device` (`name`);
-
---
--- Filtros para la tabla `usermatch`
---
-ALTER TABLE `UserMatch`
-  ADD CONSTRAINT `usermatch_ibfk_1` FOREIGN KEY (`id_match`) REFERENCES `Matchs` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
