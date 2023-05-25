@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { authentificationStore } from '../authentification';
 import {toastStore} from "../toast";
 
-export const adminShopStore = defineStore('asminShop', () => {
+export const adminShopStore = defineStore('adminShop', () => {
   const url = authentificationStore().url;
   const products = ref([]);
   const toast = toastStore();

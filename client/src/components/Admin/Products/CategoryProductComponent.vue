@@ -24,7 +24,7 @@ getProductsOfCategory();
 
 <template>
     <div class="global-container">
-        <button type="butto" @click="adminShop.category_component = 'any'">Atrás</button>
+        <button type="button" @click="adminShop.category_component = 'any'">Atrás</button>
         <div>
             <SingleProductComponent class="card" v-for="product of products" :product="product" :key="product.name"/>
         </div>
