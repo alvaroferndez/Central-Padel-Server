@@ -44,6 +44,16 @@ const router = createRouter({
       component: () => import('../views/MatchView.vue')
     },
     {
+      path: '/shop',
+      name: 'shop',
+      component: () => import('../views/ShopView.vue')
+    },
+    {
+      path: '/shop/category',
+      name: 'shop-category',
+      component: () => import('../components/ShopComponent.vue')
+    },
+    {
       path: '/admin',
       name: 'admin',
       beforeEnter: (to, from, next) => {

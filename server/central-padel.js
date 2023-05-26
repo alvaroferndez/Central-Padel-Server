@@ -136,6 +136,16 @@ app.post('/api/admin/product/add', upload.single('image'), (req, res) => {
     product.add(req, res, connection);
 });
 
+// edit product
+app.post('/api/admin/product/edit', upload.single('image'), (req, res) => {
+    product.edit(req, res, connection);
+});
+
+// delete product
+app.post('/api/admin/product/delete', (req, res) => {
+    product.delete(req, res, connection);
+});
+
 // get product by category
 app.post('/api/admin/product/category', (req, res) => {
     product.getByCategory(req, res, connection);

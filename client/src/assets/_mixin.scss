@@ -19,6 +19,12 @@
     justify-content: center;
 }
 
+@mixin autoGrid($minColumnWidth: 250px, $gridGap: 1.5em){
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($minColumnWidth, 1fr));
+    grid-gap: $gridGap;
+}
+
 @mixin semicircle-footer($position, $color){
     /* size */
     width: 7.5%;

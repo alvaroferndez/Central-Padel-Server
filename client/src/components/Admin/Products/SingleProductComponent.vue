@@ -35,6 +35,7 @@ getImage(props.product.path);
         <img :src="image" :alt="props.product.name">
     </div>
     <v-icon name="md-modeeditoutline-outlined" scale="2" @click="changeToEdit()"></v-icon>
+    <v-icon name="md-deleteforever-round" scale="2" @click="adminShop.deleteProduct(props.product)"></v-icon>
 </template>
 
 

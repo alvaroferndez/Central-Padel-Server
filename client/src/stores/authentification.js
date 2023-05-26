@@ -52,7 +52,6 @@ export const authentificationStore = defineStore('authentification', () => {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
             const newData = data.map(item => {
                 for (const key in item) {
                     if (item.hasOwnProperty(key) && item[key] === null) {
@@ -63,7 +62,6 @@ export const authentificationStore = defineStore('authentification', () => {
             });
             if(newData[0].logged){
                 user.value = newData[0];
-                console.log(user.value)
                 if(first) {
                     if (user.value.name) {
                         toast.showSuccess('Bienvenido de nuevo ' + user.value.user_name);

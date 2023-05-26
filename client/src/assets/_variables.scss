@@ -43,7 +43,12 @@
         $h-c-blue-contrast: #ffffff;
         $h-c-blue-shade: #006ce0;
         $h-c-blue-tint: #1a88ff;
-        
+
+        //dark-gray
+        $h-c-dark-gray: #2c3e50;
+        $h-c-dark-gray-contrast: #ffffff;
+        $h-c-dark-gray-shade: #273746;
+        $h-c-dark-gray-tint: #415162;
 
     /*fonts*/
     $h-f-family-title: 'Bevan', cursive;
@@ -53,6 +58,7 @@
     $h-f-size-title: 36px;
     $h-f-size-subtitle: 24px;
     $h-f-size-text: 16px;
+    $h-f-size-text-small: 13px;
 
 
     /* z-index */

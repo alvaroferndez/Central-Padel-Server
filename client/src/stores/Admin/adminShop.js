@@ -2,11 +2,14 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { authentificationStore } from '../authentification';
 import {toastStore} from "../toast";
+import {adminStore} from "./admin";
 
 export const adminShopStore = defineStore('adminShop', () => {
   const url = authentificationStore().url;
   const products = ref([]);
   const toast = toastStore();
+  const admin = adminStore();
+  const adminShop = adminShopStore();
 
   var category_component = ref('any');
   var categories = [
@@ -14,7 +17,8 @@ export const adminShopStore = defineStore('adminShop', () => {
     { title: 'mujer', value:'women'},
     { title: 'palas', value:'blade'},
   ]
-  var url_server =  'http://localhost:3080/uploads';
+  var actual_product = ref({});
+  var actual_image = ref('');
   
   // functions
   function changeCategoryComponent(category) {
@@ -29,6 +33,7 @@ export const adminShopStore = defineStore('adminShop', () => {
       }
     })
     var data = await response.json();
+    return data;
   }
 
   async function addProduct(product) {
@@ -49,9 +54,71 @@ export const adminShopStore = defineStore('adminShop', () => {
 
     if (data.success) {
         toast.showSuccess('Producto añadido correctamente');
+        admin.actual_component.subcomponent = 'home';
+        adminShop.category_component = product.category;
     }else{
         toast.showError('Ha ocurrido un error');
     }
+  }
+
+  async function editProduct(product) {
+
+
+    let form_data = new FormData();
+    form_data.append('id', product.id);
+    form_data.append('name', product.name);
+    form_data.append('price', product.price);
+    form_data.append('description', product.description);
+    form_data.append('category', product.category);
+
+    if(product.image){
+      if(!compareImages(product.image.name, product.path)){
+        form_data.append('image', product.image);
+      }
+    }
+
+    var response = await fetch(url + '/admin/product/edit', {
+      method: 'POST',
+      body: form_data,
+    })
+    var result = await response.json();
+
+    if(result.success){
+      toast.showSuccess('Producto editado correctamente');
+      admin.actual_component.subcomponent = 'home'
+      adminShop.category_component = product.category;
+    }else{
+      toast.showError('Ha ocurrido un error');
+    }
+  }
+
+  async function deleteProduct(product) {
+    var response = await fetch(url + '/admin/product/delete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        product: product
+      })
+    })
+    var result = await response.json();
+    
+    if(result.success){
+      toast.showSuccess('Producto eliminado correctamente');
+      admin.actual_component.subcomponent = 'home';
+      adminShop.category_component = 'any';
+    }else{
+      toast.showError('Ha ocurrido un error');
+    }
+  }
+
+
+  function compareImages(image, path){
+    if(image.split('.')[0] == path.split('/')[1].split('-')[0]){
+      return true;
+    }
+    return false;
   }
   
   async function getImage(image){
@@ -84,5 +151,5 @@ export const adminShopStore = defineStore('adminShop', () => {
     return result.data;
   }
 
-  return { products, category_component, categories, changeCategoryComponent, addProduct, getAllProducts, getImage, getProductsOfCategory }
+  return { products, category_component, categories, actual_image, actual_product, changeCategoryComponent, addProduct, editProduct, deleteProduct, getAllProducts, getImage, getProductsOfCategory }
 })

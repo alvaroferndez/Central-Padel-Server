@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import {authentificationStore} from "../stores/authentification";
 import {adminMatchStore} from "../stores/Admin/adminMatch";
 import Match from "../components/MatchComponent.vue";
@@ -7,7 +6,6 @@ import Match from "../components/MatchComponent.vue";
 
 // stores
 const adminMatch = adminMatchStore()
-const authentificaion = authentificationStore()
 
 // variables
 var days = [];

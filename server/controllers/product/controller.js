@@ -3,6 +3,7 @@ const hash = require('../../middleware/hash/hash.js');
 const regEx = require('../../middleware/regEx/regEx.js');
 const fs = require('fs');
 const path = require('path');
+const { edit } = require('../match/controller.js');
 
 
 module.exports = {
@@ -35,6 +36,74 @@ module.exports = {
         }
 
         db.query(`INSERT INTO Product (name, price, description, category, path) VALUES ('${req.body.name}', '${req.body.price}', '${req.body.description}', '${req.body.category}', 'uploads/${req.file.filename}')`, (err, data) => {
+            if (err){
+                result.error = 'Ha ocurrido un error';
+                return res.json(result);
+            }
+            else{
+                result.success = true;
+                result.data = data;
+                return res.json(result);
+            }
+        });
+    },
+
+    async edit(req, res, db) {
+        result = {
+            success: false,
+            error: '',
+            data: []
+        }
+
+        let product = req.body;
+        let image = req.file;
+
+        if(image){
+            db.query(`UPDATE Product SET name = '${product.name}', price = '${product.price}', description = '${product.description}', category = '${product.category}', path = 'uploads/${req.file.filename}' WHERE id = '${product.id}'`, (err, data) => {
+                if (err){
+                    result.error = 'Ha ocurrido un error';
+                    return res.json(result);
+                }
+                else{
+                    result.success = true;
+                    result.data = data;
+                    return res.json(result);
+                }
+            }
+            );
+        }else{
+            db.query(`UPDATE Product SET name = '${product.name}', price = '${product.price}', description = '${product.description}', category = '${product.category}' WHERE id = '${product.id}'`, (err, data) => {
+                if (err){
+                    result.error = 'Ha ocurrido un error';
+                    return res.json(result);
+                }
+                else{
+                    result.success = true;
+                    result.data = data;
+                    return res.json(result);
+                }
+            }
+            );
+        }
+    },
+
+    async delete(req, res, db) {
+        result = {
+            success: false,
+            error: '',
+            data: []
+        }
+
+        let product = req.body.product;
+
+        fs.unlink(product.path, (err) => {
+            if (err) {
+                result.error = 'Ha ocurrido un error';
+                return res.json(result);
+            }
+        });
+
+        db.query(`DELETE FROM Product WHERE id = '${product.id}'`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);

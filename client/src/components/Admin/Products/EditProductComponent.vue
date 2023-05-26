@@ -41,7 +41,7 @@ getImage(product.path);
         <input type="text" v-model="product.price" placeholder="Precio del producto">
         <input type="text" v-model="product.description" placeholder="Descripcion del producto">
         <input type="text" v-model="product.category" placeholder="Categoria del producto">
-        <button type="button" @click="adminShop.addProduct(product)">Guardar producto</button>
+        <button type="button" @click="adminShop.editProduct(product)">Guardar producto</button>
     </div>
 </div>
 </template>

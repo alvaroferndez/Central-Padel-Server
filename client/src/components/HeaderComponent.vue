@@ -82,11 +82,17 @@ function changeToAdmin(){
   admin.admin_mode = !admin.admin_mode;
 }
 
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
 </script>
 
 
 <template>
-
     <!-- header -->
     <header id="header">
 
@@ -100,8 +106,8 @@ function changeToAdmin(){
         <!-- navigation menu -->
         <nav class="navigation">
             <router-link class="link hover" to="/">Inicio</router-link>
-            <router-link class="link hover" to="/shop">Tienda</router-link>
             <router-link class="link hover" to="/match">Partidos</router-link>
+            <router-link class="link hover" to="/shop">Tienda</router-link>
             <p class="link hover" v-on:click="changeToAdmin()" v-if="authentification.user.admin">Administración</p>
         </nav>
 
@@ -115,11 +121,11 @@ function changeToAdmin(){
     </header>
 
     <!-- menu -->
-    <Menu class="menu" v-if="authentification.menu_status && authentification.user.logged" />
+    <Menu class="menu" v-if="authentification.menu_status && authentification.user.logged"/>
 
   <!-- button to scroll to the top -->
-    <div class="scrolling-top">
-          <a href="#href">
+    <div class="scrolling-top" @click="scrollToTop()">
+          <a>
               <v-icon name="bi-arrow-up" scale="2" />
           </a>
     </div>

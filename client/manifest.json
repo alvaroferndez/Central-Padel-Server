@@ -1,10 +1,10 @@
 {
   "name": "Central Padel",
   "short_name": "Central Padel",
-  "start_url": "https://central-padel-granada.web.app/",
+  "start_url": "http://centralpadelgranada.me/",
   "icons": [
     {
-      "src": "https://central-padel-granada.web.app/img/icons/favicon.png",
+      "src": "http://centralpadelgranada.me/img/icons/favicon.png",
       "sizes": "144x144",
       "type": "image/png"
     }

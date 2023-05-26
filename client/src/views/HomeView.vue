@@ -67,7 +67,7 @@ function orderNews() {
 
 <template>
     <!-- href -->
-    <section id="href" class="href" data-aos="fade-up">
+    <section class="href" data-aos="fade-up">
 
         <!-- sections -->
         <span v-for="element of sections">
