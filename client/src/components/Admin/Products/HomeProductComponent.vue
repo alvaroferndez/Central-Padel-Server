@@ -59,7 +59,7 @@ function deleteMatch(e, id){
                 <div class="category hover" v-for="category of adminShop.categories" @click="adminShop.changeCategoryComponent(category.value)" :key="category.value">
                     <h2>{{category.title}}</h2>
                     <div class="container-image" v-if="category.value == 'blade'">
-                        <img  src="../../../assets/images/paddel-raquet.png" :alt="category.title">
+                        <img  src="@/assets/images/paddel-raquet.png" :alt="category.title">
                     </div>
                 </div>
             </div>

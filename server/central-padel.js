@@ -146,6 +146,11 @@ app.post('/api/admin/product/delete', (req, res) => {
     product.delete(req, res, connection);
 });
 
+// book product
+app.post('/api/product/book', (req, res) => {
+    product.book(req, res, connection);
+});
+
 // get product by category
 app.post('/api/admin/product/category', (req, res) => {
     product.getByCategory(req, res, connection);

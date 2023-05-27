@@ -40,13 +40,18 @@ function setData(){
     adminShop.actual_image = image.value;
 }
 
+function confirm(){
+    console.log('confirm');
+    close();
+}
+
 getImage(product.value.path);
 
 </script>
 
 
 <template>
-    <ModalsContainer/>
+    <ModalsContainer @closeModal="confirm()"/>
     <div></div>
     <div class="card" @click="() => {open(); setData()}">
         <div class="card-image">

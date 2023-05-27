@@ -151,5 +151,19 @@ export const adminShopStore = defineStore('adminShop', () => {
     return result.data;
   }
 
-  return { products, category_component, categories, actual_image, actual_product, changeCategoryComponent, addProduct, editProduct, deleteProduct, getAllProducts, getImage, getProductsOfCategory }
+  async function bookProduct(product) {
+    var response = await fetch(url + '/product/book', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        product: product
+      })
+    })
+    var result = await response.json();
+    return result;
+  }
+
+  return { products, category_component, categories, actual_image, actual_product, changeCategoryComponent, addProduct, editProduct, deleteProduct, getAllProducts, getImage, getProductsOfCategory, bookProduct }
 })

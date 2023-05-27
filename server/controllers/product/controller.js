@@ -159,5 +159,27 @@ module.exports = {
             return res.sendFile(path.join(__dirname, `../../uploads/${new_image}`));
         });
 
+    },
+
+    async bookProduct(req, res, db) {
+        result = {
+            success: false,
+            error: '',
+            data: []
+        }
+
+        let product = req.body.product;
+
+        db.query(`UPDATE Product SET booked = '1' WHERE id = '${product.id}'`, (err, data) => {
+            if (err){
+                result.error = 'Ha ocurrido un error';
+                return res.json(result);
+            }
+            else{
+                result.success = true;
+                result.data = data;
+                return res.json(result);
+            }
+        });
     }
 }
