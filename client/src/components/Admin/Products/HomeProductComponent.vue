@@ -7,47 +7,7 @@ import CategoryProductComponent from "./CategoryProductComponent.vue";
 
 // stores
 const admin = adminStore();
-const adminMatch = adminMatchStore();
 const adminShop = adminShopStore();
-
-// variables
-var products = ref([]);
-
-// functions
-
-function addProduct(day, hour, court) {
-  var match = {
-    date: day.date,
-    hour: hour.hour_start,
-    court: court,
-  }
-
-  adminShop.addProduct();
-}
-
-function viewMatch(e, day, hour, court, id){
-  e.stopPropagation()
-  if(e.target.innerHTML == "+") {
-    addPreparerMatch(day, hour, court)
-  }else{
-    admin.changeProps(id);
-    admin.changeSubcomponent("view");
-  }
-}
-
-function editMatch(e, id){
-  e.stopPropagation()
-  admin.changeProps(id);
-  admin.changeSubcomponent("edit");
-}
-
-function deleteMatch(e, id){
-  e.stopPropagation()
-  adminMatch.deleteMatch(id, days[0], days[6]);
-}
-
-
-
 </script>
 
 

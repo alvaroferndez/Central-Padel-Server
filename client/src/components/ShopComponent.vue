@@ -18,8 +18,12 @@ for (let leter in $route.query) {
 
 // functions
 async function getProductsOfCategory() {
-    var response = await shopStore.getProductsOfCategory(category)
-    products.value = response
+    products.value = await shopStore.getProductsOfCategory(category);
+    if(products.value.length > 0) {
+        for(let element of products.value) {
+            element.sizes = await shopStore.getProductSize(element);
+        }
+    }
 }
 
 function goBack() {

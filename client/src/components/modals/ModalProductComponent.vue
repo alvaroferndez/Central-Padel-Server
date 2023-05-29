@@ -10,6 +10,7 @@ var emit = defineEmits(['closeModal']);
 // variables
 var image = ref(adminShop.actual_image);
 var product = ref(adminShop.actual_product);
+var book_size = ref('');
 
 // functions
 function confirm(){
@@ -17,7 +18,7 @@ function confirm(){
 }
 
 function bookProduct(){
-    adminShop.bookProduct(product.value);
+    adminShop.bookProduct(product.value, book_size.value);
 }
 </script>
 
@@ -34,6 +35,16 @@ function bookProduct(){
                         <h1 class="name">{{ product.name }}</h1>
                         <p class="description">{{ product.description }}</p>
                         <h2 class="price">{{ product.price }} &euro;</h2>
+                        <div class="sizes">
+                            <h2>Tallas</h2>
+                            <div v-for="size in product.sizes">
+                                <button disabled v-if="size.stock == 0">{{ size.size }}</button>
+                                <div v-if="size.stock > 0">
+                                    <input type="radio" v-model="book_size" :id="size.size" name="sizes" :value="size.size">
+                                    <label :for="size.size">{{ size.size }}</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="button">
                             <button @click="bookProduct()">Reservar</button>
                         </div>

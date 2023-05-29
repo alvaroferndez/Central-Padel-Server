@@ -16,6 +16,11 @@ var products = ref([]);
 // functions
 async function getProductsOfCategory(){
     products.value = await adminShop.getProductsOfCategory(props.category);
+    if(products.value.length > 0) {
+        for(let element of products.value) {
+            element.sizes = await adminShop.getProductSize(element);
+        }
+    }
 }
 
 getProductsOfCategory();

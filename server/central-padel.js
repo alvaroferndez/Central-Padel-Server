@@ -136,9 +136,18 @@ app.post('/api/admin/product/add', upload.single('image'), (req, res) => {
     product.add(req, res, connection);
 });
 
+// add product sizes
+app.post('/api/admin/product/add_sizes', (req, res) => {
+    product.addSizes(req, res, connection);
+});
+
 // edit product
 app.post('/api/admin/product/edit', upload.single('image'), (req, res) => {
     product.edit(req, res, connection);
+});
+
+app.post('/api/admin/product/edit_sizes', (req, res) => {
+    product.editSizes(req, res, connection);
 });
 
 // delete product
@@ -148,12 +157,17 @@ app.post('/api/admin/product/delete', (req, res) => {
 
 // book product
 app.post('/api/product/book', (req, res) => {
-    product.book(req, res, connection);
+    product.bookProduct(req, res, connection);
 });
 
 // get product by category
 app.post('/api/admin/product/category', (req, res) => {
     product.getByCategory(req, res, connection);
+});
+
+// get product size
+app.post('/api/admin/product/get_size', (req, res) => {
+    product.getSize(req, res, connection);
 });
 
 //get image of product

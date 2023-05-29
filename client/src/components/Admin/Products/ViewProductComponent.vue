@@ -20,6 +20,7 @@ async function getImage(path){
 }
 
 getImage(product.path);
+console.log(product);
 </script>
 
 
@@ -35,6 +36,12 @@ getImage(product.path);
         <span>{{ product.price }}</span>
         <span>{{ product.description }}</span>
         <span>{{ product.category }}</span>
+        <div>
+            <h2>Tallas</h2>
+            <div v-for="size in product.sizes">
+                <p v-if="size.stock != -1">{{size.size}}: {{size.stock}}</p>
+            </div>
+        </div>
     </div>
 </div>
 </template>

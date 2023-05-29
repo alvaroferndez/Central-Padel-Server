@@ -5,11 +5,12 @@ import {toastStore} from "../toast";
 import {adminStore} from "./admin";
 
 export const adminShopStore = defineStore('adminShop', () => {
-  const url = authentificationStore().url;
   const products = ref([]);
   const toast = toastStore();
   const admin = adminStore();
   const adminShop = adminShopStore();
+  const authentification = authentificationStore();
+  const url = authentification.url;
 
   var category_component = ref('any');
   var categories = [
@@ -53,12 +54,32 @@ export const adminShopStore = defineStore('adminShop', () => {
     var data = await response.json();
 
     if (data.success) {
-        toast.showSuccess('Producto añadido correctamente');
-        admin.actual_component.subcomponent = 'home';
-        adminShop.category_component = product.category;
+        var data_size = await addProductSize(data.data.insertId, product.sizes);
+        if(data_size.success){
+          toast.showSuccess('Producto añadido correctamente');
+          admin.actual_component.subcomponent = 'home';
+          adminShop.category_component = product.category;
+        }else{
+          toast.showError('Ha ocurrido un error');
+        }
     }else{
         toast.showError('Ha ocurrido un error');
     }
+  }
+
+  async function addProductSize(id, sizes) {
+    var response = await fetch(url + '/admin/product/add_sizes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+        sizes: sizes
+      })
+    })
+    var result = await response.json();
+    return result;
   }
 
   async function editProduct(product) {
@@ -84,12 +105,32 @@ export const adminShopStore = defineStore('adminShop', () => {
     var result = await response.json();
 
     if(result.success){
-      toast.showSuccess('Producto editado correctamente');
-      admin.actual_component.subcomponent = 'home'
-      adminShop.category_component = product.category;
+      var data_size = await editProductSize(product.id, product.sizes);
+        if(data_size.success){
+          toast.showSuccess('Producto editado correctamente');
+          admin.actual_component.subcomponent = 'home';
+          adminShop.category_component = product.category;
+        }else{
+          toast.showError('Ha ocurrido un error');
+        }
     }else{
       toast.showError('Ha ocurrido un error');
     }
+  }
+
+  async function editProductSize(id, sizes) {
+    var response = await fetch(url + '/admin/product/edit_sizes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+        sizes: sizes
+      })
+    })
+    var result = await response.json();
+    return result;
   }
 
   async function deleteProduct(product) {
@@ -151,8 +192,8 @@ export const adminShopStore = defineStore('adminShop', () => {
     return result.data;
   }
 
-  async function bookProduct(product) {
-    var response = await fetch(url + '/product/book', {
+  async function getProductSize(product) {
+    var response = await fetch(url + '/admin/product/get_size', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -162,8 +203,38 @@ export const adminShopStore = defineStore('adminShop', () => {
       })
     })
     var result = await response.json();
-    return result;
+    return result.data;
   }
 
-  return { products, category_component, categories, actual_image, actual_product, changeCategoryComponent, addProduct, editProduct, deleteProduct, getAllProducts, getImage, getProductsOfCategory, bookProduct }
+  async function bookProduct(product, size) {
+    let stock = 0;
+
+    const target_size = product.sizes.find(s => s.size === size);
+
+    if(target_size){
+      stock = target_size.stock;
+    }
+
+    var response = await fetch(url + '/product/book', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        product: product,
+        size: size,
+        stock: stock,
+        user : authentification.user.email
+      })
+    })
+    var result = await response.json();
+
+    if(result.success){
+      toast.showSuccess('Producto reservado correctamente');
+    }else{
+      toast.showError('Ha ocurrido un error');
+    }
+  }
+
+  return { products, category_component, categories, actual_image, actual_product, changeCategoryComponent, addProduct, editProduct, deleteProduct, getAllProducts, getImage, getProductsOfCategory, getProductSize, bookProduct }
 })

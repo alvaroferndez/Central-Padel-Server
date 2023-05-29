@@ -1,9 +1,13 @@
 <script setup>
 import {ref} from "vue";
+import { adminMatchStore } from "../stores/Admin/adminMatch";
+import { authentificationStore } from "../stores/authentification";
 
 // variables
 const props = defineProps(['match'])
 var show = ref(true);
+const adminMatch = adminMatchStore();
+const auth = authentificationStore();
 
 // functions
 function setMatchs(){
@@ -18,6 +22,11 @@ function setMatchs(){
   if(count == 4){
     show.value = false;
   }
+}
+
+function addToMatch(){
+  adminMatch.current_match = props.match;
+  adminMatch.addUserToMatch(auth.user.email);
 }
 
 setMatchs();
@@ -50,7 +59,7 @@ setMatchs();
           </div>
         </div>
         <div class="container-button">
-          <button type="button" @click="goToMatch(props.match.id)">Apuntarse</button>
+          <button type="button" @click="addToMatch()">Apuntarse</button>
         </div>
       </div>
     </div>
