@@ -26,9 +26,8 @@ getAllProducts();
         <div class="container">
             <div class="container-category">
                 <router-link class="category hover" v-for="category of shopStore.categories" :to="{ path: '/shop/category', query: category.value}" :key="category.value">
-                    <h2>{{category.title}}</h2>
-                    <div class="container-image" v-if="category.value == 'blade'">
-                        <img  src="@/assets/images/paddel-raquet.png" :alt="category.title">
+                    <div class="container-title">
+                        <h2 class="title">{{category.title}}</h2>
                     </div>
                 </router-link>
             </div>
@@ -72,19 +71,29 @@ getAllProducts();
                     background-image: url('https://www.siuxpadel.com/wp-content/uploads/2022/12/20221130-Trilogy-Control-Patty-53-1024x683.jpg');
                 }
                 &:nth-child(3){
-                    .container-image{
-                        @include flexbox();
-                        width: 100%;
-                        height: 90%;
-                        img{
-                            width: 100%;
-                            height: 70%;
-                        }
-                    }
+                    background-image: url('https://img.freepik.com/foto-gratis/arreglo-raquetas-pelotas-tenis_23-2149434236.jpg');
                 }
 
                 &:hover{
                     cursor: pointer;
+                }
+            }
+
+            .container-title{
+                // size
+                width: 100%;
+                height: 100%;
+
+                // display
+                @include flexbox();
+                .title{
+                // decoration
+                color: $h-c-white;
+                text-align: center;
+                font-size: 2rem;
+                font-weight: bold;
+                text-shadow: 7px 8px 12px rgba(210,3,0,0.53);
+                text-transform: uppercase;
                 }
             }
         }

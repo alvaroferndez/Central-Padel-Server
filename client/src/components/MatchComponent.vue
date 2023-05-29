@@ -2,12 +2,14 @@
 import {ref} from "vue";
 import { adminMatchStore } from "../stores/Admin/adminMatch";
 import { authentificationStore } from "../stores/authentification";
+import {routerStore} from "../stores/router";
 
 // variables
 const props = defineProps(['match'])
 var show = ref(true);
 const adminMatch = adminMatchStore();
 const auth = authentificationStore();
+const router = routerStore();
 
 // functions
 function setMatchs(){
@@ -25,8 +27,8 @@ function setMatchs(){
 }
 
 function addToMatch(){
-  adminMatch.current_match = props.match;
-  adminMatch.addUserToMatch(auth.user.email);
+  adminMatch.addPlayerToMatch(props.match.id, auth.user.email);
+  router.navigateTo('/');
 }
 
 setMatchs();
@@ -37,9 +39,9 @@ setMatchs();
     <div class="match" v-if="show">
       <div class="match-header">
         <section class="container-image">
-          <div v-for="player of props.match.players" class="position">
-            <img :title="player.email ? player.email : 'sin definir'" :src="player.photo ? player.photo : '../../../src/assets/images/profile-photo.webp'" :alt="player.email">
-            <p>{{ player.email ? player.email : 'sin definir' }}</p>
+          <div v-for="player of props.match.players" class="position" :class="player.email == auth.user.email ? 'is-added' : '' ">
+            <img :title="player.email ? player.email : 'vacio'" :src="player.photo ? player.photo : '../../../src/assets/images/profile-photo.webp'" :alt="player.email">
+            <p>{{ player.email ? player.email : 'vacio' }}</p>
           </div>
         </section>
       </div>
@@ -59,7 +61,7 @@ setMatchs();
           </div>
         </div>
         <div class="container-button">
-          <button type="button" @click="addToMatch()">Apuntarse</button>
+          <button style="--c:#E95A49" type="button" @click="addToMatch()">Apuntarse</button>
         </div>
       </div>
     </div>
@@ -71,18 +73,23 @@ setMatchs();
 
 
 .match{
-  border: 1px solid black;
 
   //size
-  width: 40%;
-  height: 500px;
+  width: 100%;
+  height: 550px;
+
+  // margin
+  margin: 1rem auto;
+  
   &-header{
     width: 100%;
     height: 50%;
 
+    @include flexbox(row);
+
     .container-image{
       //size
-      width: 100%;
+      width: 50%;
       height: 100%;
 
       // decoration
@@ -90,6 +97,7 @@ setMatchs();
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
+      border-radius: 20px;
 
       .position{
         // size
@@ -105,28 +113,28 @@ setMatchs();
         &:nth-child(1){
           // position
           position: absolute;
-          top: 10%;
+          top: 20%;
           left: 30%;
         }
 
         &:nth-child(2){
           // position
           position: absolute;
-          top: 10%;
+          top: 20%;
           right: 10%;
         }
 
         &:nth-child(3){
           // position
           position: absolute;
-          bottom: 10%;
+          bottom: 20%;
           left: 10%;
         }
 
         &:nth-child(4){
           // position
           position: absolute;
-          bottom: 10%;
+          bottom: 20%;
           right: 10%;
         }
 
@@ -138,6 +146,139 @@ setMatchs();
           // decoration
           border-radius: 50%;
         }
+      }
+    }
+  }
+
+  &-content{
+    // size
+    width: 100%;
+    height: 50%;
+
+    // display
+    @include flexbox(column);
+
+    .container-data{
+      // size
+      width: 50%;
+      height: 80%;
+
+      // display
+      @include flexbox(column);
+
+      // decoration
+      border-radius: 20px;
+      background-color: $h-c-gray;
+
+      div{
+        // size
+        width: 100%;
+        height: 33.33%;
+
+        // display
+        @include flexbox();
+
+        // decoration
+
+        label{
+          // size
+          width: 50%;
+          height: 100%;
+
+          // display
+          @include flexbox();
+
+          // decoration
+        }
+
+        span{
+          // size
+          width: 50%;
+          height: 100%;
+
+          // display
+          @include flexbox();
+        }
+      }
+    }
+
+    .container-button{
+      // size
+      width: 50%;
+      height: 20%;
+
+      // display
+      @include flexbox();
+
+      // decoration
+      border-radius: 20px;
+
+      button{
+        // margin
+        padding: 5px;
+
+        // decoration
+        font-family: system-ui, sans-serif;
+        font-size: 1.5rem;
+        cursor: pointer;
+        font-weight: 400;  
+        border: none;
+        border-radius: 5px;
+        // box-shadow: 0 0 0 .1em inset var(--c); 
+        --_g: linear-gradient(var(--c) 0 0) no-repeat;
+        background: 
+          var(--_g) calc(var(--_p,0%) - 100%) 0%,
+          var(--_g) calc(200% - var(--_p,0%)) 0%,
+          var(--_g) calc(var(--_p,0%) - 100%) 100%,
+          var(--_g) calc(200% - var(--_p,0%)) 100%;
+        background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+        outline-offset: .1em;
+
+        // transition
+        transition: background-size .4s, background-position 0s .4s;
+
+        &:hover{
+          // transition
+          --_p: 100%;
+          transition: background-position .4s, background-size 0s;
+        }
+
+        &:active{
+          // decoration
+          box-shadow: 0 0 9e9q inset #0009; 
+          background-color: var(--c);
+          color: $h-c-white;
+        }
+      }
+    }
+  }
+
+  &:has(.is-added){
+    opacity: 0.5;
+    .container-button{
+      button{
+        // decoration
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1415px){
+    // size
+    height: 450px;
+  }
+
+  @media screen and (max-width: 580px){
+    // size
+    &-header{
+      .container-image{
+        width: 70%;
+      }
+    }
+
+    &-content{
+      .container-data{
+        width: 70%;
       }
     }
   }

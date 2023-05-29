@@ -34,14 +34,18 @@ function bookProduct(){
                     <div class="data">
                         <h1 class="name">{{ product.name }}</h1>
                         <p class="description">{{ product.description }}</p>
-                        <h2 class="price">{{ product.price }} &euro;</h2>
-                        <div class="sizes">
-                            <h2>Tallas</h2>
-                            <div v-for="size in product.sizes">
-                                <button disabled v-if="size.stock == 0">{{ size.size }}</button>
-                                <div v-if="size.stock > 0">
-                                    <input type="radio" v-model="book_size" :id="size.size" name="sizes" :value="size.size">
-                                    <label :for="size.size">{{ size.size }}</label>
+                        <div class="price">
+                            <h2>{{ product.price }} &euro;</h2>
+                        </div>
+                        <div class="container-sizes">
+                            <h2 class="title">Tallas</h2>
+                            <div class="container-size">
+                                <div class="size" v-for="size in product.sizes">
+                                    <label class="disable-size" disabled v-if="size.stock == 0">{{ size.size }}</label>
+                                    <div class="radio-size" v-if="size.stock > 0">
+                                        <input type="radio" v-model="book_size" :id="size.size" name="sizes" :value="size.size">
+                                        <label :for="size.size">{{ size.size }}</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -106,6 +110,10 @@ function bookProduct(){
                 background-color: $h-c-white;
 
                 img{
+                    // size
+                    max-width: 100%;
+                    max-height: 100%;
+
                     // display
                     justify-self: flex-start;
 
@@ -148,22 +156,170 @@ function bookProduct(){
 
                     .description{
                         // size
-                        height: 40%;
+                        height: 30%;
+
+                        // decoration
+                        overflow-y:auto;
                     }
 
                     .price{
                         // size
                         height: 20%;
 
-                        // decoration
-                        font-size: $h-f-size-extra;
-                        font-weight: 500;
+                        // display
+                        @include flexbox(row,center,flex-start);
+
+                        h2{
+                            // decoration
+                            font-size: $h-f-size-extra;
+                            font-weight: 500;
+                        }
+
+                    }
+
+                    .container-sizes {
+                        // size
+                        height: 15%;
+
+                        // display
+                        @include flexbox(column,flex-start,flex-start);
+
+                        .title {
+                            // decoration
+                            font-size: 18px;
+                            font-weight: 400;
+                        }
+
+                        .container-size{
+                            // display
+                            @include flexbox(row,center,flex-start, .7rem);
+
+                            .size {
+                            .disable-size {
+                                // margin
+                                padding: 5px 10px;
+
+                                // decoration
+                                opacity: 0.5;
+                                border: none;
+                                cursor: not-allowed;
+                                text-transform: uppercase;
+                            }
+
+                            .radio-size {
+                                // display
+                                display: block;
+
+                                // margin
+                                margin: 16px 0;
+
+                                input {
+                                    //display
+                                    display: none;
+
+                                    & + label {
+                                        // size
+                                        height: 22px;
+
+                                        // display
+                                        display: block;
+
+                                        // position
+                                        position: relative;
+
+                                        // margin
+                                        padding-left: 10px;
+
+                                        // decoration
+                                        line-height: 22px;
+                                        cursor: pointer;
+                                        text-transform: uppercase;
+
+
+                                        &:not(:empty) {
+                                            // margin
+                                            padding-left: 25px;
+                                        }
+
+                                        &:before, &:after {
+                                            // size
+                                            width: 22px;
+                                            height: 22px;
+
+                                            // display
+                                            display: block;
+
+                                            // position
+                                            left: 0;
+                                            top: 0;
+                                            position: absolute;
+
+                                            // decoration
+                                            content: '';
+                                            border-radius: 50%;
+                                            
+                                        }
+                                        &:before {
+                                            // decoration
+                                            background: $h-c-gray;
+
+                                            // transition
+                                            transition: background .2s ease, transform .4s cubic-bezier(.175, .885, .32, 2);
+                                        }
+                                        &:after {
+                                            // decoration
+                                            background: $h-c-white;
+                                            transform: scale(.78);
+
+                                            // transition
+                                            transition: transform .6s cubic-bezier(.175, .885, .32, 1.4);
+                                        }
+                                    }
+                                    &:checked + label {
+                                        &:before {
+                                            // decoration
+                                            transform: scale(1.04);
+                                            background: #1a88ff;
+                                        }
+
+                                        &:after {
+                                            // decoration
+                                            transform: scale(.4);
+
+                                            // transition
+                                            transition: transform .3s ease;
+                                        }
+                                    }
+                                }
+                                &:hover {
+                                    input {
+                                        & + label {
+                                            &:before {
+                                                // decoration
+                                                transform: scale(.92);
+                                            }
+                                            &:after {
+                                                // decoration
+                                                transform: scale(.74);
+                                            }
+                                        }
+                                        &:checked + label {
+                                            &:after {
+                                                // decoration
+                                                transform: scale(.4);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        }
                     }
 
                     .button{
                         // size
                         width: 100%;
-                        height: 20%;
+                        height: 15%;
 
                         // display
                         @include flexbox(row,flex-start);

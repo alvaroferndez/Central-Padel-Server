@@ -262,6 +262,7 @@ function scrollToTop() {
       justify-content: center;
 
       // decoration
+      cursor: pointer;
       border-radius: 50%;
       border-bottom: 3px solid $h-c-white-shade;
       background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,212,255,0) 77%);

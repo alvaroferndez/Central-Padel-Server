@@ -42,7 +42,7 @@ module.exports = {
                             result.error = err;
                             return res.json(result)
                         } else {
-                            // if match added, in the table usermatchs don't add players
+                            usermatch.addEmptyPlayers(data.insertId, db)
                             result.success = true;
                             return res.json(result)
                         }

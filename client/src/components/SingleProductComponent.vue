@@ -15,6 +15,7 @@ var adminShop = adminShopStore();
 // variables
 var image = ref('');
 var product = ref(props.product);
+var grid_even = ref(false);
 adminShop.actual_product = product.value;
 var { open, close } = useModal({
     attrs: {
@@ -26,7 +27,6 @@ var { open, close } = useModal({
         default: ModalProductComponent,
     }
 })
-
 
 // functions
 async function getImage(path){
@@ -41,18 +41,28 @@ function setData(){
 }
 
 function confirm(){
-    console.log('confirm');
     close();
 }
 
-getImage(product.value.path);
+function setGrid(){
+    if(window.innerWidth >= 1430 && window.innerWidth <= 1794){
+        grid_even.value = true;
+    }else if(window.innerWidth >= 583 && window.innerWidth <= 1063){
+        grid_even.value = true;
+    }else{
+        grid_even.value = false;
+    }
+}
 
+// onMounted
+setGrid();
+getImage(product.value.path);
 </script>
 
 
 <template>
     <ModalsContainer @closeModal="confirm()"/>
-    <div></div>
+    <div v-if="!grid_even"></div>
     <div class="card" @click="() => {open(); setData()}">
         <div class="card-image">
             <img :src="image" :alt="product.name" class="image"/>

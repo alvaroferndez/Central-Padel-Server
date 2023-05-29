@@ -126,5 +126,61 @@ module.exports = {
                 return res.json(result)
             }
         });
+    },
+
+    async add(req, res, db) {
+        result = {
+            success: false,
+            error: '',
+            data: []
+        }
+
+        var id_match = req.body.id_match;
+        var email_user = req.body.email_user;
+
+        db.query('SELECT * FROM UserMatch WHERE id_match = ?', [id_match], (err, data) => {
+            if (err) {
+                result.error = err;
+                return res.json(result)
+            } else {
+                let id_usermatch = '';
+                let added = false;
+                for(let i = 0; i < data.length; i++){
+                    if(data[i].email_user == email_user){
+                        result.error = 'Ya estás apuntado a este partido'
+                        return res.json(result)
+                    }else if(data[i].email_user == '' && !added){
+                        id_usermatch = data[i].id;
+                        added = true;
+                    }
+                }
+
+                if(added){
+                    db.query('UPDATE UserMatch SET email_user = ? WHERE id = ?', [email_user, id_usermatch], (err, data) => {
+                        if (err) {
+                            result.error = err;
+                            return res.json(result)
+                        } else {
+                            result.success = true;
+                            return res.json(result)
+                        }
+                    })
+                }else{
+                    result.error = 'El partido está completo'
+                    return res.json(result)
+                }
+            }
+        }
+        )
+    },
+
+    addEmptyPlayers(match, db) {
+        for (let i = 0; i < 4; i++) {
+            db.query('INSERT INTO UserMatch (email_user, id_match) VALUES (?, ?)', ['', match], (err, data) => {
+                if (err) {
+                    console.log(err)
+                }
+            });
+        }
     }
 }

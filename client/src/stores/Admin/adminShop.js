@@ -39,6 +39,20 @@ export const adminShopStore = defineStore('adminShop', () => {
 
   async function addProduct(product) {
 
+    switch (product.category) {
+      case 'hombre':
+        product.category = 'men';
+        break;
+      case 'mujer':
+        product.category = 'women';
+        break;
+      case 'palas':
+        product.category = 'blade';
+        break;
+      default:
+        break;
+    }
+
     let form_data = new FormData();
     form_data.append('name', product.name);
     form_data.append('price', product.price);

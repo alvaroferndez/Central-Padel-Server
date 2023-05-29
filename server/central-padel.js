@@ -108,6 +108,11 @@ app.post('/api/admin/match/edit', (req, res) => {
     match.edit(req, res, connection);
 });
 
+// add player to match
+app.post('/api/admin/match/add_player', (req, res) => {
+    usermatch.add(req, res, connection);
+});
+
 // get all matchs
 app.post('/api/admin/match/getAll', (req, res) => {
     match.getAll(req, res, connection);

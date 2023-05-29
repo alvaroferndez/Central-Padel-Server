@@ -49,7 +49,17 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
 
 
 .global-container{
+  // size
+  min-height: 80vh;
+
   // display
-  @include flexbox(column);
+  @include autoGrid(40%, 0.5rem);
+
+  @media screen and (max-width: 1155px){
+    // size
+    @include autoGrid(50%);
+  }
+  // @include flexbox(row, center, space-around);
+  // flex-wrap: wrap;
 }
 </style>

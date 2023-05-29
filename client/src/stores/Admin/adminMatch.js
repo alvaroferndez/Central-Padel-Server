@@ -141,6 +141,38 @@ export const adminMatchStore = defineStore('adminMatch', () => {
 
     }
 
+    // add a player to a match
+    async function addPlayerToMatch(id_match, email_user){
+        // add a player to a match by client
+        //
+        // id_match: id of the match
+        // email_user: email of the user
+
+        const response = await fetch(url + '/admin/match/add_player', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id_match: id_match,
+                email_user: email_user,
+            }),
+        });
+
+        // data = {
+        //      success: true/false
+        //      error: error message
+        // }
+
+        const data = await response.json();
+        
+        if(data.success){
+            toast.showSuccess("Jugador añadido correctamente");
+        }else{
+            toast.showError(data.error);
+        }
+    }
+
     // delete a player from a match
     async function deletePlayer(index){
         // delete a player from the variable current_match
@@ -247,5 +279,5 @@ export const adminMatchStore = defineStore('adminMatch', () => {
     }
 
 
-    return { all_matchs, matchs_getted, current_match, addMatch, deleteMatch, editMatch, addUserToMatch, deletePlayer, getAllWeekMatchs, getMatchById }
+    return { all_matchs, matchs_getted, current_match, addMatch, deleteMatch, editMatch, addUserToMatch, addPlayerToMatch, deletePlayer, getAllWeekMatchs, getMatchById }
 })
