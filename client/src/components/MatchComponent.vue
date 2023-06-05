@@ -10,7 +10,6 @@ var show = ref(true);
 const adminMatch = adminMatchStore();
 const auth = authentificationStore();
 const router = routerStore();
-
 // functions
 function setMatchs(){
   var count = 0;
@@ -60,7 +59,7 @@ setMatchs();
             <span>{{ props.match.court }}</span>
           </div>
         </div>
-        <div class="container-button">
+        <div class="container-button" v-if="props.add">
           <button style="--c:#E95A49" type="button" @click="addToMatch()">Apuntarse</button>
         </div>
       </div>

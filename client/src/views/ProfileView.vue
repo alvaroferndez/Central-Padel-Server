@@ -31,12 +31,12 @@ const profile = profileStore();
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/styles.scss";
 
 .profile{
   // size
-  width: 100vw;
+  width: 99vw;
   height: auto;
 
   // display
@@ -45,7 +45,7 @@ const profile = profileStore();
   div{
     // size
     width: 100%;
-    height: 30%;
+    height: 10%;
 
     @include flexbox(row,flex-start,flex-start);
 
@@ -56,7 +56,6 @@ const profile = profileStore();
     }
 
     .header-profile{
-      border: 1px solid black;
       // size
       width: 80%;
       height: 100%;
@@ -66,9 +65,14 @@ const profile = profileStore();
   .body-profile{
     // size
     width: 100%;
+    min-height: 60vh;
 
     // display
     @include flexbox();
+
+    // margin
+    padding-top: 1rem;
+    margin-top: 1rem;
 
     // decoration
     border-top:1px solid $h-c-white-shade;

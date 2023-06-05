@@ -121,7 +121,7 @@ function uploadImage(e){
     height: 90%;
 
     // display
-    @include flexbox(row, center, space-around);
+    @include flexbox(row, flex-start, space-around);
 
     .options {
       // size

@@ -49,9 +49,7 @@ const authentification = authentificationStore();
         <div class="right-bot"></div>
       </div>
     </div>
-    <div class="other"></div>
   </section>
-
 </template>
 
 
@@ -59,11 +57,16 @@ const authentification = authentificationStore();
 @import "@/assets/styles.scss";
 
 .container{
+  // size
+  width: 100%;
+  height: 100%;
+
   // display
   @include grid(2, 2);
 
   .data{
     // size
+    height: 100%;
 
     // display
     grid-column: 1 / 2;
@@ -74,7 +77,7 @@ const authentification = authentificationStore();
     h2{
       // size
       width: 100%;
-      height: 15%;
+      height: 25%;
 
       // decoration
       text-align: center;
@@ -83,7 +86,7 @@ const authentification = authentificationStore();
     &>div{
       // size
       width: 100%;
-      height: 85%;
+      height: 75%;
 
       // display
       @include flexbox(column, flex-start, space-between);
@@ -99,11 +102,12 @@ const authentification = authentificationStore();
 
     // display
     grid-column: 2 / 3;
-    grid-row: 1 / 2;
+    grid-row: 1 / 3;
+    @include flexbox(column, center, space-evenly);
 
     h2{
       // size
-      height: 10%;
+      height: 25%;
 
       // decoration
       text-align: center;
@@ -112,7 +116,7 @@ const authentification = authentificationStore();
     &-image{
       // size
       width: 100%;
-      height: 90%;
+      height: 75%;
 
       // decoration
       background-image: url("../../assets/images/padel-court.webp");

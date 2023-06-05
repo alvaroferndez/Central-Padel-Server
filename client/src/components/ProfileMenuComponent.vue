@@ -31,14 +31,10 @@ function changeComponent(value) {
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/styles.scss";
 
 .menu-profile{
-  // size
-  width: 20%;
-  height: 100%;
-
   // display
   @include flexbox();
 

@@ -55,7 +55,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
 <template>
   <section class="global-container">
     <div class="container-all">
-      <h1>Partidos de la semana</h1>
+      <h1>Tus partidos</h1>
       <div class="container-matchs">
         <Match v-for="match of adminMatch.all_matchs" :class="!getClientMatch(match) ? 'none' : ''" :match="match" :add="false"/>
       </div>
@@ -70,7 +70,12 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
 
 .global-container{
   .container-all{
+    // size
     width: 100%;
+
+    // display
+    @include flexbox(column);
+
     .container-matchs{
       @include autoGrid(40%, 0.5rem);
       width: 100%;
