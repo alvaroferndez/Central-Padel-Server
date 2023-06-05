@@ -30,6 +30,11 @@ function addToMatch(){
   router.navigateTo('/');
 }
 
+function viewPlayer(player){
+  // router.navigateTo('/player', {email: player.email});
+  console.log(player);
+}
+
 setMatchs();
 </script>
 
@@ -38,7 +43,7 @@ setMatchs();
     <div class="match" v-if="show">
       <div class="match-header">
         <section class="container-image">
-          <div v-for="player of props.match.players" class="position" :class="player.email == auth.user.email && props.add ? 'is-added' : '' ">
+          <div v-for="player of props.match.players" @click="viewPlayer(player)" class="position" :class="player.email == auth.user.email && props.add ? 'is-added' : ''">
             <img :title="player.email ? player.email : 'vacio'" :src="player.photo ? player.photo : '../../../src/assets/images/profile-photo.webp'" :alt="player.email">
             <p>{{ player.email ? player.email : 'vacio' }}</p>
           </div>
@@ -108,11 +113,14 @@ setMatchs();
 
         // decoration
         border-radius: 50%;
+        color:$h-c-white-shade;
+        font-weight: 400;
+        cursor: pointer;
 
         &:nth-child(1){
           // position
           position: absolute;
-          top: 20%;
+          top: 15%;
           left: 30%;
         }
 
@@ -126,7 +134,7 @@ setMatchs();
         &:nth-child(3){
           // position
           position: absolute;
-          bottom: 20%;
+          bottom: 25%;
           left: 10%;
         }
 

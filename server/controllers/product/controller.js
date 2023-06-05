@@ -3,7 +3,7 @@ const hash = require('../../middleware/hash/hash.js');
 const regEx = require('../../middleware/regEx/regEx.js');
 const fs = require('fs');
 const path = require('path');
-const { edit } = require('../match/controller.js');
+const { edit, getById } = require('../match/controller.js');
 
 
 module.exports = {
@@ -134,7 +134,6 @@ module.exports = {
         });
     },
 
-
     async delete(req, res, db) {
         result = {
             success: false,
@@ -216,6 +215,55 @@ module.exports = {
                     };
                 }
                 return res.json(result);
+            }
+        });
+    },
+
+    async getByUser(req, res, db) {
+        result = {
+            success: false,
+            error: '',
+            data: []
+        }
+
+        let email = req.body.user;
+
+        db.query(`SELECT * FROM BookProduct WHERE user_email = '${email}'`, (err, data) => {
+            if (err){
+                result.error = 'Ha ocurrido un error';
+                return res.json(result);
+            }
+            else{
+                result.success = true;
+                result.data = data;
+                return res.json(result);
+            }
+        });
+    },
+
+    async getById(req, res, db) {
+        result = {
+            success: false,
+            error: '',
+            data: []
+        }
+
+        let id = req.body.id;
+
+        db.query(`SELECT * FROM Product WHERE id = '${id}'`, (err, data) => {
+            if (err){
+                result.error = 'Ha ocurrido un error';
+                return res.json(result);
+            }
+            else{
+                if(data.length > 0){
+                    result.success = true;
+                    result.data = data[0];
+                    return res.json(result);
+                }else{
+                    result.error = 'No se ha encontrado el producto';
+                    return res.json(result);
+                }
             }
         });
     },

@@ -1,7 +1,5 @@
 <script setup>
 import ProfielMenuComponent from "@/components/ProfileMenuComponent.vue";
-import ProfileInformationComponent from "@/components/ProfileInformationComponent.vue";
-import { ref } from 'vue'
 import PersonalInformationComponent from "@/components/PersonalProfile/PersonalInformationComponent.vue";
 import PersonalShopComponent from "@/components/PersonalProfile/PersonalShopComponent.vue";
 import PersonalMatchsComponent from "@/components/PersonalProfile/PersonalMatchsComponent.vue";
@@ -17,10 +15,10 @@ const profile = profileStore();
 
 <template>
   <section class="profile">
-    <div>
+    <section class="header">
       <ProfielMenuComponent class="menu-profile"/>
       <ProfileHeaderComponent class="header-profile"/>
-    </div>
+    </section>
     <section class="body-profile">
       <PersonalInformationComponent class="container" v-if="profile.acutalComponent === 'info'"/>
       <PersonalShopComponent class="container" v-if="profile.acutalComponent === 'shop'" />
@@ -37,27 +35,28 @@ const profile = profileStore();
 .profile{
   // size
   width: 99vw;
-  height: auto;
+  height: 100%;
 
   // display
   @include flexbox(column, flex-start, flex-start);
 
-  div{
+  .header{
     // size
     width: 100%;
-    height: 10%;
+    height: 30vh;
 
+    // display
     @include flexbox(row,flex-start,flex-start);
 
     .menu-profile{
       // size
-      width: 20%;
+      width: 30%;
       height: 100%;
     }
 
-    .header-profile{
+    &-profile{
       // size
-      width: 80%;
+      width: 70%;
       height: 100%;
     }
   }
@@ -65,14 +64,14 @@ const profile = profileStore();
   .body-profile{
     // size
     width: 100%;
-    min-height: 60vh;
+    min-height: 50vh;
 
     // display
-    @include flexbox();
+    @include flexbox(row, flex-start);
 
-    // margin
-    padding-top: 1rem;
-    margin-top: 1rem;
+    // decoration
+    background: rgb(233,233,233);
+    background: linear-gradient(90deg, rgb(241, 241, 241) 0%, rgba(255,255,255,1) 25%, rgba(255,255,255,1) 75%, rgb(241, 241, 241) 100%);
 
     // decoration
     border-top:1px solid $h-c-white-shade;
@@ -80,7 +79,7 @@ const profile = profileStore();
     .container{
       // size
       width: 70%;
-      height: 90%;
+      min-height: 45vh;
 
       @media screen and (max-width: 900px) {
         & {

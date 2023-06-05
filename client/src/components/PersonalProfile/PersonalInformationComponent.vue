@@ -14,36 +14,36 @@ const authentification = authentificationStore();
       <div>
         <p>Edad:
           <span v-if="authentification.user.age">{{ authentification.user.age }}</span>
-          <span v-else>sin definir</span>
+          <span class="undefined" v-else>sin definir</span>
         </p>
         <p>Posicion:
           <span v-if="authentification.user.position">{{ authentification.user.position }}</span>
-          <span v-else>sin definir</span>
+          <span class="undefined" v-else>sin definir</span>
         </p>
         <p>Categoria:
           <span v-if="authentification.user.category">{{ authentification.user.category }}</span>
-          <span v-else>sin definir</span>
+          <span class="undefined" v-else>sin definir</span>
         </p>
         <p>Años jugados:
           <span v-if="authentification.user.years_played">{{ authentification.user.years_played }}</span>
-          <span v-else>sin definir</span>
+          <span class="undefined" v-else>sin definir</span>
         </p>
         <p>Club:
           <span v-if="authentification.user.club">{{ authentification.user.club }}</span>
-          <span v-else>sin definir</span>
+          <span class="undefined" v-else>sin definir</span>
         </p>
         <p>Fecha de creación:
           <span v-if="authentification.user.creation_date">{{ authentification.user.creation_date }}</span>
-          <span v-else>sin definir</span>
+          <span class="undefined" v-else>sin definir</span>
         </p>
       </div>
     </div>
     <div class="position">
       <h2>Posición favorita</h2>
       <div class="position-image">
-        <div v-if="authentification.user.position == 'izquierda'" class="left-top" style="background-image: url('../../assets/images/profile-photo.webp')"></div>
+        <div v-if="authentification.user.position == 'izquierda'" class="left-top" style="background-image: url('../../assets/images/profile-photo.webp'); scale: 1.5;"></div>
         <div v-else class="left-top"></div>
-        <div v-if="authentification.user.position == 'derecha'" class="left-bot" style="background-image: url('../../assets/images/profile-photo.webp')"></div>
+        <div v-if="authentification.user.position == 'derecha'" class="left-bot" style="background-image: url('../../assets/images/profile-photo.webp'); scale: 1.5;"></div>
         <div v-else class="left-bot"></div>
         <div class="right-top"></div>
         <div class="right-bot"></div>
@@ -91,6 +91,16 @@ const authentification = authentificationStore();
       // display
       @include flexbox(column, flex-start, space-between);
 
+      p{
+        // decoration
+        font-weight: bold;
+        
+        .undefined{
+          // decoration
+          color: $h-c-white-shade;
+          font-style: italic;
+        }
+      }
     }
   }
 

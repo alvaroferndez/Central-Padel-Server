@@ -77,7 +77,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
     @include flexbox(column);
 
     .container-matchs{
-      @include autoGrid(40%, 0.5rem);
+      @include autoGrid(50%, 0.5rem);
       width: 100%;
       .none{
       display: none;

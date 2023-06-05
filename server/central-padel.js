@@ -175,6 +175,16 @@ app.post('/api/admin/product/get_size', (req, res) => {
     product.getSize(req, res, connection);
 });
 
+// get product by id
+app.post('/api/product/getById', (req, res) => {
+    product.getById(req, res, connection);
+});
+
+// get products of user
+app.post('/api/product/user', (req, res) => {
+    product.getByUser(req, res, connection);
+});
+
 //get image of product
 app.post('/api/admin/product/image', (req, res) => {
     product.getImage(req, res, connection);

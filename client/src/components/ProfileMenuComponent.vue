@@ -21,9 +21,11 @@ function changeComponent(value) {
 
 <template>
   <section class="menu-profile">
-    <div class="container">
-      <div v-for="item of options" :class="item.value" v-on:click="changeComponent(item.value)">
-        <label>{{ item.label }}</label>
+    <div class="global-container">
+      <div class="container">
+        <div v-for="item of options" :class="item.value" v-on:click="changeComponent(item.value)">
+          <label>{{ item.label }}</label>
+        </div>
       </div>
     </div>
   </section>
@@ -38,54 +40,63 @@ function changeComponent(value) {
   // display
   @include flexbox();
 
-  // descoration
-  background-color: $h-c-red-logo-shade;
-
-  .container{
+  .global-container{
     // size
-    width: 80%;
+    width: 55%;
     height: 80%;
 
     // display
-    @include flexbox(column);
+    @include flexbox();
 
-    &>div{
+    // descoration
+    background-color: $h-c-red-logo-shade;
+    border-radius: 30%;
+
+    .container{
       // size
-      width: 100%;
-      height: 20%;
+      width: 80%;
+      height: 80%;
 
       // display
-      @include flexbox();
+      @include flexbox(column);
 
-      // margin
-      margin-bottom: 10px;
-
-
-      // decoration
-      background-color: $h-c-red-logo;
-      border-radius: 10px;
-
-      // text
-      label{
+      &>div{
         // size
         width: 100%;
-        height: 100%;
+        height: 20%;
 
         // display
         @include flexbox();
 
+        // margin
+        margin-bottom: 10px;
+
+        // decoration
+        background-color: $h-c-red-logo;
+        border-radius: 10px;
+
         // text
-        font-size: 1.5em;
-        color: $h-c-white;
-      }
-
-      &:hover{
-        //decoration
-        cursor: pointer;
-        background-color: $h-c-white;
-
         label{
-          color: $h-c-red-logo;
+          // size
+          width: 100%;
+          height: 100%;
+
+          // display
+          @include flexbox();
+
+          // decoration
+          font-size: 1.5em;
+          color: $h-c-white;
+          cursor: pointer;
+        }
+
+        &:hover{
+          //decoration
+          background-color: $h-c-white;
+
+          label{
+            color: $h-c-red-logo;
+          }
         }
       }
     }

@@ -220,6 +220,47 @@ export const adminShopStore = defineStore('adminShop', () => {
     return result.data;
   }
 
+  async function getUserProducts(){
+    var response = await fetch(url + '/product/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: authentification.user.email
+      })
+    })
+    var result = await response.json();
+
+    if(result.success){
+      await result.data.forEach(async (product) => {
+        getProductById(product.id_product).then((data) => {
+          getImage(data.path).then((image) => {
+            data.image = image;
+            products.value.push(data);
+          })
+        })
+      });
+    }else{
+      console.log(result.error);
+      toast.showError('Ha ocurrido un error');
+    }
+  }
+
+  async function getProductById(id){
+    var response = await fetch(url + '/product/getById', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id
+      })
+    })
+    var result = await response.json();
+    return result.data;
+  }
+
   async function bookProduct(product, size) {
     let stock = 0;
 
@@ -250,5 +291,5 @@ export const adminShopStore = defineStore('adminShop', () => {
     }
   }
 
-  return { products, category_component, categories, actual_image, actual_product, changeCategoryComponent, addProduct, editProduct, deleteProduct, getAllProducts, getImage, getProductsOfCategory, getProductSize, bookProduct }
+  return { products, category_component, categories, actual_image, actual_product, changeCategoryComponent, addProduct, editProduct, deleteProduct, getAllProducts, getImage, getProductsOfCategory, getProductSize, getUserProducts, bookProduct }
 })

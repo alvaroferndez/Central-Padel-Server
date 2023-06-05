@@ -66,7 +66,7 @@ function uploadImage(e){
           </div>
           <div>
             <label>Fecha de creación</label>
-            <label>{{ authentification.user.creation_date }}</label>
+            <span>{{ authentification.user.creation_date }}</span>
           </div>
           <div class="password">
             <button class="button-password">Cambiar contraseña</button>
@@ -149,22 +149,44 @@ function uploadImage(e){
 
           // margin
           padding-left: 10%;
+          margin-bottom: 1rem;
 
           // display
           @include flexbox(row, center, space-between);
 
-          label, input {
+          label, input, span {
             // size
             width: 50%;
+          }
+
+          label{
+            font-weight: bold;
           }
 
           input {
             // decoration
             border: none;
             outline: none;
+            background-color: transparent;
 
             &:focus {
+              // decoration
               border-bottom: 1px solid black;
+            }
+
+            &::placeholder{
+              // decoration
+              font-style: italic;
+              color: $h-c-white-shade;
+            }
+          }
+
+          form{
+            @include flexbox(row, center, space-between);
+
+            label, input {
+              // size
+              width: 50%;
             }
           }
         }
@@ -172,6 +194,9 @@ function uploadImage(e){
         .password {
           // display
           @include flexbox(row, center, space-around);
+
+          // margin
+          margin-top: 1rem;
 
           .button-password{
             @include button();
@@ -225,9 +250,22 @@ function uploadImage(e){
     }
   }
 
+  @media screen and (max-width: 700px) {
+    &-options {
+      // display
+      flex-direction: column;
+
+      .options {
+        // size
+        width: 90%;
+      }
+    }
+  }
+
   @media screen and (max-width: 550px) {
     &-options {
       .options {
+        
         h1{
           //decoration
           font-size: 1.7rem;
@@ -249,6 +287,5 @@ function uploadImage(e){
       font-size: 0.7rem;
     }
   }
-
 }
 </style>

@@ -17,20 +17,20 @@ const authentification = authentificationStore();
       <div class="container-information">
         <div class="information">
           <div>
-            <label>Nombre: {{ authentification.user.name }}
-              <span v-if="authentification.user.name"></span>
+            <label class="label">Nombre: 
+              <span v-if="authentification.user.name">{{ authentification.user.name }}</span>
               <span class="undefined" v-else>sin definir</span>
             </label>
           </div>
           <div>
-            <label>Email: {{ authentification.user.email }}
-              <span v-if="authentification.user.email"></span>
+            <label class="label">Correo: 
+              <span v-if="authentification.user.email">{{ authentification.user.email }}</span>
               <span class="undefined" v-else>sin definir</span>
             </label>
           </div>
           <div>
-            <label>Nombre de usuario: {{ authentification.user.user_name }}
-              <span v-if="authentification.user.user_name"></span>
+            <label class="label">Nombre de usuario: 
+              <span v-if="authentification.user.user_name">{{ authentification.user.user_name }}</span>
               <span class="undefined" v-else>sin definir</span>
             </label>
           </div>
@@ -48,9 +48,8 @@ const authentification = authentificationStore();
 @import "@/assets/styles.scss";
 
 .header-profile{
-
   // display
-  @include flexbox();
+  @include flexbox(row, center, flex-start);
 
   .container{
     // size
@@ -101,10 +100,14 @@ const authentification = authentificationStore();
         // display
         @include flexbox(column, flex-start, space-around);
 
-        .undefined{
-          // decoration
-          color: $h-c-white-shade;
-          font-style: italic;
+        .label{
+          font-weight: bold;
+
+          .undefined{
+            // decoration
+            color: $h-c-white-shade;
+            font-style: italic;
+          }
         }
       }
 
