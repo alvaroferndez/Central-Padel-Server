@@ -5,7 +5,7 @@ import { authentificationStore } from "../stores/authentification";
 import {routerStore} from "../stores/router";
 
 // variables
-const props = defineProps(['match'])
+const props = defineProps(['match','add'])
 var show = ref(true);
 const adminMatch = adminMatchStore();
 const auth = authentificationStore();
@@ -39,7 +39,7 @@ setMatchs();
     <div class="match" v-if="show">
       <div class="match-header">
         <section class="container-image">
-          <div v-for="player of props.match.players" class="position" :class="player.email == auth.user.email ? 'is-added' : '' ">
+          <div v-for="player of props.match.players" class="position" :class="player.email == auth.user.email && props.add ? 'is-added' : '' ">
             <img :title="player.email ? player.email : 'vacio'" :src="player.photo ? player.photo : '../../../src/assets/images/profile-photo.webp'" :alt="player.email">
             <p>{{ player.email ? player.email : 'vacio' }}</p>
           </div>

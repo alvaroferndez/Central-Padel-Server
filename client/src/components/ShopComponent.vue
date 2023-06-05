@@ -41,6 +41,7 @@ getProductsOfCategory();
         </button>
         <div class="container-products">
             <SingleProduct v-for="product of products" :product="product"/>
+            <div v-if="products.length == 0">No hay productos disponibles</div>
         </div>
     </div>
 </template>

@@ -37,7 +37,7 @@ function bookProduct(){
                         <div class="price">
                             <h2>{{ product.price }} &euro;</h2>
                         </div>
-                        <div class="container-sizes">
+                        <div v-if="product.sizes" class="container-sizes">
                             <h2 class="title">Tallas</h2>
                             <div class="container-size">
                                 <div class="size" v-for="size in product.sizes">

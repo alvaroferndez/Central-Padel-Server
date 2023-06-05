@@ -39,7 +39,8 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
 
 <template>
   <div class="global-container">
-    <Match v-for="match of adminMatch.all_matchs" :match="match"/>
+    <Match v-for="match of adminMatch.all_matchs" :match="match" :add="true"/>
+    <div v-if="adminMatch.all_matchs.length == 0">No hay partidos disponibles</div>
   </div>
 </template>
 

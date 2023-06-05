@@ -69,7 +69,7 @@ function closeMenu() {
     <!-- items -->
     <div class="items">
       <div v-for="item of menu_items">
-        <router-link class="link" :to="item.link">{{item.name}}</router-link>
+        <router-link v-on:click="closeMenu()" class="link" :to="item.link">{{item.name}}</router-link>
       </div>
     </div>
 
@@ -84,10 +84,6 @@ function closeMenu() {
 @import "@/assets/styles.scss";
 
 .menu{
-  // size
-  width: 15%;
-  min-height: 30vh;
-
   // position
   position: fixed;
   right: 7.5%;
