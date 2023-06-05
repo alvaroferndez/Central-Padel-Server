@@ -88,6 +88,14 @@ function changeComponent(value) {
           font-size: 1.5em;
           color: $h-c-white;
           cursor: pointer;
+
+          @media screen and (max-width: 1300px) {
+            font-size: 1.2em;
+          }
+
+          @media screen and (max-width: 768px){
+            font-size: 1em;
+          }
         }
 
         &:hover{
@@ -99,6 +107,22 @@ function changeComponent(value) {
           }
         }
       }
+
+      @media screen and (max-width: 600px){
+        flex-direction: row;
+      }
+    }
+  
+    @media screen and (max-width: 1000px){
+      width: 65%;
+    }
+
+    @media screen and (max-width: 768px){
+      width: 75%;
+    }
+
+    @media screen and (max-width: 600px){
+      width: 100%;
     }
   }
 }

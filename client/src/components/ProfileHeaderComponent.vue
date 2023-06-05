@@ -92,6 +92,7 @@ const authentification = authentificationStore();
       // margin
       padding-top: 2.5%;
       padding-bottom: 2.5%;
+      margin-left: 1rem;
 
       .information{
         // size
@@ -141,10 +142,12 @@ const authentification = authentificationStore();
         flex-direction: column;
 
         .container-photo{
+          // size
           height: 50%;
         }
 
         .container-information{
+          // size
           width: 100%;
           height: 50%;
         }
@@ -206,6 +209,10 @@ const authentification = authentificationStore();
             }
           }
         }
+  }
+
+  @media screen and (max-width: 600px){
+    width: 100%;
   }
 }
 </style>

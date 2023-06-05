@@ -237,6 +237,7 @@ export const adminShopStore = defineStore('adminShop', () => {
         getProductById(product.id_product).then((data) => {
           getImage(data.path).then((image) => {
             data.image = image;
+            data.size = product.size;
             products.value.push(data);
           })
         })

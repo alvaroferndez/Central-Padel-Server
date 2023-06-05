@@ -59,12 +59,16 @@ const profile = profileStore();
       width: 70%;
       height: 100%;
     }
+
+    @media screen and (max-width: 600px){
+      flex-direction: column;
+    }
   }
 
   .body-profile{
     // size
     width: 100%;
-    min-height: 50vh;
+    min-height: 60vh;
 
     // display
     @include flexbox(row, flex-start);
