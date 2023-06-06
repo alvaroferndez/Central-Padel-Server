@@ -11,12 +11,17 @@ const adminMatch = adminMatchStore();
 const auth = authentificationStore();
 const router = routerStore();
 // functions
-function setMatchs(){
+async function setMatchs(){
   var count = 0;
 
   for(let player of props.match.players){
     if(player.email !== ''){
       count++;
+    }
+
+    if(player.path != ''){
+      player.photo = await auth.getImage(player.path)
+      console.log(player.photo);
     }
   }
 

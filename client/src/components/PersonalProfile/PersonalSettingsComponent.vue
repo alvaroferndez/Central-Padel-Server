@@ -23,7 +23,7 @@ function reset(){
 }
 
 function uploadImage(e){
-  authentification.uploadImage(e.target.files[0]);
+  authentification.user.photo = e.target.files[0];
 }
 </script>
 
@@ -126,12 +126,8 @@ function uploadImage(e){
     .options {
       // size
       width: 45%;
-      height: 90%;
 
       h1 {
-        // size
-        height: 20%;
-
         // decoration
         text-align: center;
       }
@@ -139,9 +135,6 @@ function uploadImage(e){
       & > div {
         // display
         @include flexbox(column, flex-start, space-around);
-        // size
-        width: 100%;
-        height: 80%;
 
         & > div {
           // size

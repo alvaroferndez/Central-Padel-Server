@@ -41,6 +41,7 @@ module.exports = {
                                     email: '',
                                     position: '',
                                     username: '',
+                                    path: '',
                                 })
                             }else{
                                 match.players.push({
@@ -49,6 +50,7 @@ module.exports = {
                                     email: data[0].email,
                                     position: data[0].position,
                                     username: data[0].username,
+                                    path: data[0].path,
                                 })
                             }
                             if(match.players.length == 4){

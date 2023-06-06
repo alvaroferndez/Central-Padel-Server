@@ -62,9 +62,28 @@ export const adminUserStore = defineStore('adminUser', () => {
         }
     }
 
+    async function getImage(image){
+        let new_image = image.split('.')[0] + '/' + image.split('.')[1]
+        var response = await fetch(url + '/admin/product/image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            image: new_image
+            })
+        }).then(response => response.blob())
+        .then(blob => URL.createObjectURL(blob))
+        .catch(error => console.log(error));
+        return response;
+    }
+
     async function getUserByEmail(email){
         var response = await authentification.getUserByEmail(email);
         actual_user.value = response.data[0];
+        if(actual_user.value.path){
+            actual_user.value.photo = await getImage(actual_user.value.path);
+        }
     }
     return { actual_user, deleteUser, editUser, getUserByEmail }
 })

@@ -20,7 +20,6 @@ async function getImage(path){
 }
 
 getImage(product.path);
-console.log(product);
 </script>
 
 

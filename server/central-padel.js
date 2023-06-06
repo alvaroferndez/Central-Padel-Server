@@ -63,12 +63,12 @@ app.post('/api/logout', (req, res) => {
 })
 
 // edit user data
-app.post('/api/user/update', (req, res) => {
+app.post('/api/user/update', upload.single('photo'), (req, res) => {
    user.update(req, res, connection);
 });
 
 // upload user image
-app.post('/api/user/upload_image', upload.single('file'), (req, res) => {
+app.post('/api/user/upload_image', (req, res) => {
     user.uploadImage(req, res, connection);
 });
 

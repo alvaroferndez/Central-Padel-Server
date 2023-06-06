@@ -15,15 +15,20 @@ adminShop.getUserProducts()
 
 
 <template>
-  <div class="global-container">
-    <div v-for="product of adminShop.products" class="card" @click="() => { open(); setData() }">
-      <div class="card-image">
-        <img :src="product.image" :alt="product.name" class="image" />
-      </div>
-      <div class="card-content">
-        <p class="card-title">{{ product.name }}</p>
-        <p class="card-price">{{ product.price }} &euro;</p>
-        <p class="card-size">{{ product.size }}</p>
+  <div>
+    <div class="global-container">
+      <h1>Tus reservas</h1>
+      <div class="container">
+        <div v-for="product of adminShop.products" class="card" @click="() => { open(); setData() }">
+          <div class="card-image">
+            <img :src="product.image" :alt="product.name" class="image" />
+          </div>
+          <div class="card-content">
+            <p class="card-title">{{ product.name }}</p>
+            <p class="card-price">{{ product.price }} &euro;</p>
+            <p class="card-size">{{ product.size }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -34,6 +39,9 @@ adminShop.getUserProducts()
 @import "@/assets/styles.scss";
 
 .global-container {
+  // display
+  @include flexbox(column, center, flex-start);
+  .container{
   // display
   @include flexbox();
   flex-wrap: wrap;
@@ -145,6 +153,7 @@ adminShop.getUserProducts()
         height: calc(100% / 3);
       }
     }
+  }
   }
 }
 </style>

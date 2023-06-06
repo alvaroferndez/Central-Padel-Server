@@ -41,13 +41,10 @@ const profile = profileStore();
   .body-profile{
     // size
     width: 100%;
-    height: 65%;
+    height: 100%;
 
     // display
-    @include flexbox();
-
-    // margin
-    padding: 50px 0;
+    @include flexbox(row,flex-start);
 
     // decoration
     border-top:1px solid $h-c-white-shade;
@@ -60,7 +57,10 @@ const profile = profileStore();
     .container{
       // size
       width: 80%;
-      height: auto;
+      height: 100%;
+
+      // display
+      @include flexbox(row,flex-start);
     }
   }
 }

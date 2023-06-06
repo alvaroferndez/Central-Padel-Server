@@ -8,58 +8,69 @@ const authentification = authentificationStore();
 
 
 <template>
-  <section class="container">
-    <div class="data">
-      <h2>Información personal</h2>
-      <div>
-        <p>Edad:
-          <span v-if="authentification.user.age">{{ authentification.user.age }}</span>
-          <span class="undefined" v-else>sin definir</span>
-        </p>
-        <p>Posicion:
-          <span v-if="authentification.user.position">{{ authentification.user.position }}</span>
-          <span class="undefined" v-else>sin definir</span>
-        </p>
-        <p>Categoria:
-          <span v-if="authentification.user.category">{{ authentification.user.category }}</span>
-          <span class="undefined" v-else>sin definir</span>
-        </p>
-        <p>Años jugados:
-          <span v-if="authentification.user.years_played">{{ authentification.user.years_played }}</span>
-          <span class="undefined" v-else>sin definir</span>
-        </p>
-        <p>Club:
-          <span v-if="authentification.user.club">{{ authentification.user.club }}</span>
-          <span class="undefined" v-else>sin definir</span>
-        </p>
-        <p>Fecha de creación:
-          <span v-if="authentification.user.creation_date">{{ authentification.user.creation_date }}</span>
-          <span class="undefined" v-else>sin definir</span>
-        </p>
-      </div>
+  <div>
+    <div class="global-container">
+      <section class="container">
+        <div class="data">
+          <h2>Información personal</h2>
+          <div>
+            <p>Edad:
+              <span v-if="authentification.user.age">{{ authentification.user.age }}</span>
+              <span class="undefined" v-else>sin definir</span>
+            </p>
+            <p>Posicion:
+              <span v-if="authentification.user.position">{{ authentification.user.position }}</span>
+              <span class="undefined" v-else>sin definir</span>
+            </p>
+            <p>Categoria:
+              <span v-if="authentification.user.category">{{ authentification.user.category }}</span>
+              <span class="undefined" v-else>sin definir</span>
+            </p>
+            <p>Años jugados:
+              <span v-if="authentification.user.years_played">{{ authentification.user.years_played }}</span>
+              <span class="undefined" v-else>sin definir</span>
+            </p>
+            <p>Club:
+              <span v-if="authentification.user.club">{{ authentification.user.club }}</span>
+              <span class="undefined" v-else>sin definir</span>
+            </p>
+            <p>Fecha de creación:
+              <span v-if="authentification.user.creation_date">{{ authentification.user.creation_date }}</span>
+              <span class="undefined" v-else>sin definir</span>
+            </p>
+          </div>
+        </div>
+        <div class="position">
+          <h2>Posición favorita</h2>
+          <div class="position-image">
+            <div v-if="authentification.user.position == 'izquierda' && authentification.user.photo" class="left-top" :style="{ 'background-image': authentification.user.photo, 'scale': 1.5 }"></div>
+            <div v-else class="left-top"></div>
+            <div v-if="authentification.user.position == 'derecha' && authentification.user.photo" class="left-bot" :style="{ 'background-image': authentification.user.photo, 'scale': 1.5 }"></div>
+            <div v-else class="left-bot"></div>
+            <div class="right-top"></div>
+            <div class="right-bot"></div>
+          </div>
+        </div>
+      </section>
     </div>
-    <div class="position">
-      <h2>Posición favorita</h2>
-      <div class="position-image">
-        <div v-if="authentification.user.position == 'izquierda'" class="left-top" style="background-image: url('../../assets/images/profile-photo.webp'); scale: 1.5;"></div>
-        <div v-else class="left-top"></div>
-        <div v-if="authentification.user.position == 'derecha'" class="left-bot" style="background-image: url('../../assets/images/profile-photo.webp'); scale: 1.5;"></div>
-        <div v-else class="left-bot"></div>
-        <div class="right-top"></div>
-        <div class="right-bot"></div>
-      </div>
-    </div>
-  </section>
+  </div>
 </template>
 
 
 <style lang="scss" scoped>
 @import "@/assets/styles.scss";
 
-.container{
+.global-container{
   // size
   width: 100%;
   height: 100%;
+
+  // display
+  @include flexbox(column, center, center);
+  .container{
+  // size
+  width: 100%;
+  height: 50%;
 
   // display
   @include grid(2, 2);
@@ -212,5 +223,7 @@ const authentification = authentificationStore();
     }
   }
 }
+}
+
 
 </style>

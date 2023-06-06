@@ -1,9 +1,22 @@
 <script setup>
 import {authentificationStore} from "../stores/authentification";
+import { adminShopStore } from "../stores/Admin/adminShop";
+import { ref } from 'vue';
 
 // store
 const authentification = authentificationStore();
+const adminShop = adminShopStore();
 
+// variables
+var image = ref("");
+
+// functions
+async function getImage(path){
+    var server_image = await adminShop.getImage(path);
+    image.value = server_image;
+}
+
+getImage(authentification.user.path);
 </script>
 
 
@@ -11,7 +24,7 @@ const authentification = authentificationStore();
   <section class="header-profile">
     <div class="container">
       <div class="container-photo">
-        <img v-if="authentification.user.photo" :src="authentification.user.photo" alt="foto de perfil">
+        <img v-if="image != ''" :src="image" alt="foto de perfil">
         <img v-else src="../assets/images/profile-photo.webp" alt="foto de perfil">
       </div>
       <div class="container-information">
@@ -49,7 +62,7 @@ const authentification = authentificationStore();
 
 .header-profile{
   // display
-  @include flexbox(row, center, flex-start);
+  @include flexbox(row, center);
 
   .container{
     // size
