@@ -10,22 +10,42 @@ const admin = adminStore();
 
 // variables
 var last_scroll = 0;
+var media = ref(false);
 
 // styles
 window.onscroll = function() {
   var y = window.scrollY;
 
     // moodify the height of the header
-    if (y >= 85) {
+    if (y >= 85 && !media.value) {
       document.getElementById("header").classList.add("header-scrolled");
       document.getElementsByClassName("container-logo")[0].style["grid-row"] = "1 / 4";
-      document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "100%";
+      document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "120%";
       if(document.getElementsByClassName("menu").length > 0){
         if(window.innerWidth > 600){
           document.getElementsByClassName("menu")[0].style.marginTop = "-10vh";
         }
       }
-    } else {
+    } else if(y >= 85 && media.value){
+      document.getElementById("header").classList.add("header-scrolled");
+      document.getElementsByClassName("container-logo-media")[0].style["grid-row"] = "1 / 4";
+      document.getElementsByClassName("container-logo-media")[0].childNodes[0].style.height = "120%";
+      if(document.getElementsByClassName("menu").length > 0){
+        if(window.innerWidth > 600){
+          document.getElementsByClassName("menu")[0].style.marginTop = "-10vh";
+        }
+      }
+    } else if(y < 85 && media.value){
+      document.getElementById("header").classList.remove("header-scrolled");
+      document.getElementsByClassName("container-logo-media")[0].style["grid-row"] = "2 / 3";
+      document.getElementsByClassName("container-logo-media")[0].childNodes[0].style.height = "200%";
+
+      if(document.getElementsByClassName("menu").length > 0){
+        if(window.innerWidth > 600){
+          document.getElementsByClassName("menu")[0].style.marginTop = "-8vh";
+        }
+      }
+    } else if(y < 85 && !media.value){
       document.getElementById("header").classList.remove("header-scrolled");
       document.getElementsByClassName("container-logo")[0].style["grid-row"] = "2 / 3";
       document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "200%";
@@ -77,7 +97,6 @@ function menuStatus(e){
   }
 }
 
-
 function changeToAdmin(){
   admin.admin_mode = !admin.admin_mode;
 }
@@ -89,12 +108,19 @@ function scrollToTop() {
   });
 }
 
+function setMedia(){
+  if(window.innerWidth <= 800){
+    media.value = true;
+  }
+}
+
+setMedia();
 </script>
 
 
 <template>
     <!-- header -->
-    <header id="header">
+    <header id="header" v-if="!media">
 
         <!-- logo container -->
         <div class="container-logo">
@@ -108,7 +134,7 @@ function scrollToTop() {
             <router-link class="link hover" to="/">Inicio</router-link>
             <router-link class="link hover" to="/match">Partidos</router-link>
             <router-link class="link hover" to="/shop">Tienda</router-link>
-            <p class="link hover" v-on:click="changeToAdmin()" v-if="authentification.user.admin">Administración</p>
+            <p class="link hover admin" v-on:click="changeToAdmin()" v-if="authentification.user.admin">Administración</p>
         </nav>
 
         <!-- login -->
@@ -120,10 +146,29 @@ function scrollToTop() {
         </div>
     </header>
 
+    <!-- header media-query -->
+    <header id="header" class="header-media" v-if="media">
+
+      <!-- logo container -->
+      <div class="container-logo-media">
+        <router-link class="link" to="/">
+          <img class="logo-media" src="@/assets/images/logo.png" alt="Logo Central Padel"/>
+        </router-link>
+      </div>
+
+      <!-- login -->
+      <div class="login-logo hover">
+        <router-link v-if="!authentification.user.logged" class="link" to="/login">
+          <v-icon name="ri-user-3-fill" scale="1.5"/>
+        </router-link>
+        <v-icon v-else v-on:click="menuStatus($event)" class="link" name="oi-three-bars" scale="2" />
+      </div>
+    </header>
+
     <!-- menu -->
     <Menu class="menu" v-if="authentification.menu_status && authentification.user.logged"/>
 
-  <!-- button to scroll to the top -->
+    <!-- button to scroll to the top -->
     <div class="scrolling-top" @click="scrollToTop()">
           <a>
               <v-icon name="bi-arrow-up" scale="2" />
@@ -162,6 +207,9 @@ function scrollToTop() {
 
         /* logo */
         .container-logo{
+            // size
+            height: 80%;
+
             /* position */
             grid-column: 2 / 3;
             grid-row: 2 / 3;
@@ -172,7 +220,7 @@ function scrollToTop() {
             a{
                 /* size */
                 height: 200%;
-                width: 100%;
+                width: 10%;
 
                 // display
                 @include flexbox();
@@ -180,23 +228,23 @@ function scrollToTop() {
                 .logo{
                   /* size */
                   width: 150%;
-                  height: 100%;
+                  height: 100% !important;
+                }
+
+                @media screen and (max-width: 1500px) {
+                  /* size */
+                  width: 60%;
+                }
+
+                @media screen and (max-width: 1100px) {
+                  /* size */
+                  width: 80%;
                 }
 
                 @media screen and (max-width: 800px) {
                     /* size */
                     width: 100%;
                     height: 100%;
-                }
-
-                @media screen and (min-width: 1100px) {
-                    /* size */
-                    width: 80%;
-                }
-
-                @media screen and (min-width: 1500px) {
-                  /* size */
-                  width: 60%;
                 }
             }
         }
@@ -212,6 +260,23 @@ function scrollToTop() {
 
             /* margin */
             gap: 2rem;
+
+            .admin{
+              padding: .5em;
+              color: $h-c-black;
+              border-radius: 20px;
+
+              // transitions
+              transition: all 0.3s ease;
+
+              &:hover{
+                background: $h-c-dark-gray-shade;
+                color: $h-c-white;
+
+                // transitions
+                transition: all 0.5s ease;
+              }
+            }
         }
 
         /* login */
@@ -277,5 +342,69 @@ function scrollToTop() {
       @include mediaLoginWidth(1100px,50px,47%,50px,11vh);
       @include mediaLoginWidth(600px,50px,45%,50px,11vh);
       @include mediaLoginWidth(400px,50px,43%,50px,11vh)
+    }
+
+    .header-media{
+      /* size */
+      width: 100%;
+      height: 15vh;
+
+      /* position */
+      position: fixed;
+      top: 0;
+      z-index: $h-z-index-header;
+
+      /* display */
+      display: grid;
+      grid-template-columns:repeat(5, 20%);
+      grid-template-rows: 25% 50% 25%;
+      justify-content: center;
+      align-content: center;
+
+      /* margin */
+      padding-top: 3vh;
+
+      /* trnasitions */
+      transition: height, padding-top 0.4s ease;
+
+      /* logo */
+      .container-logo-media{
+        // size
+        height: 80%;
+
+        /* position */
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+
+        /* display */
+        @include flexbox();
+
+        a{
+          /* size */
+          height: 200%;
+          width: 10%;
+
+          // display
+          @include flexbox();
+
+          .logo-media{
+            /* size */
+            height: 100% !important;
+          }
+        }
+      }
+
+      /* login */
+      .login-logo{
+        /* position */
+        grid-column: 4 / 5;
+        grid-row: 2 / 3;
+
+        /* display */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
     }
 </style>

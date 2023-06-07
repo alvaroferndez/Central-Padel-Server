@@ -22,8 +22,6 @@ window.onscroll = function() {
   // moodify the height of the header
   if (y >= 85) {
     document.getElementById("header").classList.add("header-scrolled");
-    document.getElementsByClassName("container-logo")[0].style["grid-row"] = "1 / 4";
-    document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "100%";
     if(document.getElementsByClassName("menu").length > 0){
       if(window.innerWidth > 600){
         document.getElementsByClassName("menu")[0].style.marginTop = "-10vh";
@@ -31,9 +29,6 @@ window.onscroll = function() {
     }
   } else {
     document.getElementById("header").classList.remove("header-scrolled");
-    document.getElementsByClassName("container-logo")[0].style["grid-row"] = "2 / 3";
-    document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "200%";
-
     if(document.getElementsByClassName("menu").length > 0){
       if(window.innerWidth > 600){
         document.getElementsByClassName("menu")[0].style.marginTop = "-8vh";
@@ -96,17 +91,10 @@ function changeToAdmin(){
   <!-- header -->
   <header id="header">
 
-    <!-- logo container -->
-    <div class="container-logo">
-      <router-link class="link" to="/">
-        <img class="logo" src="@/assets/images/logo.png" alt="Logo Central Padel"/>
-      </router-link>
-    </div>
-
     <!-- navigation menu -->
     <nav class="navigation">
       <p class="link hover" v-for="option of options" v-on:click="admin.changeActualComponent(option.value)">{{option.label}}</p>
-      <p class="link hover" v-on:click="changeToAdmin()" v-if="authentification.user.admin">Modo usuario</p>
+      <p class="link hover admin-admin" v-on:click="changeToAdmin()" v-if="authentification.user.admin">Modo usuario</p>
     </nav>
 
     <!-- login -->
@@ -154,47 +142,6 @@ header{
   /* trnasitions */
   transition: height, padding-top 0.4s ease;
 
-  /* logo */
-  .container-logo{
-    /* position */
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-
-    /* display */
-    @include flexbox();
-
-    a{
-      /* size */
-      height: 200%;
-      width: 100%;
-
-      // display
-      @include flexbox();
-
-      .logo{
-        /* size */
-        width: 100%;
-        height: 100%;
-      }
-
-      @media screen and (max-width: 800px) {
-        /* size */
-        width: 100%;
-        height: 100%;
-      }
-
-      @media screen and (min-width: 1100px) {
-        /* size */
-        width: 80%;
-      }
-
-      @media screen and (min-width: 1500px) {
-        /* size */
-        width: 60%;
-      }
-    }
-  }
-
   /* navigation */
   .navigation{
     /* position */
@@ -206,6 +153,24 @@ header{
 
     /* margin */
     gap: 2rem;
+
+    .admin-admin{
+      padding: .5em;
+
+      color: $h-c-black;
+      border-radius: 20px;
+
+      // transitions
+      transition: all 0.3s ease;
+
+      &:hover{
+        background: $h-c-dark-gray-shade;
+        color: $h-c-white;
+
+        // transitions
+        transition: all 0.5s ease;
+      }
+    }
   }
 
   /* login */

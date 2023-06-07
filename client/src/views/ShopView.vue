@@ -54,6 +54,7 @@ getAllProducts();
 
             // display
             @include flexbox(row,center,center,5rem);
+
             .category{
                 //size
                 width: 100%;
@@ -95,6 +96,14 @@ getAllProducts();
                 text-shadow: 7px 8px 12px rgba(210,3,0,0.53);
                 text-transform: uppercase;
                 }
+            }
+
+            @media screen and (max-width: 1200px) {
+              // size
+              height: 80%;
+
+              // display
+              @include flexbox(column,center,flex-start,1rem);
             }
         }
     }

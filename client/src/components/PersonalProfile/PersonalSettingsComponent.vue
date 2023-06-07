@@ -29,6 +29,7 @@ function uploadImage(e){
 
 
 <template>
+  <div>
   <section class="container">
     <section class="container-options">
       <div class="options" v-on:input="onInput">
@@ -104,7 +105,7 @@ function uploadImage(e){
       <button class="change-data" v-on:click="reset()">Reestablecer</button>
     </div>
   </section>
-
+</div>
 </template>
 
 

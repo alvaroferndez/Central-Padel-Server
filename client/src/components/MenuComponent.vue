@@ -1,11 +1,13 @@
 <script setup>
 import { authentificationStore } from "../stores/authentification";
 import { toastStore } from "../stores/toast";
+import {adminStore} from "../stores/Admin/admin";
 import {ref} from "vue";
 
 // stores
 const authentification = authentificationStore();
 const toast = toastStore();
+const admin = adminStore();
 
 // variables
 var menu_items = [
@@ -19,11 +21,11 @@ var menu_items = [
   },
   {
     name: 'Partidos',
-    link: '/contact'
+    link: '/match'
   },
   {
-    name: 'Compras',
-    link: '/register'
+    name: 'Tienda',
+    link: '/shop'
   },
   {
     name: 'Amigos',
@@ -50,6 +52,11 @@ function logout() {
 function closeMenu() {
   authentification.menu_status = false;
 }
+
+function changeToAdmin(){
+  admin.admin_mode = !admin.admin_mode;
+  closeMenu();
+}
 </script>
 
 
@@ -71,10 +78,13 @@ function closeMenu() {
       <div v-for="item of menu_items">
         <router-link v-on:click="closeMenu()" class="link" :to="item.link">{{item.name}}</router-link>
       </div>
+      <div>
+        <p v-on:click="changeToAdmin()" v-if="authentification.user.admin">Administración</p>
+      </div>
     </div>
 
-    <div class="logout">
-      <v-icon name="hi-logout" scale="2" class="button" v-on:click="logout()"></v-icon>
+    <div class="logout" v-on:click="logout()">
+      <v-icon name="hi-logout" scale="2" class="button"></v-icon>
     </div>
   </section>
 </template>
@@ -84,6 +94,9 @@ function closeMenu() {
 @import "@/assets/styles.scss";
 
 .menu{
+  // size
+  min-width: 15%;
+
   // position
   position: fixed;
   right: 7.5%;
@@ -114,7 +127,7 @@ function closeMenu() {
     border-top-right-radius: 0px;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     // size
     width: 100%;
     height: 100vh;

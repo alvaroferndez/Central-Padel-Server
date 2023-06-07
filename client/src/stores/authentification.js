@@ -196,6 +196,9 @@ export const authentificationStore = defineStore('authentification', () => {
     }
 
     async function getImage(image){
+        if(image == undefined)
+            return;
+
         let new_image = image.split('.')[0] + '/' + image.split('.')[1]
         var response = await fetch(url + '/admin/product/image', {
             method: 'POST',

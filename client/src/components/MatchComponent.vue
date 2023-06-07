@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import { adminMatchStore } from "../stores/Admin/adminMatch";
 import { authentificationStore } from "../stores/authentification";
+import {toastStore} from "../stores/toast";
 import {routerStore} from "../stores/router";
 
 // variables
@@ -10,6 +11,8 @@ var show = ref(true);
 const adminMatch = adminMatchStore();
 const auth = authentificationStore();
 const router = routerStore();
+const toast = toastStore();
+
 // functions
 async function setMatchs(){
   var count = 0;
@@ -19,9 +22,8 @@ async function setMatchs(){
       count++;
     }
 
-    if(player.path != ''){
+    if(player.path != '' && player.path != undefined){
       player.photo = await auth.getImage(player.path)
-      console.log(player.photo);
     }
   }
 
@@ -31,6 +33,17 @@ async function setMatchs(){
 }
 
 function addToMatch(){
+  let i = 0;
+  for(let player of props.match.players){
+    if(player.email != '' && player.email != undefined ){
+      console.log(player.email);
+      i++;
+    }
+  }
+  if(i == 4){
+    toast.showError('El partido esta completo');
+    return;
+  }
   adminMatch.addPlayerToMatch(props.match.id, auth.user.email);
   router.navigateTo('/');
 }

@@ -17,6 +17,6 @@ import ProfileInformationComponent from "@/components/ProfileInformationComponen
     width: 99vw;
     height: 80vh;
     // display
-    @include flexbox(row, flex-start)
+    @include flexbox(row, flex-start);
   }
 </style>

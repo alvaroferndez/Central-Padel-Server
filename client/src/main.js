@@ -5,7 +5,7 @@ import 'vue-final-modal/style.css'
 
 // icons import
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { OiThreeBars, BiArrowUp, IoTennisballSharp, RiUser3Fill, HiLogout, IoClose, RiDeleteBack2Fill, MdModeeditoutlineOutlined, MdDeleteforeverRound, BiArrowReturnLeft } from "oh-vue-icons/icons";
+import { OiThreeBars, BiArrowUp, IoTennisballSharp, RiUser3Fill, HiLogout, IoClose, RiDeleteBack2Fill, MdModeeditoutlineOutlined, MdDeleteforeverRound, BiArrowReturnLeft, HiInformationCircle, FaShoppingBag, IoSettingsSharp } from "oh-vue-icons/icons";
 
 
 import App from './App.vue'
@@ -21,7 +21,7 @@ app.use(router)
 app.use(createVfm())
 
 // icons
-addIcons(OiThreeBars, BiArrowUp, IoTennisballSharp, RiUser3Fill, HiLogout, IoClose, RiDeleteBack2Fill, MdModeeditoutlineOutlined, MdDeleteforeverRound, BiArrowReturnLeft );
+addIcons(OiThreeBars, BiArrowUp, IoTennisballSharp, RiUser3Fill, HiLogout, IoClose, RiDeleteBack2Fill, MdModeeditoutlineOutlined, MdDeleteforeverRound, BiArrowReturnLeft, HiInformationCircle, FaShoppingBag, IoSettingsSharp );
 app.component("v-icon", OhVueIcon);
 
 app.mount('#app')

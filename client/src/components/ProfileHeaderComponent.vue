@@ -12,6 +12,9 @@ var image = ref("");
 
 // functions
 async function getImage(path){
+    if (path == undefined || path == "") {
+        return;
+    }
     var server_image = await adminShop.getImage(path);
     image.value = server_image;
 }

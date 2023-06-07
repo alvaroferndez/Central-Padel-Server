@@ -81,9 +81,16 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
       width: 100%;
       .none{
       display: none;
+      }
     }
   }
-}
+
+  @media screen and (max-width: 576px) {
+    &{
+      // size
+      width: 100% !important;
+    }
+  }
 }
 
 
