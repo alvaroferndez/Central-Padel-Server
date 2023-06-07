@@ -82,10 +82,12 @@ getImage(product.path);
 
 <template>
 <div class="global-container">
+    <button class="go-back" @click="admin.actual_component.subcomponent = 'home'">
+      <v-icon name="bi-arrow-return-left" class="icon" scale="2"/>
+    </button>
     <div class="container">
         <div>
             <h1>Editar producto</h1>
-            <button type="butto" @click="admin.actual_component.subcomponent = 'home'">Atrás</button>
         </div>
         <img :src="image" alt="">
         <input type="file" @change="setImage($event)" name="image" id="image">
@@ -117,6 +119,13 @@ getImage(product.path);
 </template>
 
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/assets/styles.scss";
 
+.global-container{
+
+  .go-back{
+    @include goBackButton();
+  }
+}
 </style>

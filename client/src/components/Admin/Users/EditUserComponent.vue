@@ -26,6 +26,9 @@ function goHome(){
 
 <template>
     <div class="global-container">
+        <button class="go-back" v-on:click="goHome()">
+          <v-icon name="bi-arrow-return-left" class="icon" scale="2"/>
+        </button>
         <div class="container">
             <div>
                 <div>
@@ -79,6 +82,10 @@ function goHome(){
     // size
     width: 100%;
     height: 100%;
+
+    .go-back{
+      @include goBackButton();
+    }
 
     .container{
         // size

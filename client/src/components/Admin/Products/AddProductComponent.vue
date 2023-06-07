@@ -104,10 +104,12 @@ function removeSize() {
 
 <template>
 <div class="global-container">
+    <button class="go-back" @click="admin.actual_component.subcomponent = 'home'">
+      <v-icon name="bi-arrow-return-left" class="icon" scale="2"/>
+    </button>
     <div class="container">
         <div>
             <h1>Añadir producto</h1>
-            <button type="butto" @click="admin.actual_component.subcomponent = 'home'">Atrás</button>
         </div>
         <input type="file" @change="setImage($event)" name="image" id="image">
         <input type="text" v-model="product.name" placeholder="Nombre del producto">
@@ -138,6 +140,13 @@ function removeSize() {
 </template>
 
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/assets/styles.scss";
 
+.global-container{
+
+  .go-back{
+    @include goBackButton();
+  }
+}
 </style>

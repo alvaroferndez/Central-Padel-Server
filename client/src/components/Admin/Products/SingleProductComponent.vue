@@ -10,6 +10,7 @@ const adminShop = adminShopStore();
 // variables
 var props = defineProps(['product'])
 var image = ref('');
+var grid_even = ref(false);
 
 async function getImage(path){
     var server_image = await adminShop.getImage(path);
@@ -26,6 +27,17 @@ function changeToView(product){
     admin.changeProps(product);
 }
 
+function setGrid(){
+  if(window.innerWidth >= 1430 && window.innerWidth <= 1794){
+    grid_even.value = true;
+  }else if(window.innerWidth >= 583 && window.innerWidth <= 1063){
+    grid_even.value = true;
+  }else{
+    grid_even.value = false;
+  }
+}
+
+setGrid();
 getImage(props.product.path);
 </script>
 

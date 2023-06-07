@@ -54,7 +54,6 @@ function setGrid(){
     }
 }
 
-// onMounted
 setGrid();
 getImage(product.value.path);
 </script>

@@ -24,6 +24,9 @@ function goHome(){
 
 <template>
     <div class="global-container">
+        <button class="go-back" @click="goHome()">
+          <v-icon name="bi-arrow-return-left" class="icon" scale="2"/>
+        </button>
         <div class="container" v-if="adminMatch.current_match">
             <section class="container-data">
                 <div>
@@ -48,7 +51,6 @@ function goHome(){
                 </div>
             </section>
         </div>
-        <button type="button" @click="goHome()">Volver a los partidos</button>
     </div>
 </template>
 
@@ -64,6 +66,10 @@ function goHome(){
     // display
     @include flexbox(column);
 
+    .go-back{
+      @include goBackButton();
+    }
+
     .container{
 
         // size
@@ -74,7 +80,7 @@ function goHome(){
         @include flexbox(column);
 
         // margin
-        margin-top: 5%;
+        margin-top: 2%;
 
         &-data{
 

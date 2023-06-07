@@ -36,7 +36,7 @@ const adminShop = adminShopStore();
 .global-container{
     // size
     width: 100%;
-    height: 80vh;
+    height: 74vh;
 
     // display
     @include flexbox(column);

@@ -59,27 +59,7 @@ getProductsOfCategory();
     margin-bottom: 5%;
 
     .go-back{
-        // size
-        max-height: 10vh;
-
-        // margin
-        padding: 5px 15px;
-
-        // decoration
-        border-radius: 8px;
-        background-color: $h-c-dark-gray;
-        color: #ffffff;
-        border: none;
-        cursor: pointer;
-
-        // transition
-        transition: background-color 0.3s ease;
-
-        &:hover{
-            // decoration
-            background-color: $h-c-dark-gray-tint;
-        }
-
+      @include goBackButton();
     }
 
     .container-products{

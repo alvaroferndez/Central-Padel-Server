@@ -81,8 +81,16 @@ function deletePlayer(index) {
     </ul>
     <button v-on:click="editMatch()">Añadir</button>
   </div>
-  <button v-on:click="admin.changeSubcomponent('home')">Volver al home</button>
+  <button class="go-back" v-on:click="admin.changeSubcomponent('home')">
+    <v-icon name="bi-arrow-return-left" class="icon" scale="2"/>
+  </button>
 </template>
 
 
-<style lang="scss"></style>
+<style lang="scss">
+@import "@/assets/styles.scss";
+
+.go-back{
+  @include goBackButton();
+}
+</style>

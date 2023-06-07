@@ -76,6 +76,12 @@ function menuStatus(e){
   }
 }
 
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
 
 function changeToAdmin(){
   admin.admin_mode = !admin.admin_mode;
@@ -106,8 +112,8 @@ function changeToAdmin(){
   </header>
 
   <!-- button to scroll to the top -->
-  <div class="scrolling-top">
-    <a href="#href">
+  <div class="scrolling-top" @click="scrollToTop()">
+    <a >
       <v-icon name="bi-arrow-up" scale="2" />
     </a>
   </div>
