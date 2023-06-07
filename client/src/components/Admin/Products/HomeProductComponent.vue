@@ -36,13 +36,17 @@ const adminShop = adminShopStore();
 .global-container{
     // size
     width: 100%;
-    height: 74vh;
+    height: 80vh;
 
     // display
     @include flexbox(column);
+
+    button{
+        @include button();
+    }
     .container{
         // margin
-        padding-top: 3%;
+        margin-top: 2rem;
 
         .container-category{
             // size
@@ -94,14 +98,7 @@ const adminShop = adminShopStore();
             }
             }
 
-            @media screen and (max-width: 1200px) {
-              // size
-              width: 60%;
-              height: 80%;
-
-              // display
-              @include flexbox(column,center,flex-start,1rem);
-            }
+            
         }
     }
 }

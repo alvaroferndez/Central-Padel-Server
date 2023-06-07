@@ -37,14 +37,14 @@ getImage(product.path);
         </div>
         <div class="data">
           <h1>{{ product.name }}</h1>
-          <span>{{ product.price }}</span>
+          <span>{{ product.price }} &euro;</span>
           <span>{{ product.description }}</span>
-          <span>{{ product.category }}</span>
 
           <h2>Tallas</h2>
           <div class="container-sizes">
             <div class="size" v-for="size in product.sizes">
-              <p v-if="size.stock != -1">{{size.size}}: {{size.stock}}</p>
+              <span v-if="size.stock != -1">{{size.size.toUpperCase()}}: </span>
+              <span v-if="size.stock != -1">{{size.stock}}</span>
             </div>
           </div>
         </div>
@@ -66,10 +66,6 @@ getImage(product.path);
   margin-bottom: 5%;
 
   .container {
-    border: 1px solid black;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
     // display
     @include flexbox(column, center, center, 1.5rem);
 
@@ -86,10 +82,16 @@ getImage(product.path);
     // padding
     padding: 1rem;
 
+    // decoration
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+
     .container-header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
+      // display
+      @include flexbox(row, center, flex-start);
+
+      // margin
       padding: 10px;
 
       .go-back {
@@ -98,60 +100,93 @@ getImage(product.path);
     }
 
     .container-data {
-      border: 1px solid black;
+      // size
       width: 100%;
-      display: flex;
+
+      // display
+      @include flexbox();
+
+      // margin
       padding: 20px;
 
       @include flexbox(column);
 
       .container-image{
-        border: 1px solid black;
+        // size
         height: 50%;
 
+        // display
         @include flexbox();
 
         img {
+          // size
           width: 200px;
           height: auto;
+
+          // decoration
           border-radius: 8px;
         }
       }
 
       .data {
-        border: 1px solid black;
+        // size
         height: 50%;
-        margin-left: 20px;
 
+        // display
         @include flexbox(column);
 
+        // margin
+        margin-left: 20px;
+
+
         h1 {
-          font-size: 24px;
+          // margin
           margin-bottom: 10px;
+
+          // decoration
+          font-size: 24px;
         }
 
         span {
+          // display
           display: block;
-          font-size: 16px;
+
+          // margin
           margin-bottom: 5px;
+
+          // decoration
+          font-size: 16px;
         }
 
         h2 {
-          font-size: 20px;
+          // margin
           margin-bottom: 10px;
+          
+          // decoration
+          font-size: 20px;
         }
 
         .container-sizes{
+          // display
           @include flexbox(row, center, flex-start);
 
           .size{
-            p {
-              border: 1px solid black;
-              border-radius: 8px;
-              padding: 5px;
-              margin-right: 5px;
-              font-size: 16px;
-              margin-bottom: 5px;
+            // display
+            @include flexbox(row, center, flex-start);
+
+            // margin
+            padding: 10px;
+            
+            span{
+              &:nth-child(1){
+                // decoration
+                font-weight: bold;
+              }
+
+              &:nth-child(2){
+                // margin
+                margin-left: 7.5px;
+              }
             }
           }
         }

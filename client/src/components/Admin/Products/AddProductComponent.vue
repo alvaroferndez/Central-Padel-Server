@@ -57,13 +57,13 @@ function setImage(e) {
 }
 
 function showNewSize() {
-    show_add_size.value = true;
+    show_add_size.value = !show_add_size.value;
     size.value = '';
     stock.value = '';
 }
 
 function showRemoveSize() {
-    show_remove_size.value = true;
+    show_remove_size.value = !show_remove_size.value;
     size.value = '';
 }
 
@@ -111,26 +111,41 @@ function removeSize() {
         <div>
             <h1>Añadir producto</h1>
         </div>
-        <input type="file" @change="setImage($event)" name="image" id="image">
-        <input type="text" v-model="product.name" placeholder="Nombre del producto">
-        <input type="text" v-model="product.price" placeholder="Precio del producto">
-        <input type="text" v-model="product.description" placeholder="Descripcion del producto">
-        <input type="text" v-model="product.category" placeholder="Categoria del producto">
+        <div>
+          <label for="image">Imagen</label>
+          <input type="file" @change="setImage($event)" name="image" id="image">
+        </div>
+        <div>
+          <label for="name">Nombre</label>
+          <input type="text" v-model="product.name" name="name" placeholder="Nombre del producto">
+        </div>
+        <div>
+          <label for="price">Precio</label>
+          <input type="text" v-model="product.price" name="price" placeholder="Precio del producto">
+        </div>
+        <div>
+          <label for="description">Descripción</label>
+          <input type="text" v-model="product.description" name="description" placeholder="Descripcion del producto">
+        </div>
+        <div>
+          <label for="category">Category</label>
+          <input type="text" v-model="product.category" placeholder="Categoria del producto">
+        </div>
         <button type="button" @click="showNewSize()">Añadir talla nueva</button>
-        <button type="button" @click="showRemoveSize()">Eliminar talla</button>
         <div v-if="show_add_size">
             <input type="text" v-model="size" placeholder="Talla">
             <input type="text" v-model="stock" placeholder="Cantidad">
             <button type="button" @click="addNewSize()">Añadir</button>
         </div>
+        <button type="button" @click="showRemoveSize()">Eliminar talla</button>
         <div v-if="show_remove_size">
             <input type="text" v-model="size" placeholder="Talla">
             <button type="button" @click="removeSize()">Eliminar</button>
         </div>
-        <div>
+        <div class="container-sizes">
             <h2>Tallas</h2>
             <div v-for="size in product.sizes">
-                <p v-if="size.stock != -1">{{size.size}}: {{size.stock}}</p>
+                <p v-if="size.stock != -1">{{size.size.toUpperCase()}}: {{size.stock}}</p>
             </div>
         </div>
 
@@ -143,10 +158,100 @@ function removeSize() {
 <style lang="scss" scoped>
 @import "@/assets/styles.scss";
 
-.global-container{
+.global-container {
+  // display
+  @include flexbox(column, center, center, 1.5rem);
 
-  .go-back{
-    @include goBackButton();
+  // margin
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+  .container {
+    // display
+    @include flexbox(column, center, center, 1.5rem);
+
+    // size
+    width: 75%;
+
+    // margin
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+    // border
+    border-radius: 5px;
+
+    // padding
+    padding: 1rem;
+
+    // decoration
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .container-image{
+        // size
+        height: 50%;
+
+        // display
+        @include flexbox();
+
+        img {
+          // size
+          width: 200px;
+          height: auto;
+
+          // decoration
+          border-radius: 8px;
+        }
+    }
+
+    .container-data {
+      // size
+      width: 40%;
+
+      // display
+      @include flexbox();
+
+      // margin
+      padding: 20px;
+
+      @include flexbox(column, flex-start, flex-start, 1.5rem);
+
+      div{
+        // size
+        width: 100%;
+
+        // display
+        @include flexbox(row, space-between, flex-start);
+
+        
+      }
+      
+      .container-sizes{
+            // size
+            width: 100%;
+
+            // display
+            @include flexbox(column, flex-start, flex-start, .5rem);
+
+            h2{
+                // size
+                width: 100%;
+            }
+
+            div{
+                // size
+                width: 100%;
+
+                // display
+                @include flexbox(row, space-between, flex-start);
+
+                input{
+                    // size
+                    width: 50px;
+                }
+            }
+        }
+    }
   }
 }
 </style>

@@ -130,8 +130,10 @@ function viewMatch(e, day, hour, court, id){
   if(e.target.innerHTML == "+") {
     addPreparerMatch(day, hour, court)
   }else{
-    admin.changeProps(id);
-    admin.changeSubcomponent("view");
+    if(id != undefined){
+      admin.changeProps(id);
+      admin.changeSubcomponent("view");
+    }
   }
 }
 
