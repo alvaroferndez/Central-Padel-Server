@@ -206,48 +206,46 @@ setMedia();
         transition: height, padding-top 0.4s ease;
 
         /* logo */
-        .container-logo{
-            // size
-            height: 80%;
+      /* logo */
+      .container-logo{
+        /* position */
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
 
-            /* position */
-            grid-column: 2 / 3;
-            grid-row: 2 / 3;
+        /* display */
+        @include flexbox();
 
-            /* display */
-            @include flexbox();
+        a{
+          /* size */
+          height: 200%;
+          width: 100%;
 
-            a{
-                /* size */
-                height: 200%;
-                width: 10%;
+          // display
+          @include flexbox();
 
-                // display
-                @include flexbox();
+          .logo{
+            /* size */
+            width: 100%;
+            height: 100%;
+          }
 
-                .logo{
-                  /* size */
-                  width: 150%;
-                  height: 100% !important;
-                }
+          @media screen and (max-width: 800px) {
+            /* size */
+            width: 100%;
+            height: 100%;
+          }
 
-                @media screen and (max-width: 1500px) {
-                  /* size */
-                  width: 60%;
-                }
+          @media screen and (min-width: 1100px) {
+            /* size */
+            width: 80%;
+          }
 
-                @media screen and (max-width: 1100px) {
-                  /* size */
-                  width: 80%;
-                }
-
-                @media screen and (max-width: 800px) {
-                    /* size */
-                    width: 100%;
-                    height: 100%;
-                }
-            }
+          @media screen and (min-width: 1500px) {
+            /* size */
+            width: 60%;
+          }
         }
+      }
 
         /* navigation */
         .navigation{

@@ -29,13 +29,75 @@ getProductsOfCategory();
 
 <template>
     <div class="global-container">
-        <button type="button" @click="adminShop.category_component = 'any'">Atrás</button>
-        <div>
-            <SingleProductComponent class="card" v-for="product of products" :product="product" :key="product.name"/>
-        </div>
+      <button class="go-back" @click="adminShop.category_component = 'any'">
+        <v-icon name="bi-arrow-return-left" class="icon" scale="2"/>
+      </button>
+      <div class="container-products">
+        <SingleProductComponent class="card" v-for="product of products" :product="product" :key="product.name"/>
+        <div v-if="products.length == 0">No hay productos disponibles</div>
+      </div>
     </div>
 </template>
 
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/assets/styles.scss";
+
+.global-container{
+  // display
+  @include flexbox(column, center, center, 1.5rem);
+
+  // margin
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+  .go-back{
+    // size
+    max-height: 10vh;
+
+    // margin
+    padding: 5px 15px;
+
+    // decoration
+    border-radius: 8px;
+    background-color: $h-c-dark-gray;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+
+    // transition
+    transition: background-color 0.3s ease;
+
+    &:hover{
+      // decoration
+      background-color: $h-c-dark-gray-tint;
+    }
+
+  }
+
+  .container-products{
+    // size
+    width: 75%;
+    min-height: 70vh;
+
+    // display
+    @include autoGrid();
+
+    @media screen and (max-width: 698px) {
+      width: 90%;
+    }
+
+    @media screen and (max-width: 582px) {
+      width: 50%;
+    }
+
+    @media screen and (max-width: 495px) {
+      width: 60%;
+    }
+
+    @media screen and (max-width: 420px) {
+      width: 70%;
+    }
+  }
+}
 </style>

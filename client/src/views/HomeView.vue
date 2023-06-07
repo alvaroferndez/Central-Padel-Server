@@ -83,8 +83,8 @@ function orderNews() {
             <h1 class="title">Central Pa<span class="title-red">d</span>el</h1>
             <p class="subtitle">Tu club de pádel en Granada</p>
             <div class="buttons">
-                <router-link to="/reservas" class="button">Reserva</router-link>
-                <router-link to="/contacto" class="button">Contacto</router-link>
+                <router-link to="/match" class="button">Partidos</router-link>
+                <router-link to="/shop" class="button">Tienda</router-link>
                 <router-link to="/login" class="button">Iniciar-Sesión</router-link>
             </div>
         </div>
