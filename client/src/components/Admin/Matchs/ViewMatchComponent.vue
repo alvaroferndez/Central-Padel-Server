@@ -156,28 +156,28 @@ function goHome(){
                 &:nth-child(1){
                     // position
                     position: absolute;
-                    top: 10%;
+                    top: 15%;
                     left: 30%;
                 }
 
                 &:nth-child(2){
                     // position
                     position: absolute;
-                    top: 10%;
+                    top: 15%;
                     right: 10%;
                 }
 
                 &:nth-child(3){
                     // position
                     position: absolute;
-                    bottom: 10%;
+                    bottom: 15%;
                     left: 10%;
                 }
 
                 &:nth-child(4){
                     // position
                     position: absolute;
-                    bottom: 10%;
+                    bottom: 15%;
                     right: 10%;
                 }
 
@@ -188,6 +188,106 @@ function goHome(){
 
                     // decoration
                     border-radius: 50%;
+                }
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            &-data{
+                //size
+                width: 100%;
+                height: 50%;
+
+                &>div{
+                    // size
+                    width: 100%;
+                    height: 100%;
+
+                    // display
+                    @include flexbox(column, flex-start);
+
+                    &>div{
+                        // size
+                        width: 100%;
+                        height: calc(100% / 3);
+
+                        // display
+                        @include flexbox();
+
+                        &>label{
+                            // size
+                            width: 50%;
+                            height: 100%;
+
+                            // display
+                            @include flexbox();
+                        }
+
+                        &>span{
+                            // size
+                            width: 50%;
+                            height: 100%;
+
+                            // display
+                            @include flexbox();
+                        }
+                    }
+                }
+
+            }
+
+            &-image{
+                //size
+                width: 100%;
+                height: 50%;
+
+                .position{
+                    // size
+                    width: 50px;
+                    height: 50px;
+
+                    // display
+                    @include flexbox(column);
+
+                    // decoration
+                    border-radius: 50%;
+
+                    &:nth-child(1){
+                        // position
+                        position: absolute;
+                        top: 15%;
+                        left: 30%;
+                    }
+
+                    &:nth-child(2){
+                        // position
+                        position: absolute;
+                        top: 15%;
+                        right: 10%;
+                    }
+
+                    &:nth-child(3){
+                        // position
+                        position: absolute;
+                        bottom: 15%;
+                        left: 10%;
+                    }
+
+                    &:nth-child(4){
+                        // position
+                        position: absolute;
+                        bottom: 15%;
+                        right: 10%;
+                    }
+
+                    img{
+                        // size
+                        width: 100%;
+                        height: 100%;
+
+                        // decoration
+                        border-radius: 50%;
+                    }
                 }
             }
         }

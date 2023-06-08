@@ -283,13 +283,53 @@
                         width: 100%;
 
                         // display
-                        @include flexbox();
+                        @include flexbox(row,center,flex-start, .5rem);
 
-                        input {
+                        input{
                             // size
-                            width: 50px;
+                            width: 10%;
+                        }
+
+                        span {
+                            // size
+                            width: 45%;
+
+                            // decoration
+                            text-align: right;
+                            text-transform: uppercase;
+                            font-weight: bold;
                         }
                     }
+                }
+
+                @media screen and (max-width: 1400px) {
+                    // size
+                    width: 50%;
+                }
+
+                @media screen and (max-width: 1000px) {
+                    // size
+                    width: 70%;
+                }
+
+                @media screen and (max-width: 700px) {
+                    // size
+                    width: 80%;
+                }
+
+                @media screen and (max-width: 500px) {
+                    // size
+                    width: 95%;
+
+                    // margin
+                    padding: 0;
+                }
+            }
+
+            h1{
+                @media screen and (max-width: 500px) {
+                    // decoration
+                    font-size: $h-f-size-subtitle;
                 }
             }
         }

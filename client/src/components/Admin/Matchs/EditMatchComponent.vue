@@ -73,7 +73,7 @@ function deletePlayer(index) {
           <label>Jugador {{ adminMatch.current_match.players.indexOf(player) + 1 }}</label>
           <input type="text" v-model="player.email" placeholder="seleccione un jugador...">
           <v-icon class="delete" v-on:click="deletePlayer(adminMatch.current_match.players.indexOf(player))"
-            name="ri-delete-back-2-fill"></v-icon>
+            name="bi-trash-fill" scale="2"></v-icon>
         </div>
       </div>
       <input type="text" v-model="search_text" @input="filterUsers()" placeholder="Buscar jugador...">
@@ -179,6 +179,16 @@ function deletePlayer(index) {
       @include button();
       // size
       width: 20%;
+    }
+
+    @media screen and (max-width: 800px) {
+      // size
+      width: 60%;
+    }
+
+    @media screen and (max-width: 500px) {
+      // size
+      width: 80%;
     }
   }
 }

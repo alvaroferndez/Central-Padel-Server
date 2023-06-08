@@ -2,11 +2,16 @@
 import {adminUserStore} from "../../../stores/Admin/adminUser";
 import {adminStore} from "../../../stores/Admin/admin";
 import {authentificationStore} from "../../../stores/authentification";
+import HomeMediaUserComponent from "./HomeMediaUserComponent.vue";
+import { ref } from "vue";
 
 // stores
 const adminUser = adminUserStore();
 const admin = adminStore();
 const authentification = authentificationStore();
+
+// variables
+var width = ref(window.innerWidth);
 
 // functions
 function editUser(e,email){
@@ -30,7 +35,7 @@ authentification.getAllUsers();
 
 
 <template>
-    <div class="global-container">
+    <div v-if="width >= 1350" class="global-container">
         <div class="container">
             <table>
                 <thead>
@@ -68,8 +73,8 @@ authentification.getAllUsers();
                         <td>{{ user.club }}</td>
                         <td>
                             <div class="actions">
-                                <button class="edit-button" v-on:click="editUser($event, user.email)">Editar</button>
-                                <button class="delete-button" v-if="user.email != authentification.user.email" @click="deleteUser($event, user.email)">Eliminar</button>
+                                <v-icon class="edit-button" v-on:click="editUser($event, user.email)" name="md-modeeditoutline-outlined" scale="2"></v-icon>
+                                <v-icon class="delete-button" v-if="user.email != authentification.user.email" @click="deleteUser($event, user.email)" name="bi-trash-fill" scale="2"></v-icon>
                             </div>
                         </td>
                     </tr>
@@ -77,6 +82,7 @@ authentification.getAllUsers();
             </table>
         </div>
     </div>
+    <HomeMediaUserComponent v-else></HomeMediaUserComponent>
 </template>
 
 
@@ -153,13 +159,11 @@ authentification.getAllUsers();
 
                     .edit-button{
                         // decoration
-                        background-color: $h-c-blue;
-                        color: $h-c-white;
+                        color: $h-c-blue;
                     }
 
                     .delete-button{
-                        background-color: $h-c-red-ligth;
-                        color: $h-c-white;
+                        color: $h-c-red-ligth;
                     }
                 }
 
