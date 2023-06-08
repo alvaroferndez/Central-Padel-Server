@@ -1,6 +1,6 @@
 // Mixin
 
-@mixin flexbox($direction:row, $aling:center, $justify:center, $gap:0){
+@mixin flexbox($direction: row, $aling: center, $justify: center, $gap: 0) {
     // display
     display: flex;
     flex-direction: $direction;
@@ -9,7 +9,7 @@
     gap: $gap;
 }
 
-@mixin grid($columns: 1, $rows: 1, $columns-size: 1fr, $rows-size: 1fr, $gap: 0){
+@mixin grid($columns: 1, $rows: 1, $columns-size: 1fr, $rows-size: 1fr, $gap: 0) {
     // display
     display: grid;
     grid-template-columns: repeat($columns, $columns-size);
@@ -19,30 +19,33 @@
     justify-content: center;
 }
 
-@mixin autoGrid($minColumnWidth: 250px, $gridGap: 1.5em){
+@mixin autoGrid($minColumnWidth: 250px, $gridGap: 1.5em) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax($minColumnWidth, 1fr));
     grid-gap: $gridGap;
 }
 
-@mixin semicircle-footer($position, $color){
+@mixin semicircle-footer($position, $color) {
     /* size */
     width: 7.5%;
     height: 15%;
 
     /* position */
     position: relative;
-    @if($position == 'top'){
+
+    @if($position =='top') {
         top: 0.2%;
         -moz-border-radius: 100px 100px 0 0;
         -webkit-border-radius: 100px 100px 0 0;
         border-radius: 100px 100px 0 0;
-    } @else if($position == 'bottom'){
+    }
+
+    @else if($position =='bottom') {
         -moz-border-radius: 0 0 100px 100px;
         -webkit-border-radius: 0 0 100px 100px;
         border-radius: 0 0 100px 100px;
-    } 
-    
+    }
+
     /* display */
     visibility: hidden;
 
@@ -53,9 +56,12 @@
 
         width: 10%;
         height: 12%;
-        @if($position == 'top'){
+
+        @if($position =='top') {
             top: 1.7%;
-        } @else if($position == 'bottom'){
+        }
+
+        @else if($position =='bottom') {
             bottom: 1.9%;
         }
     }
@@ -63,16 +69,19 @@
     @media screen and (max-width: 500px) {
         width: 12%;
         height: 10%;
-        @if($position == 'top'){
+
+        @if($position =='top') {
             top: 2.7%;
-        } @else if($position == 'bottom'){
+        }
+
+        @else if($position =='bottom') {
             bottom: 2.9%;
         }
     }
 }
 
-@mixin mediaLoginWidth($media, $width, $right, $height, $top){
-    @media screen and (max-width: $media){
+@mixin mediaLoginWidth($media, $width, $right, $height, $top) {
+    @media screen and (max-width: $media) {
         // size
         width: $width;
         height: $height;
@@ -83,8 +92,8 @@
     }
 }
 
-@mixin mediaLoginHeight($media, $height, $top){
-    @media screen and (max-height: $media){
+@mixin mediaLoginHeight($media, $height, $top) {
+    @media screen and (max-height: $media) {
         // size
         height: 50%;
 
@@ -93,7 +102,7 @@
     }
 }
 
-@mixin button(){
+@mixin button() {
     // size
     width: auto;
     min-height: 3rem;
@@ -123,17 +132,18 @@
     // transition
     transition: all 250ms;
 
-    &:hover, &:focus{
+    &:hover,
+    &:focus {
         border-color: rgba(0, 0, 0, 0.15);
         box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
         color: rgba(0, 0, 0, 0.65);
     }
 
-    &:hover{
+    &:hover {
         transform: translateY(-1px);
     }
 
-    &:active{
+    &:active {
         background-color: #F0F0F1;
         border-color: rgba(0, 0, 0, 0.15);
         box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
@@ -142,7 +152,7 @@
     }
 }
 
-@mixin goBackButton(){
+@mixin goBackButton() {
     // size
     max-height: 10vh;
 
@@ -159,8 +169,129 @@
     // transition
     transition: background-color 0.3s ease;
 
-    &:hover{
+    &:hover {
         // decoration
         background-color: $h-c-dark-gray-tint;
+    }
+}
+
+@mixin adminProduct() {
+    .global-container {
+        // display
+        @include flexbox(column, center, center, 1.5rem);
+
+        // margin
+        margin-top: 5%;
+        margin-bottom: 5%;
+
+        .go-back {
+            @include goBackButton();
+        }
+
+        .container {
+            // display
+            @include flexbox(column, center, center, 1.5rem);
+
+            // size
+            width: 75%;
+
+            // margin
+            margin-top: 5%;
+            margin-bottom: 5%;
+
+            // border
+            border-radius: 5px;
+
+            // padding
+            padding: 1rem;
+
+            // decoration
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            .container-image {
+                // size
+                height: 50%;
+
+                // display
+                @include flexbox();
+
+                img {
+                    // size
+                    width: 200px;
+                    height: auto;
+
+                    // decoration
+                    border-radius: 8px;
+                }
+            }
+
+            .container-data {
+                // size
+                width: 40%;
+
+                // display
+                @include flexbox(column, flex-start, flex-start, 1.5rem);
+
+                // margin
+                padding: 20px;
+
+                div {
+                    // size
+                    width: 100%;
+
+                    // display
+                    @include flexbox(row, center, space-evenly);
+
+                    label {
+                        // size
+                        width: 50%;
+
+                        // decoration
+                        font-weight: bold;
+                    }
+
+                    input,span {
+                        // size
+                        width: 50%;
+                    }
+                }
+
+                .button {
+                    // display
+                    align-self: center;
+                    @include button();
+                }
+
+                .container-sizes {
+                    // size
+                    width: 100%;
+
+                    // display
+                    @include flexbox(column, flex-start, flex-start, .5rem);
+
+                    h2 {
+                        // size
+                        width: 100%;
+
+                        // display
+                        text-align: center;
+                    }
+
+                    div {
+                        // size
+                        width: 100%;
+
+                        // display
+                        @include flexbox();
+
+                        input {
+                            // size
+                            width: 50px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

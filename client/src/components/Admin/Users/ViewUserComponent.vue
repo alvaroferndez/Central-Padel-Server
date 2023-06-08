@@ -26,12 +26,10 @@ function goHome(){
           <v-icon name="bi-arrow-return-left" class="icon" scale="2"/>
         </button>
         <div class="container">
-            <div class="image-container">
-                <div class="image">
-                    <img :src="adminUser.actual_user.photo ? adminUser.actual_user.photo : '../../../src/assets/images/profile-photo.webp'" alt="foto de perfil">
-                </div>
+            <div class="container-image">
+                <img :src="adminUser.actual_user.photo ? adminUser.actual_user.photo : '../../../src/assets/images/profile-photo.webp'" alt="foto de perfil">
             </div>
-            <div class="data">
+            <div class="container-data">
                 <div>
                     <label for="">Nombre: </label>
                     <span>{{ adminUser.actual_user.name }}</span>
@@ -78,44 +76,8 @@ function goHome(){
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/styles.scss';
 
-.global-container{
-    //size
-    width: 100%;
-    height: 100%;
-
-    .go-back{
-      @include goBackButton();
-    }
-
-    .container{
-        //size
-        width: 100%;
-        height: 100%;
-
-        // display
-        @include flexbox(column);
-
-        .image-container{
-            // size
-            width: 15%;
-            height: 15%;
-
-            .image{
-                //size
-                width: 100%;
-                height: 100%;
-
-                img{
-                    //size
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-        }
-    }
-   
-}
+@include adminProduct();
 </style>

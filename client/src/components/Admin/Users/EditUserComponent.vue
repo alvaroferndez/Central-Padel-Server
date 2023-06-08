@@ -30,7 +30,10 @@ function goHome(){
           <v-icon name="bi-arrow-return-left" class="icon" scale="2"/>
         </button>
         <div class="container">
-            <div>
+            <div class="container-image">
+                <img :src="adminUser.actual_user.photo ? adminUser.actual_user.photo : '../../../src/assets/images/profile-photo.webp'" alt="foto de perfil">
+            </div>
+            <div class="container-data">
                 <div>
                     <label for="">Nombre</label>
                     <input type="text" v-model="adminUser.actual_user.name" placeholder="sin definir">
@@ -67,32 +70,15 @@ function goHome(){
                     <label for="">Club</label>
                     <input type="text" v-model="adminUser.actual_user.club" placeholder="sin definir">
                 </div>
-                <button class="edit" v-on:click="editUser()">Editar</button>
+                <button class="button" v-on:click="editUser()">Guardar cambios</button>
             </div>
-            <button v-on:click="goHome()">Volver atrás</button>
         </div>
     </div>
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/styles.scss';
 
-.global-container{
-    // size
-    width: 100%;
-    height: 100%;
-
-    .go-back{
-      @include goBackButton();
-    }
-
-    .container{
-        // size
-        width: 100%;
-        height: 100%;
-
-        @include flexbox(column);
-    }
-}
+@include adminProduct();
 </style>

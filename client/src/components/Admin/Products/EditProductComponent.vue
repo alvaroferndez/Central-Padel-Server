@@ -113,16 +113,16 @@ getImage(product.path);
                 <label for="category">Categoría</label>
                 <input type="text" v-model="product.category" name="category" placeholder="Categoria del producto">
             </div>
-            <button type="button" @click="showNewSize()">Añadir talla nueva</button>
+            <button class="button" type="button" @click="showNewSize()">Añadir talla nueva</button>
             <div v-if="show_add_size">
                 <input type="text" v-model="size" placeholder="Talla">
                 <input type="text" v-model="stock" placeholder="Cantidad">
-                <button type="button" @click="addNewSize()">Añadir</button>
+                <button class="button" type="button" @click="addNewSize()">Añadir</button>
             </div>
-            <button type="button" @click="showRemoveSize()">Eliminar talla</button>
+            <button class="button"  type="button" @click="showRemoveSize()">Eliminar talla</button>
             <div v-if="show_remove_size">
                 <input type="text" v-model="size" placeholder="Talla">
-                <button type="button" @click="removeSize()">Eliminar</button>
+                <button class="button" type="button" @click="removeSize()">Eliminar</button>
             </div>
             <div class="container-sizes">
                 <h2>Tallas</h2>
@@ -131,7 +131,7 @@ getImage(product.path);
                     <input v-model="size.stock" v-if="size.stock != -1"/>
                 </div>
             </div>
-            <button type="button" @click="adminShop.editProduct(product)">Guardar producto</button>
+            <button class="button" type="button" @click="adminShop.editProduct(product)">Guardar producto</button>
         </div>
     </div>
 </div>
@@ -141,100 +141,5 @@ getImage(product.path);
 <style lang="scss" scoped>
 @import "@/assets/styles.scss";
 
-.global-container {
-  // display
-  @include flexbox(column, center, center, 1.5rem);
-
-  // margin
-  margin-top: 5%;
-  margin-bottom: 5%;
-
-  .container {
-    // display
-    @include flexbox(column, center, center, 1.5rem);
-
-    // size
-    width: 75%;
-
-    // margin
-    margin-top: 5%;
-    margin-bottom: 5%;
-
-    // border
-    border-radius: 5px;
-
-    // padding
-    padding: 1rem;
-
-    // decoration
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    .container-image{
-        // size
-        height: 50%;
-
-        // display
-        @include flexbox();
-
-        img {
-          // size
-          width: 200px;
-          height: auto;
-
-          // decoration
-          border-radius: 8px;
-        }
-    }
-
-    .container-data {
-      // size
-      width: 40%;
-
-      // display
-      @include flexbox();
-
-      // margin
-      padding: 20px;
-
-      @include flexbox(column, flex-start, flex-start, 1.5rem);
-
-      div{
-        // size
-        width: 100%;
-
-        // display
-        @include flexbox(row, space-between, flex-start);
-
-        
-      }
-      
-      .container-sizes{
-            // size
-            width: 100%;
-
-            // display
-            @include flexbox(column, flex-start, flex-start, .5rem);
-
-            h2{
-                // size
-                width: 100%;
-            }
-
-            div{
-                // size
-                width: 100%;
-
-                // display
-                @include flexbox(row, space-between, flex-start);
-
-                input{
-                    // size
-                    width: 50px;
-                }
-            }
-        }
-    }
-  }
-}
+@include adminProduct();
 </style>

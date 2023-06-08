@@ -45,6 +45,9 @@ const adminShop = adminShopStore();
         @include button();
     }
     .container{
+        // size
+        height: 100%;
+
         // margin
         margin-top: 2rem;
 
@@ -80,12 +83,12 @@ const adminShop = adminShopStore();
                 }
 
                 .container-title{
-                // size
-                width: 100%;
-                height: 100%;
+                    // size
+                    width: 100%;
+                    height: 100%;
 
-                // display
-                @include flexbox();
+                    // display
+                    @include flexbox();
                     .title{
                     // decoration
                     color: $h-c-white;
@@ -95,10 +98,16 @@ const adminShop = adminShopStore();
                     text-shadow: 7px 8px 12px rgba(210,3,0,0.53);
                     text-transform: uppercase;
                     }
-            }
+                }
             }
 
-            
+            @media screen and (max-width: 1200px) {
+              // size
+              height: 80%;
+
+              // display
+              @include flexbox(column,center,flex-start,1rem);
+            }
         }
     }
 }

@@ -47,6 +47,8 @@ getAllProducts();
     // display
     @include flexbox(column);
     .container{
+        // size
+        height: 100%;
         .container-category{
             // size
             width: 80%;
