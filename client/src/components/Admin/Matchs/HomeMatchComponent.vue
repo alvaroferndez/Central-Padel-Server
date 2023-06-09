@@ -1,6 +1,8 @@
 <script setup>
-import {adminStore} from "../../../stores/Admin/admin";
-import {adminMatchStore} from "../../../stores/Admin/adminMatch";
+import { adminStore } from "../../../stores/Admin/admin";
+import { adminMatchStore } from "../../../stores/Admin/adminMatch";
+// import {usePagination, VuePagination} from 'vue3-pagination';
+import { ref } from "vue";
 
 // stores
 const admin = adminStore();
@@ -12,76 +14,75 @@ var days_complete = [];
 var days_week = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 var today = new Date();
 var hours_play = [
-  { 
+  {
     hour_start: "9:00",
-    hour_finish: "10:00" 
+    hour_finish: "10:00"
   },
-  { 
+  {
     hour_start: "10:00",
-    hour_finish: "11:00" 
+    hour_finish: "11:00"
   },
-  { 
+  {
     hour_start: "11:00",
-    hour_finish: "12:00" 
+    hour_finish: "12:00"
   },
-  { 
+  {
     hour_start: "12:00",
-    hour_finish: "13:00" 
+    hour_finish: "13:00"
   },
-  { 
+  {
     hour_start: "13:00",
-    hour_finish: "14:00" 
+    hour_finish: "14:00"
   },
-  { 
+  {
     hour_start: "14:00",
-    hour_finish: "15:00" 
+    hour_finish: "15:00"
   },
-  { 
+  {
     hour_start: "15:00",
-    hour_finish: "16:00" 
+    hour_finish: "16:00"
   },
-  { 
+  {
     hour_start: "16:00",
-    hour_finish: "17:00" 
+    hour_finish: "17:00"
   },
-  { 
+  {
     hour_start: "17:00",
-    hour_finish: "18:00" 
+    hour_finish: "18:00"
   },
-  { 
+  {
     hour_start: "18:00",
-    hour_finish: "19:00" 
+    hour_finish: "19:00"
   },
-  { 
+  {
     hour_start: "19:00",
-    hour_finish: "20:00" 
+    hour_finish: "20:00"
   },
-  { 
+  {
     hour_start: "20:00",
-    hour_finish: "21:00" 
+    hour_finish: "21:00"
   },
-  { 
+  {
     hour_start: "21:00",
-    hour_finish: "22:00" 
+    hour_finish: "22:00"
   },
-  { 
+  {
     hour_start: "22:00",
-    hour_finish: "23:00" 
+    hour_finish: "23:00"
   }
 ];
-var courts = [1,2,3]
-var page = 1;
+var courts = [1, 2, 3]
+var page = ref(0);
+
 
 // functions
-
 function getNextSevenDays() {
   for (let i = 0; i < 7; i++) {
     const nextDay = new Date(today.getTime() + i * 24 * 60 * 60 * 1000);
     const month = nextDay.getMonth() + 1;
     const date = nextDay.getDate();
-    const dateString = `${date < 10 ? "0" + date : date}/${
-        month < 10 ? "0" + month : month
-    }/${nextDay.getFullYear()}`;
+    const dateString = `${date < 10 ? "0" + date : date}/${month < 10 ? "0" + month : month
+      }/${nextDay.getFullYear()}`;
     days.push(dateString);
     days_complete.push({
       day: days_week[nextDay.getDay()],
@@ -103,7 +104,7 @@ function setTable(court, day, hour) {
       result.push(adminMatch.all_matchs[i]);
     }
   }
-  if(result.length == 0) {
+  if (result.length == 0) {
     result.push({
       players: [
         {
@@ -113,6 +114,22 @@ function setTable(court, day, hour) {
     })
   }
   return result;
+}
+
+function changePage(type) {
+  if (type == "+") {
+    if (page.value < 6) {
+      page.value = page.value + 1;
+    } else if (page.value == 6) {
+      page.value = 0;
+    }
+  } else if (type == "-") {
+    if (page.value > 0) {
+      page.value = page.value - 1;
+    } else if (page.value == 0) {
+      page.value = 6;
+    }
+  }
 }
 
 function addPreparerMatch(day, hour, court) {
@@ -125,25 +142,25 @@ function addPreparerMatch(day, hour, court) {
   adminMatch.addMatch(match, days[0], days[6]);
 }
 
-function viewMatch(e, day, hour, court, id){
+function viewMatch(e, day, hour, court, id) {
   e.stopPropagation()
-  if(e.target.innerHTML == "+") {
+  if (e.target.innerHTML == "+") {
     addPreparerMatch(day, hour, court)
-  }else{
-    if(id != undefined){
+  } else {
+    if (id != undefined) {
       admin.changeProps(id);
       admin.changeSubcomponent("view");
     }
   }
 }
 
-function editMatch(e, id){
+function editMatch(e, id) {
   e.stopPropagation()
   admin.changeProps(id);
   admin.changeSubcomponent("edit");
 }
 
-function deleteMatch(e, id){
+function deleteMatch(e, id) {
   e.stopPropagation()
   adminMatch.deleteMatch(id, days[0], days[6]);
 }
@@ -158,64 +175,73 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
   <div class="global-container">
     <div class="container-matchs">
       <div class="container-day">
-        <table v-for="day of days_complete">
-          <thead>
-            <h3 :key="day.day">{{ day.day + ' ' + day.number}}</h3>
-            <tr>
-              <th>Hora</th>
-              <th v-for="court of courts">
-                  <td :key="court">Pista {{ court }}</td>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="hour of hours_play">
-              <td>{{ hour.hour_start + ' - ' + hour.hour_finish}}</td>
-              <td :key="{day:day, hour:hour, court:1}" v-for="result of setTable(1,day.number,hour.hour_start)">
-                <div class="container-players">
-                  <div class="players" v-on:click="viewMatch($event, day, hour, 1, result.id)">
-                    <label v-for="player of result.players">
-                      {{ player.email ? player.email : 'sin definir ' }}
-                    </label>
+        <div v-for="day of days_complete">
+          <table v-if="days_complete.indexOf(day) == page">
+            <thead>
+              <tr class="title">
+                <th colspan="4">
+                  <h3 :key="day.day">{{ day.day + ' ' + day.number }}</h3>
+                </th>
+              </tr>
+              <tr class="time">
+                <th>Hora</th>
+                <th v-for="court of courts" :key="court">Pista {{ court }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="hour of hours_play">
+                <td>{{ hour.hour_start + ' - ' + hour.hour_finish }}</td>
+                <td class="match" :key="{ day: day, hour: hour, court: 1 }"
+                  v-for="result of setTable(1, day.number, hour.hour_start)">
+                  <div class="container-players">
+                    <div class="players" v-on:click="viewMatch($event, day, hour, 1, result.id)">
+                      <label v-for="player of result.players">
+                        {{ player.email ? player.email : 'sin definir ' }}
+                      </label>
+                    </div>
+                    <div class="options">
+                      <label v-if="result.edit" v-on:click="editMatch($event, result.id)" for="">editar</label>
+                      <label v-if="result.edit" v-on:click="deleteMatch($event, result.id)" for="">borrar</label>
+                    </div>
                   </div>
-                  <div class="options">
-                    <label v-if="result.edit" v-on:click="editMatch($event ,result.id)" for="">editar</label>
-                    <label v-if="result.edit" v-on:click="deleteMatch($event ,result.id)" for="">borrar</label>
+                </td>
+                <td class="match" :key="{ day: day, hour: hour, court: 2 }"
+                  v-for="result of setTable(2, day.number, hour.hour_start)">
+                  <div class="container-players">
+                    <div class="players" v-on:click="viewMatch($event, day, hour, 2, result.id)">
+                      <label v-for="player of result.players">
+                        {{ player.email ? player.email : 'sin definir ' }}
+                      </label>
+                    </div>
+                    <div class="options">
+                      <label v-if="result.edit" v-on:click="editMatch($event, result.id)" for="">editar</label>
+                      <label v-if="result.edit" v-on:click="deleteMatch($event, result.id)" for="">borrar</label>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td :key="{day:day, hour:hour, court:2}" v-for="result of setTable(2,day.number,hour.hour_start)">
-                <div class="container-players">
-                  <div class="players" v-on:click="viewMatch($event, day, hour, 2, result.id)">
-                    <label v-for="player of result.players">
-                      {{ player.email ? player.email : 'sin definir ' }}
-                    </label>
+                </td>
+                <td class="match" :key="{ day: day, hour: hour, court: 3 }"
+                  v-for="result of setTable(3, day.number, hour.hour_start)">
+                  <div class="container-players">
+                    <div class="players" v-on:click="viewMatch($event, day, hour, 3, result.id)">
+                      <label v-for="player of result.players">
+                        {{ player.email ? player.email : 'sin definir ' }}
+                      </label>
+                    </div>
+                    <div class="options">
+                      <label v-if="result.edit" v-on:click="editMatch($event, result.id)" for="">editar</label>
+                      <label v-if="result.edit" v-on:click="deleteMatch($event, result.id)" for="">borrar</label>
+                    </div>
                   </div>
-                  <div class="options">
-                    <label v-if="result.edit" v-on:click="editMatch($event ,result.id)" for="">editar</label>
-                    <label v-if="result.edit" v-on:click="deleteMatch($event ,result.id)" for="">borrar</label>
-                  </div>
-                </div>
-              </td>
-              <td :key="{day:day, hour:hour, court:3}" v-for="result of setTable(3,day.number,hour.hour_start)">
-                <div class="container-players">
-                  <div class="players" v-on:click="viewMatch($event, day, hour, 3, result.id)">
-                    <label v-for="player of result.players">
-                      {{ player.email ? player.email : 'sin definir ' }}
-                    </label>
-                  </div>
-                  <div class="options">
-                    <label v-if="result.edit" v-on:click="editMatch($event ,result.id)" for="">editar</label>
-                    <label v-if="result.edit" v-on:click="deleteMatch($event ,result.id)" for="">borrar</label>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+      <button type="button" @click="changePage('-')">&lt;</button>
+      <button type="button" @click="changePage('+')">&gt;</button>
     </div>
-    
+
   </div>
 </template>
 
@@ -224,7 +250,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
 @import '../../../assets/styles.scss';
 
 
-.global-container{
+.global-container {
   // size
   width: 100%;
 
@@ -237,16 +263,6 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
 
     // display
     @include flexbox(column, center, center);
-    
-    .add-match {
-      // size
-      width: 100%;
-      height: 50px;
-
-      // decoration
-      text-align: center;
-      cursor: pointer;
-    }
 
     .container-day {
       // size
@@ -255,74 +271,121 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
       // display
       @include flexbox(column, center, center);
 
-      table {
+      div {
         // size
         width: 100%;
 
-        // decoration
-        border-collapse: collapse;
-        border: 1px solid $h-c-black;
+        // display
+        @include flexbox(column, center, center);
 
-        th {
-          border: 1px solid black;
-
-          // margin
-          padding: 10px;
+        table {
+          // size
+          width: 100%;
 
           // decoration
-          font-size: 1.2rem;
-          text-align: center;
-        }
+          border-collapse: collapse;
 
-        td {
-          border: 1px solid black;
-          padding: 10px;
-          background-color: $h-c-white;
-          color: $h-c-black;
-          font-size: 1rem;
-          text-align: center;
-        }
+          th {
+            border: 1px solid black;
 
-        .container-players {
-          // display
-          @include flexbox();
-          
-          .players{
-            // size
-            width: 80%;
+            // margin
+            padding: 10px;
 
-            // display
-            @include grid(2, 2);
-            grid-auto-rows: auto;
+            // decoration
+            font-size: 1.2rem;
+            text-align: center;
+          }
 
-            label {
+          td {
+            border: 1px solid black;
+            padding: 10px;
+            background-color: $h-c-white;
+            color: $h-c-black;
+            font-size: 1rem;
+            text-align: center;
+          }
+
+          thead {
+            tr {
+              th {
+                // margin
+                padding: 10px;
+              }
+            }
+
+            .title {
               // decoration
-              text-align: center;
-              cursor: pointer;
-              overflow: hidden;
+              border: 0;
+
+              th {
+                // decoration
+                border: 0;
+
+                h3 {
+                  // size
+                  width: 100%;
+
+                  // decoration
+                  text-align: center;
+                  font-size: $h-f-size-title;
+                }
+              }
+            }
+
+            .time {
+              .court-title {
+                text-align: center;
+                border: 0;
+              }
             }
           }
 
-          .options {
-            // size
-            width: 20%;
+          tbody {
+            .match {
+              width: calc(100% / 4);
 
-            // display
-            @include flexbox(column, center, center);
+              .container-players {
+                // display
+                @include flexbox();
 
-            label {
-              // size
-              width: 100%;
-              height: 50%;
+                .players {
+                  // size
+                  width: 80%;
 
-              // decoration
-              text-align: center;
-              cursor: pointer;
+                  // display
+                  @include grid(2, 2);
+                  grid-auto-rows: auto;
+
+                  label {
+                    // decoration
+                    text-align: center;
+                    cursor: pointer;
+                    overflow: hidden;
+                  }
+                }
+
+                .options {
+                  // size
+                  width: 20%;
+
+                  // display
+                  @include flexbox(column, center, center);
+
+                  label {
+                    // size
+                    width: 100%;
+                    height: 50%;
+
+                    // decoration
+                    text-align: center;
+                    cursor: pointer;
+                  }
+                }
+              }
             }
-          } 
+          }
         }
       }
     }
   }
-}
-</style>
+}</style>
