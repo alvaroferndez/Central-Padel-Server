@@ -39,10 +39,10 @@ getProductsOfCategory();
         <button class="go-back" @click="goBack()">
             <v-icon name="bi-arrow-return-left" class="icon" scale="2"/>
         </button>
-        <div class="container-products">
+        <div v-if="products.length > 0" class="container-products">
             <SingleProduct v-for="product of products" :product="product"/>
-            <div v-if="products.length == 0">No hay productos disponibles</div>
         </div>
+        <div v-else class="empty">No hay productos disponibles</div>
     </div>
 </template>
 
@@ -86,5 +86,7 @@ getProductsOfCategory();
             width: 70%;
         }
     }
+
+    @include empty()
 }
 </style>

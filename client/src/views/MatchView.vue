@@ -38,16 +38,21 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
 
 
 <template>
-  <div class="global-container">
+  <div v-if="adminMatch.all_matchs.length > 0" class="global-container">
     <Match v-for="match of adminMatch.all_matchs" :match="match" :add="true"/>
-    <div v-if="adminMatch.all_matchs.length == 0">No hay partidos disponibles</div>
   </div>
+  <div v-else class="empty">No hay partidos disponibles</div>
 </template>
 
 
 <style lang="scss" scoped>
 @import "@/assets/styles.scss";
 
+
+@include empty();
+.empty{
+  width: 100%;
+}
 
 .global-container{
   // size
@@ -60,7 +65,6 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
     // size
     @include autoGrid(50%);
   }
-  // @include flexbox(row, center, space-around);
-  // flex-wrap: wrap;
 }
+
 </style>

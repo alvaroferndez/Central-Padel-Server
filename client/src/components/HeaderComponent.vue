@@ -20,7 +20,7 @@ window.onscroll = function() {
     if (y >= 85 && !media.value) {
       document.getElementById("header").classList.add("header-scrolled");
       document.getElementsByClassName("container-logo")[0].style["grid-row"] = "1 / 4";
-      document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "120%";
+      document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "100%";
       if(document.getElementsByClassName("menu").length > 0){
         if(window.innerWidth > 600){
           document.getElementsByClassName("menu")[0].style.marginTop = "-10vh";
@@ -48,7 +48,7 @@ window.onscroll = function() {
     } else if(y < 85 && !media.value){
       document.getElementById("header").classList.remove("header-scrolled");
       document.getElementsByClassName("container-logo")[0].style["grid-row"] = "2 / 3";
-      document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "200%";
+      document.getElementsByClassName("container-logo")[0].childNodes[0].style.height = "150%";
 
       if(document.getElementsByClassName("menu").length > 0){
         if(window.innerWidth > 600){
@@ -217,13 +217,14 @@ setMedia();
 
         a{
           /* size */
-          height: 200%;
+          height: 150%;
           width: 100%;
 
           // display
           @include flexbox();
 
           .logo{
+            // border: 1px solid black;
             /* size */
             width: 100%;
             height: 100%;

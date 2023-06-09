@@ -73,6 +73,7 @@ var hours_play = [
 ];
 var courts = [1, 2, 3]
 var page = ref(0);
+var width = ref(window.innerWidth);
 
 
 // functions
@@ -173,6 +174,10 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
 
 <template>
   <div class="global-container">
+    <div class="actions">
+      <button type="button" @click="changePage('-')">&lt;</button>
+      <button type="button" @click="changePage('+')">&gt;</button>
+    </div>
     <div class="container-matchs">
       <div class="container-day">
         <div v-for="day of days_complete">
@@ -191,45 +196,69 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
             <tbody>
               <tr v-for="hour of hours_play">
                 <td>{{ hour.hour_start + ' - ' + hour.hour_finish }}</td>
-                <td class="match" :key="{ day: day, hour: hour, court: 1 }"
-                  v-for="result of setTable(1, day.number, hour.hour_start)">
+                <td class="match" :key="{ day: day, hour: hour, court: 1 }" v-for="result of setTable(1, day.number, hour.hour_start)">
                   <div class="container-players">
                     <div class="players" v-on:click="viewMatch($event, day, hour, 1, result.id)">
                       <label v-for="player of result.players">
-                        {{ player.email ? player.email : 'sin definir ' }}
+                        <span v-if="width >= 850">
+                          {{ player.email ? player.email : 'sin definir ' }}
+                        </span>
+                        <span v-else>
+                          {{ (player.email != '+') ? '...' : '+' }}
+                        </span>
                       </label>
                     </div>
                     <div class="options">
-                      <label v-if="result.edit" v-on:click="editMatch($event, result.id)" for="">editar</label>
-                      <label v-if="result.edit" v-on:click="deleteMatch($event, result.id)" for="">borrar</label>
+                      <label v-if="result.edit" v-on:click="editMatch($event, result.id)" for="">
+                        <v-icon name="md-modeeditoutline-outlined"></v-icon>
+                      </label>
+                      <label v-if="result.edit" v-on:click="deleteMatch($event, result.id)" for="">
+                        <v-icon name="bi-trash-fill"></v-icon>
+                      </label>
                     </div>
                   </div>
                 </td>
-                <td class="match" :key="{ day: day, hour: hour, court: 2 }"
-                  v-for="result of setTable(2, day.number, hour.hour_start)">
+                <td class="match" :key="{ day: day, hour: hour, court: 2 }" v-for="result of setTable(2, day.number, hour.hour_start)">
                   <div class="container-players">
                     <div class="players" v-on:click="viewMatch($event, day, hour, 2, result.id)">
                       <label v-for="player of result.players">
-                        {{ player.email ? player.email : 'sin definir ' }}
+                        <span v-if="width >= 850">
+                          {{ player.email ? player.email : 'sin definir ' }}
+                        </span>
+                        <span v-else>
+                          {{ (player.email != '+') ? '...' : '+' }}
+                        </span>
                       </label>
                     </div>
                     <div class="options">
-                      <label v-if="result.edit" v-on:click="editMatch($event, result.id)" for="">editar</label>
-                      <label v-if="result.edit" v-on:click="deleteMatch($event, result.id)" for="">borrar</label>
+                      <label v-if="result.edit" v-on:click="editMatch($event, result.id)" for="">
+                        <v-icon name="md-modeeditoutline-outlined"></v-icon>
+                      </label>
+                      <label v-if="result.edit" v-on:click="deleteMatch($event, result.id)" for="">
+                        <v-icon name="bi-trash-fill"></v-icon>
+                      </label>
                     </div>
                   </div>
                 </td>
-                <td class="match" :key="{ day: day, hour: hour, court: 3 }"
-                  v-for="result of setTable(3, day.number, hour.hour_start)">
+                <td class="match" :key="{ day: day, hour: hour, court: 3 }" v-for="result of setTable(3, day.number, hour.hour_start)">
                   <div class="container-players">
                     <div class="players" v-on:click="viewMatch($event, day, hour, 3, result.id)">
                       <label v-for="player of result.players">
-                        {{ player.email ? player.email : 'sin definir ' }}
+                        <span v-if="width >= 850">
+                          {{ player.email ? player.email : 'sin definir ' }}
+                        </span>
+                        <span v-else>
+                          {{ (player.email != '+') ? '...' : '+' }}
+                        </span>
                       </label>
                     </div>
                     <div class="options">
-                      <label v-if="result.edit" v-on:click="editMatch($event, result.id)" for="">editar</label>
-                      <label v-if="result.edit" v-on:click="deleteMatch($event, result.id)" for="">borrar</label>
+                      <label v-if="result.edit" v-on:click="editMatch($event, result.id)" for="">
+                        <v-icon name="md-modeeditoutline-outlined"></v-icon>
+                      </label>
+                      <label v-if="result.edit" v-on:click="deleteMatch($event, result.id)" for="">
+                        <v-icon name="bi-trash-fill"></v-icon>
+                      </label>
                     </div>
                   </div>
                 </td>
@@ -238,10 +267,7 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
           </table>
         </div>
       </div>
-      <button type="button" @click="changePage('-')">&lt;</button>
-      <button type="button" @click="changePage('+')">&gt;</button>
     </div>
-
   </div>
 </template>
 
@@ -255,7 +281,56 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
   width: 100%;
 
   // display
-  @include flexbox();
+  @include flexbox(column);
+
+
+  // margin
+  margin-bottom: 5%;
+
+  .actions{
+    // size
+    width: 100%;
+
+    // display
+    @include flexbox(row, center, center);
+
+    button {
+      // size
+      width: 50px;
+      height: 50px;
+
+      // margin
+      margin: 10px;
+
+      // decoration
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: $h-c-white;
+      color: $h-c-black;
+      font-size: 1.2rem;
+      cursor: pointer;
+
+      // transition
+      transition: all .2s ease-in-out;
+
+      &:hover{
+        // decoration
+        scale: 1.2;
+
+        // transition
+        transition: all .2s ease-in-out;
+      }
+
+      &:active{
+        // decoration
+        scale: 0.8;
+        background-color: $h-c-gray;
+
+        // transition
+        transition: all .2s ease-in-out;
+      }
+    }
+  }
 
   .container-matchs {
     // size
@@ -381,11 +456,55 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
                     cursor: pointer;
                   }
                 }
+
+                @media screen and (max-width: 1350px) {
+                  @include flexbox(column);
+
+                  .players {
+                    // size
+                    width: 100%;
+
+                    // display
+                    @include grid(2, 2);
+                    grid-auto-rows: auto;
+
+                    label {
+                      // decoration
+                      text-align: center;
+                      cursor: pointer;
+                      overflow: hidden;
+                    }
+                  }
+
+                  .options {
+                    // size
+                    width: 100%;
+
+                    // display
+                    @include flexbox();
+
+                    label {
+                      // size
+                      width: 100%;
+                      height: 50%;
+
+                      // decoration
+                      text-align: center;
+                      cursor: pointer;
+                    }
+                  }
+                  
+                }
               }
             }
           }
         }
       }
+    }
+
+    @media screen and (max-width: 1100px) {
+      // size
+      width: 90%;
     }
   }
 }</style>

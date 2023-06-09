@@ -27,10 +27,6 @@ var menu_items = [
     name: 'Tienda',
     link: '/shop'
   },
-  {
-    name: 'Amigos',
-    link: '/profile'
-  }
 ];
 
 var witdh = ref(window.innerWidth);

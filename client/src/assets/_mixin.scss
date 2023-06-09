@@ -335,3 +335,19 @@
         }
     }
 }
+
+@mixin empty(){
+    .empty{
+        // size
+        width: 75%;
+        min-height: 70vh;
+    
+        // display
+        @include flexbox(column, center, center, 1.5rem);
+    
+        // decoration
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-align: center;
+      }
+}

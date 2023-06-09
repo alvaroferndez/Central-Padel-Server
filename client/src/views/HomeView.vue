@@ -123,7 +123,7 @@ function orderNews() {
             <div class="text">
                 <h1 class="title">Juega con nosotros</h1>
                 <p class="description">Únete a cualquier partido que este activo en la posición que quieras</p>
-                <router-link to="/reservas" class="button">
+                <router-link to="/match" class="button">
                     <v-icon name="io-tennisball-sharp" fill="#CAE21D" scale="2" animation="pulse"/>
                     <span>Únete ya</span>
                 </router-link>
@@ -138,10 +138,10 @@ function orderNews() {
         </div>
         <div class="sections">
             <div class="mens">
-                <button class="button">Hombre</button>
+                <router-link to="/shop" class="button">Hombre</router-link>
             </div>
             <div class="womens">
-                <button class="button">Mujer</button>
+                <router-link to="/shop" class="button">Mujer</router-link>
             </div>
         </div>
     </section>
