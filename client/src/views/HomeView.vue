@@ -5,7 +5,6 @@ setTimeout(() => {
   document.getElementsByClassName('main')[0].style.marginTop = '20vh';
 }, 10);
 
-AOS.init();
 var sections = [
     {
         name: "Inicio",
@@ -67,7 +66,7 @@ function orderNews() {
 
 <template>
     <!-- href -->
-    <section class="href" data-aos="fade-up">
+    <section class="href">
 
         <!-- sections -->
         <span v-for="element of sections">
@@ -76,7 +75,7 @@ function orderNews() {
     </section>
 
     <!-- hero -->
-    <section id="hero" class="hero" data-aos="fade-up">
+    <section id="hero" class="hero">
 
         <!-- container hero-->
         <div class="container-hero">
@@ -91,7 +90,7 @@ function orderNews() {
     </section>
 
     <!-- news -->
-    <section id="news" class="news" data-aos="fade-up">
+    <section id="news" class="news">
 
         <!-- container news -->
         <div class="container-news">
@@ -147,7 +146,7 @@ function orderNews() {
     </section>
 
     <!-- location -->
-    <section id="location" class="location" data-aos="fade-up">
+    <section id="location" class="location">
 
         <!-- container location -->
         <div class="container-location">

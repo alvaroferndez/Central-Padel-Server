@@ -42,7 +42,6 @@ authentification.getAllUsers();
                     <tr>
                     <th>Foto de perfil</th>
                     <th>Nombre</th>
-                    <th>Apellidos</th>
                     <th>Email</th>
                     <th>Teléfono</th>
                     <th>DNI</th>
@@ -60,11 +59,10 @@ authentification.getAllUsers();
                     <tr v-for="user of authentification.users" :key="user.email" v-on:click="viewUser(user.email)">
                         <td><img :src="user.photo ? user.photo : '../../../src/assets/images/profile-photo.webp'" class="photo-profile" alt="Foto de perfil"></td>
                         <td class="overflow">{{ user.name ? user.name : 'sin definir' }}</td>
-                        <td>{{ user.surname }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.phone }}</td>
                         <td>{{ user.dni }}</td>
-                        <td>{{ user.username }}</td>
+                        <td>{{ user.user_name }}</td>
                         <td>{{ user.age }}</td>
                         <td>{{ user.position }}</td>
                         <td>{{ user.category }}</td>

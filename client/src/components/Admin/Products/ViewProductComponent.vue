@@ -40,8 +40,8 @@ getImage(product.path);
           <span>{{ product.price }} &euro;</span>
           <span>{{ product.description }}</span>
 
-          <h2>Tallas</h2>
-          <div class="container-sizes">
+          <h2 v-if="product.category != 'blade'">Tallas</h2>
+          <div  v-if="product.category != 'blade'" class="container-sizes">
             <div class="size" v-for="size in product.sizes">
               <span v-if="size.stock != -1">{{size.size.toUpperCase()}}: </span>
               <span v-if="size.stock != -1">{{size.stock}}</span>

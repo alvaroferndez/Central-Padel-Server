@@ -34,7 +34,7 @@ authentification.getAllUsers();
         <div class="container">
             <div class="card" v-for="user of authentification.users" :key="user.email" v-on:click="viewUser(user.email)">
                 <div class="container-image">
-                    <img :src="user.photo ? user.photo : '../../../src/assets/images/profile-photo.webp'" class="photo-profile" alt="Foto de perfil"/>
+                    <img :src="user.photo ? user.photo : '@/assets/images/profile-photo-6be0f302.webp'" class="photo-profile" alt="Foto de perfil"/>
                 </div>
                 <div class="container-data">
                     <div>

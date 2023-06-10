@@ -8,7 +8,7 @@ module.exports = {
         var { email, password, device } = req.body;
 
         // Check if user exists
-        db.query(`SELECT * FROM User WHERE email = '${email}'`, (err, result) => {
+        db.query(`SELECT * FROM user WHERE email = '${email}'`, (err, result) => {
             if (err) throw err
 
             // if exist
@@ -49,7 +49,7 @@ module.exports = {
             };
 
             // Check if user exists
-            db.query(`SELECT * FROM User WHERE email = '${email}'`, (err, data) => {
+            db.query(`SELECT * FROM user WHERE email = '${email}'`, (err, data) => {
                 if (err) throw err
                 if(data.length > 0){
                     result.error = 'El usuario ya existe';
@@ -57,7 +57,7 @@ module.exports = {
                 }else{
 
                     // Check if phone exists
-                    db.query(`SELECT * FROM User WHERE phone = '${phone}'`, (err,data) => {
+                    db.query(`SELECT * FROM user WHERE phone = '${phone}'`, (err,data) => {
                         if (err) throw err
                         if(data.length > 0){
                             result.error = 'El teléfono ya existe';
@@ -65,7 +65,7 @@ module.exports = {
                         }{
 
                             // Insert user
-                            db.query(`INSERT INTO User (admin, email, password, phone, salt) VALUES (0,'${email}', '${password}', '${phone}', '${salt}')`, (err) => {
+                            db.query(`INSERT INTO user (admin, email, password, phone, salt) VALUES (0,'${email}', '${password}', '${phone}', '${salt}')`, (err) => {
                                 if (err) throw err
                                 result.success = true;
                                 return res.json(result);
@@ -104,7 +104,7 @@ module.exports = {
             data: []
         }
 
-        db.query(`SELECT * FROM User WHERE email = '${email}'`, (err, data) => {
+        db.query(`SELECT * FROM user WHERE email = '${email}'`, (err, data) => {
             if (err){
                 result.error = err;
                 return res.json(result);
@@ -128,7 +128,7 @@ module.exports = {
             data: []
         }
 
-        db.query(`SELECT * FROM User`, (err, data) => {
+        db.query(`SELECT * FROM user`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -142,7 +142,12 @@ module.exports = {
     },
 
     async update(req, res, db) {
-        var user = req.body;
+        var user = undefined
+        if(req.body.user){
+            user = req.body.user;
+        }else{
+            user = req.body;
+        }
 
         // result to send
         var result = {
@@ -150,7 +155,7 @@ module.exports = {
             error: ''
         };
 
-        db.query(`SELECT * FROM User WHERE user_name = '${user.user_name}'`, (err, data) => {
+        db.query(`SELECT * FROM user WHERE user_name = '${user.user_name}'`, (err, data) => {
             if (err) {
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -163,8 +168,9 @@ module.exports = {
             }
         });
 
+
         // Check if user exists
-        db.query(`SELECT * FROM User WHERE email = '${user.email}'`, (err, data) => {
+        db.query(`SELECT * FROM user WHERE email = '${user.email}'`, (err, data) => {
             if (err) {
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -173,7 +179,7 @@ module.exports = {
 
                 // Update user
                 if(req.file != undefined){
-                    db.query(`UPDATE User SET phone = '${user.phone}', name = '${user.name}', user_name = '${user.user_name}', age = '${user.age}', path = 'uploads/${req.file.filename}', position = '${user.position}', category = '${user.category}', dni = '${user.dni}', years_played = '${user.years_played}', experience = '${user.experience}', club = '${user.club}' WHERE email = '${user.email}'`, (err) => {
+                    db.query(`UPDATE user SET phone = '${user.phone}', name = '${user.name}', user_name = '${user.user_name}', age = '${user.age}', path = 'uploads/${req.file.filename}', position = '${user.position}', category = '${user.category}', dni = '${user.dni}', years_played = '${user.years_played}', experience = '${user.experience}', club = '${user.club}' WHERE email = '${user.email}'`, (err) => {
                         if (err) {
                             result.error = 'Ha ocurrido un error';
                             return res.json(result);
@@ -182,7 +188,7 @@ module.exports = {
                         return res.json(result);
                     });
                 }else{
-                    db.query(`UPDATE User SET phone = '${user.phone}', name = '${user.name}', user_name = '${user.user_name}', age = '${user.age}', position = '${user.position}', category = '${user.category}', dni = '${user.dni}', years_played = '${user.years_played}', experience = '${user.experience}', club = '${user.club}' WHERE email = '${user.email}'`, (err) => {
+                    db.query(`UPDATE user SET phone = '${user.phone}', name = '${user.name}', user_name = '${user.user_name}', age = '${user.age}', position = '${user.position}', category = '${user.category}', dni = '${user.dni}', years_played = '${user.years_played}', experience = '${user.experience}', club = '${user.club}' WHERE email = '${user.email}'`, (err) => {
                         if (err) {
                             result.error = 'Ha ocurrido un error';
                             return res.json(result);
@@ -210,21 +216,21 @@ module.exports = {
             error: ''
         };
 
-        var sql = `DELETE UserDevice SET email_user = '' WHERE email_user = '${email}'`;
+        var sql = `DELETE userdevice SET email_user = '' WHERE email_user = '${email}'`;
 
         db.query(sql, (err) => {
             if (err) {
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
             }else{
-                sql = `UPDATE UserMatch WHERE email_user = '${email}'`;
+                sql = `UPDATE usermatch WHERE email_user = '${email}'`;
 
                 db.query(sql, (err) => {
                     if (err) {
                         result.error = 'Ha ocurrido un error';
                         return res.json(result);
                     }else{
-                        sql = `DELETE FROM User WHERE email = '${email}'`;
+                        sql = `DELETE FROM user WHERE email = '${email}'`;
 
                         db.query(sql, (err) => {
                             if (err) {

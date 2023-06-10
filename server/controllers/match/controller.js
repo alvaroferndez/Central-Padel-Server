@@ -20,7 +20,7 @@ module.exports = {
             error: ''
         }
 
-        var sql = `SELECT * FROM Matchs WHERE date = '${match.date}' AND hour = '${match.hour}' AND id_court = '${match.court}'`
+        var sql = `SELECT * FROM matchs WHERE date = '${match.date}' AND hour = '${match.hour}' AND id_court = '${match.court}'`
 
         db.query(sql, (err, data) => {
             if (err) {
@@ -35,7 +35,7 @@ module.exports = {
                 }else{
 
                     // if match not exists
-                    sql = `INSERT INTO Matchs (date, hour, id_court) VALUES ('${match.date}', '${match.hour}', '${match.court}')`
+                    sql = `INSERT INTO matchs (date, hour, id_court) VALUES ('${match.date}', '${match.hour}', '${match.court}')`
                     db.query(sql, (err, data) => {
                         if (err) {
                             // if error of the server
@@ -64,7 +64,7 @@ module.exports = {
         }
 
         // delete all players of the table usermatch, because id_match is a foreign key
-        sql = `DELETE FROM UserMatch WHERE id_match = '${id_match}'`
+        sql = `DELETE FROM usermatch WHERE id_match = '${id_match}'`
 
         db.query(sql, (err, data) => {
             if (err) {
@@ -73,7 +73,7 @@ module.exports = {
                 return res.json(result)
             } else {  
                 // delete match
-                sql = `DELETE FROM Matchs WHERE id = '${id_match}'`
+                sql = `DELETE FROM matchs WHERE id = '${id_match}'`
 
                 db.query(sql, (err, data) => {
                     if (err) {
@@ -97,7 +97,7 @@ module.exports = {
             success: false,
             error: '',
         }
-        var sql = `SELECT * FROM Matchs WHERE date = '${match.date}' AND hour = '${match.hour}' AND id_court = '${match.court}'`
+        var sql = `SELECT * FROM matchs WHERE date = '${match.date}' AND hour = '${match.hour}' AND id_court = '${match.court}'`
 
         db.query(sql, (err, data) => {
             if (err){
@@ -105,7 +105,7 @@ module.exports = {
                 return res.json(result)
             }else{
                 if (data.length > 0 && data[0].id == match.id) {
-                    sql = `SELECT * FROM UserMatch WHERE id_match = '${match.id}'`;
+                    sql = `SELECT * FROM usermatch WHERE id_match = '${match.id}'`;
 
                     db.query(sql, (err, data) => {
                         if(err){
@@ -144,7 +144,7 @@ module.exports = {
 
         var matchs = [];
 
-        var sql = `SELECT * FROM Matchs`
+        var sql = `SELECT * FROM matchs`
 
         await db.query(sql, (err, data) => {
             if (err) {
@@ -183,7 +183,7 @@ module.exports = {
             ],
         }
 
-        var sql = `SELECT * FROM Matchs WHERE id = '${id_match}'`
+        var sql = `SELECT * FROM matchs WHERE id = '${id_match}'`
 
         await db.query(sql, (err, data) => {
             if (err) {

@@ -20,6 +20,10 @@ function confirm(){
 function bookProduct(){
     adminShop.bookProduct(product.value, book_size.value);
 }
+
+function canBook(){
+    return adminShop.canBook(product.value);
+}
 </script>
 
 
@@ -37,7 +41,7 @@ function bookProduct(){
                         <div class="price">
                             <h2>{{ product.price }} &euro;</h2>
                         </div>
-                        <div v-if="product.sizes" class="container-sizes">
+                        <div v-if="product.sizes && product.category != 'blade'" class="container-sizes">
                             <h2 class="title">Tallas</h2>
                             <div class="container-size">
                                 <div class="size" v-for="size in product.sizes">
@@ -49,7 +53,7 @@ function bookProduct(){
                                 </div>
                             </div>
                         </div>
-                        <div class="button">
+                        <div class="button" v-if="canBook()">
                             <button @click="bookProduct()">Reservar</button>
                         </div>
                     </div>

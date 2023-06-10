@@ -24,7 +24,5 @@ module.exports = {
     //     database: 'centralpadel'
     // },
 
-
-
     port: 3080
 }

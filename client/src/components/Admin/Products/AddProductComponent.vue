@@ -12,7 +12,7 @@ const toast = toastStore();
 
 // variables
 var image = ref('');
-var product = {
+var product = ref({
   name: '',
   price: '',
   description: '',
@@ -44,7 +44,7 @@ var product = {
       stock: -1
     },
   ],
-};
+});
 var size = ref('');
 var stock = ref('');
 var show_add_size = ref(false);
@@ -53,7 +53,7 @@ var show_remove_size = ref(false);
 // functions
 function setImage(e) {
     image.value = e.target.files[0]
-    product.image = image.value;
+    product.value.image = image.value;
 }
 
 function showNewSize() {
@@ -71,9 +71,9 @@ function showRemoveSize() {
 function addNewSize() {
     if(size.value == 'xs' || size.value == 's' || size.value == 'm' || size.value == 'l' || size.value == 'xl' || size.value == '2xl') {
         if(stock.value > 0) {
-            for (let i = 0; i < product.sizes.length; i++) {
-                if (product.sizes[i].size === size.value) {
-                    product.sizes[i].stock = stock.value;
+            for (let i = 0; i < product.value.sizes.length; i++) {
+                if (product.value.sizes[i].size === size.value) {
+                    product.value.sizes[i].stock = stock.value;
                 }
             }
             show_add_size.value = false;
@@ -89,9 +89,9 @@ function addNewSize() {
 }
 
 function removeSize() {
-    for (let i = 0; i < product.sizes.length; i++) {
-        if (product.sizes[i].size === size.value) {
-            product.sizes[i].stock = -1;
+    for (let i = 0; i < product.value.sizes.length; i++) {
+        if (product.value.sizes[i].size === size.value) {
+            product.value.sizes[i].stock = -1;
         }
     }
     show_add_size.value = false;
@@ -132,18 +132,18 @@ function removeSize() {
             <label for="category">Category</label>
             <input type="text" v-model="product.category" placeholder="Categoria del producto">
           </div>
-          <button class="button" type="button" @click="showNewSize()">Añadir talla nueva</button>
-          <div v-if="show_add_size">
+          <button v-if="product.category != 'palas'" class="button" type="button" @click="showNewSize()">Añadir talla nueva</button>
+          <div v-if="show_add_size && product.category != 'palas'">
               <input type="text" v-model="size" placeholder="Talla">
               <input type="text" v-model="stock" placeholder="Cantidad">
               <button class="button" type="button" @click="addNewSize()">Añadir</button>
           </div>
-          <button class="button" type="button" @click="showRemoveSize()">Eliminar talla</button>
-          <div v-if="show_remove_size">
+          <button v-if="product.category != 'palas'" class="button" type="button" @click="showRemoveSize()">Eliminar talla</button>
+          <div v-if="show_remove_size && product.category != 'palas'">
               <input type="text" v-model="size" placeholder="Talla">
               <button class="button" type="button" @click="removeSize()">Eliminar</button>
           </div>
-          <div class="container-sizes">
+          <div v-if="product.category != 'palas'" class="container-sizes">
               <h2>Tallas</h2>
               <div v-for="size in product.sizes">
                   <p v-if="size.stock != -1">{{size.size.toUpperCase()}}: {{size.stock}}</p>

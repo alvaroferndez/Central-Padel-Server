@@ -15,7 +15,7 @@ module.exports = {
             data: []
         }
 
-        db.query(`SELECT * FROM Product`, (err, data) => {
+        db.query(`SELECT * FROM product`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -35,7 +35,7 @@ module.exports = {
             data: []
         }
 
-        db.query(`INSERT INTO Product (name, price, description, category, path) VALUES ('${req.body.name}', '${req.body.price}', '${req.body.description}', '${req.body.category}', 'uploads/${req.file.filename}')`, (err, data) => {
+        db.query(`INSERT INTO product (name, price, description, category, path) VALUES ('${req.body.name}', '${req.body.price}', '${req.body.description}', '${req.body.category}', 'uploads/${req.file.filename}')`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -57,7 +57,7 @@ module.exports = {
         var sizes = req.body.sizes;
         var id = req.body.id;
 
-        db.query(`INSERT INTO ProductSize (id_product, xs, s, m, l, xl, 2xl) VALUES ('${id}', '${sizes[0].stock}', '${sizes[1].stock}', '${sizes[2].stock}', '${sizes[3].stock}','${sizes[4].stock}', '${sizes[5].stock}')`, (err, data) => {
+        db.query(`INSERT INTO productsize (id_product, xs, s, m, l, xl, 2xl) VALUES ('${id}', '${sizes[0].stock}', '${sizes[1].stock}', '${sizes[2].stock}', '${sizes[3].stock}','${sizes[4].stock}', '${sizes[5].stock}')`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -83,7 +83,7 @@ module.exports = {
         let image = req.file;
 
         if(image){
-            db.query(`UPDATE Product SET name = '${product.name}', price = '${product.price}', description = '${product.description}', category = '${product.category}', path = 'uploads/${req.file.filename}' WHERE id = '${product.id}'`, (err, data) => {
+            db.query(`UPDATE product SET name = '${product.name}', price = '${product.price}', description = '${product.description}', category = '${product.category}', path = 'uploads/${req.file.filename}' WHERE id = '${product.id}'`, (err, data) => {
                 if (err){
                     result.error = 'Ha ocurrido un error';
                     return res.json(result);
@@ -96,7 +96,7 @@ module.exports = {
             }
             );
         }else{
-            db.query(`UPDATE Product SET name = '${product.name}', price = '${product.price}', description = '${product.description}', category = '${product.category}' WHERE id = '${product.id}'`, (err, data) => {
+            db.query(`UPDATE product SET name = '${product.name}', price = '${product.price}', description = '${product.description}', category = '${product.category}' WHERE id = '${product.id}'`, (err, data) => {
                 if (err){
                     result.error = 'Ha ocurrido un error';
                     return res.json(result);
@@ -121,7 +121,7 @@ module.exports = {
         let sizes = req.body.sizes;
         let id = req.body.id;
 
-        db.query(`UPDATE ProductSize SET xs = '${sizes[0].stock}', s = '${sizes[1].stock}', m = '${sizes[2].stock}', l = '${sizes[3].stock}', xl = '${sizes[4].stock}', 2xl = '${sizes[5].stock}' WHERE id_product = '${id}'`, (err, data) => {
+        db.query(`UPDATE productsize SET xs = '${sizes[0].stock}', s = '${sizes[1].stock}', m = '${sizes[2].stock}', l = '${sizes[3].stock}', xl = '${sizes[4].stock}', 2xl = '${sizes[5].stock}' WHERE id_product = '${id}'`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -150,7 +150,7 @@ module.exports = {
             }
         });
 
-        db.query(`DELETE FROM Product WHERE id = '${product.id}'`, (err, data) => {
+        db.query(`DELETE FROM product WHERE id = '${product.id}'`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -172,7 +172,7 @@ module.exports = {
 
         let category = req.body.category;
 
-        db.query(`SELECT * FROM Product WHERE category = '${category}'`, (err, data) => {
+        db.query(`SELECT * FROM product WHERE category = '${category}'`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -194,7 +194,7 @@ module.exports = {
 
         product = req.body.product;
 
-        db.query(`SELECT xs,s,m,l,xl,2xl FROM ProductSize WHERE id_product = '${product.id}'`, (err, data) => {
+        db.query(`SELECT xs,s,m,l,xl,2xl FROM productsize WHERE id_product = '${product.id}'`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -228,7 +228,7 @@ module.exports = {
 
         let email = req.body.user;
 
-        db.query(`SELECT * FROM BookProduct WHERE user_email = '${email}'`, (err, data) => {
+        db.query(`SELECT * FROM bookproduct WHERE user_email = '${email}'`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -250,7 +250,7 @@ module.exports = {
 
         let id = req.body.id;
 
-        db.query(`SELECT * FROM Product WHERE id = '${id}'`, (err, data) => {
+        db.query(`SELECT * FROM product WHERE id = '${id}'`, (err, data) => {
             if (err){
                 result.error = 'Ha ocurrido un error';
                 return res.json(result);
@@ -303,25 +303,66 @@ module.exports = {
         let stock = req.body.stock;
         let user = req.body.user;
 
-        db.query(`UPDATE ProductSize SET ${size} = ${stock} - 1 WHERE id_product = '${product.id}'`, (err, data) => {
+        if(size != undefined){
+            db.query(`UPDATE productsize SET ${size} = ${stock} - 1 WHERE id_product = '${product.id}'`, (err, data) => {
+                if (err){
+                    result.error = 'Ha ocurrido un error 1';
+                    return res.json(result);
+                }
+                else{
+                    db.query(`INSERT INTO bookproduct (user_email, id_product, size) VALUES ('${user}','${product.id}', '${size}')`, (err, data) => {
+                        if (err){
+                            result.error = 'Ha ocurrido un error 2';
+                            return res.json(result);
+                        }
+                        else{
+                            result.success = true;
+                            result.data = data;
+                            return res.json(result);
+                        }
+                    });
+                }
+            }
+            );
+        } else {
+            db.query(`INSERT INTO bookproduct (user_email, id_product) VALUES ('${user}','${product.id}')`, (err, data) => {
+                if (err){
+                    result.error = 'Ha ocurrido un error 2';
+                    return res.json(result);
+                }
+                else{
+                    result.success = true;
+                    result.data = data;
+                    return res.json(result);
+                }
+            });
+        }
+        
+    },
+
+    async canBook(req, res, db) {
+        result = {
+            success: false,
+            error: '',
+            data: []
+        }
+
+        let product = req.body.product;
+
+        db.query(`SELECT * FROM bookproduct WHERE id_product = '${product.id}'`, (err, data) => {
             if (err){
-                result.error = 'Ha ocurrido un error 1';
+                result.error = 'Ha ocurrido un error';
                 return res.json(result);
             }
             else{
-                db.query(`INSERT INTO BookProduct (user_email, id_product, size) VALUES ('${user}','${product.id}', '${size}')`, (err, data) => {
-                    if (err){
-                        result.error = 'Ha ocurrido un error 2';
-                        return res.json(result);
-                    }
-                    else{
-                        result.success = true;
-                        result.data = data;
-                        return res.json(result);
-                    }
-                });
+                if(data.length > 0){
+                    result.success = false;
+                    return res.json(result);
+                }else{
+                    result.success = true;
+                    return res.json(result);
+                }
             }
-        }
-        );
-    },
+        });
+    }
 }

@@ -19,7 +19,7 @@ adminShop.getUserProducts()
     <div class="global-container">
       <h1>Tus reservas</h1>
       <div class="container">
-        <div v-for="product of adminShop.products" class="card" @click="() => { open(); setData() }">
+        <div v-for="product of adminShop.products" class="card">
           <div class="card-image">
             <img :src="product.image" :alt="product.name" class="image" />
           </div>

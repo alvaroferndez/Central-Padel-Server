@@ -83,7 +83,7 @@ function deletePlayer(index) {
           {{ user.email }}
         </li>
       </ul>
-      <button v-on:click="editMatch()">Añadir</button>
+      <button v-on:click="editMatch()">Guardar</button>
     </div>
   </div>
 </template>

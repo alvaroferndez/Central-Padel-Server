@@ -263,34 +263,69 @@ export const adminShopStore = defineStore('adminShop', () => {
   }
 
   async function bookProduct(product, size) {
-    let stock = 0;
+    if(product.category != 'blade'){
+      let stock = 0;
 
-    const target_size = product.sizes.find(s => s.size === size);
-
-    if(target_size){
-      stock = target_size.stock;
+      const target_size = product.sizes.find(s => s.size === size);
+  
+      if(target_size){
+        stock = target_size.stock;
+      }
+  
+      var response = await fetch(url + '/product/book', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          product: product,
+          size: size,
+          stock: stock,
+          user : authentification.user.email
+        })
+      })
+      var result = await response.json();
+  
+      if(result.success){
+        toast.showSuccess('Producto reservado correctamente');
+      }else{
+        toast.showError('Ha ocurrido un error');
+      }
+    } else {
+      var response = await fetch(url + '/product/book', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          product: product,
+          user : authentification.user.email
+        })
+      })
+      var result = await response.json();
+  
+      if(result.success){
+        toast.showSuccess('Producto reservado correctamente');
+      }else{
+        toast.showError('Ha ocurrido un error');
+      }
     }
+  }
 
-    var response = await fetch(url + '/product/book', {
+  async function canBook(product, size){
+    var response = await fetch(url + '/product/canBook', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         product: product,
-        size: size,
-        stock: stock,
-        user : authentification.user.email
       })
     })
     var result = await response.json();
 
-    if(result.success){
-      toast.showSuccess('Producto reservado correctamente');
-    }else{
-      toast.showError('Ha ocurrido un error');
-    }
+    return result.success;
   }
 
-  return { products, category_component, categories, actual_image, actual_product, changeCategoryComponent, addProduct, editProduct, deleteProduct, getAllProducts, getImage, getProductsOfCategory, getProductSize, getUserProducts, bookProduct }
+  return { products, category_component, categories, actual_image, actual_product, changeCategoryComponent, addProduct, editProduct, deleteProduct, getAllProducts, getImage, getProductsOfCategory, getProductSize, getUserProducts, bookProduct, canBook }
 })

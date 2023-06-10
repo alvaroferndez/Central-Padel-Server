@@ -51,6 +51,10 @@ function goHome(){
                     <input type="text" v-model="adminUser.actual_user.age" placeholder="sin definir">
                 </div>
                 <div>
+                    <label for="">DNI</label>
+                    <input type="text" v-model="adminUser.actual_user.dni" placeholder="sin definir">
+                </div>
+                <div>
                     <label for="">Posición</label>
                     <input type="text" v-model="adminUser.actual_user.position" placeholder="sin definir">
                 </div>

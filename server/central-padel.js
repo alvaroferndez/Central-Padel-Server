@@ -165,6 +165,11 @@ app.post('/api/product/book', (req, res) => {
     product.bookProduct(req, res, connection);
 });
 
+// can book product
+app.post('/api/product/canBook', (req, res) => {
+    product.canBook(req, res, connection);
+});
+
 // get product by category
 app.post('/api/admin/product/category', (req, res) => {
     product.getByCategory(req, res, connection);

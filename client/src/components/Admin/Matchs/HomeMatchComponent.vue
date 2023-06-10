@@ -436,6 +436,17 @@ adminMatch.getAllWeekMatchs(days[0], days[6]);
                     text-align: center;
                     cursor: pointer;
                     overflow: hidden;
+
+                    span{
+                      // size
+                      width: 100%;
+
+                      // decoration
+                      display: block;
+                      white-space: nowrap;
+                      text-overflow: ellipsis;
+                      overflow: hidden;
+                    }
                   }
                 }
 

@@ -9,7 +9,7 @@ module.exports = {
 
         match.players = [];
 
-        sql = `SELECT * FROM UserMatch WHERE id_match = '${match.id}'`
+        sql = `SELECT * FROM usermatch WHERE id_match = '${match.id}'`
         await db.query(sql, (err, players) => {
             if (err) {
                 result.error = err;
@@ -28,7 +28,7 @@ module.exports = {
             } 
             else {
                 for (let j = 0; j < players.length; j++) {
-                    sql = `SELECT * FROM User WHERE email = '${players[j].email_user}'`
+                    sql = `SELECT * FROM user WHERE email = '${players[j].email_user}'`
                     db.query(sql, (err, data) => {
                         if (err) {
                             result.error = err;
@@ -75,7 +75,7 @@ module.exports = {
 
     async updateMatch(match, res, db) {
         // comprobar que ninguno de los jugadores tiene partido a esa hora
-        sql = `SELECT * FROM UserMatch WHERE id_match = '${match.id}'`;
+        sql = `SELECT * FROM usermatch WHERE id_match = '${match.id}'`;
 
         db.query(sql, (err, data) => {
             if(err){
@@ -83,7 +83,7 @@ module.exports = {
                 return res.json(result)
             }else{
                 if(data.length > 0){
-                    sql = `DELETE FROM UserMatch WHERE id_match = '${match.id}'`;
+                    sql = `DELETE FROM usermatch WHERE id_match = '${match.id}'`;
 
                     db.query(sql, (err, data) => {
                         if(err){
@@ -91,7 +91,7 @@ module.exports = {
                             return res.json(result)
                         }else{
                             for (let i = 0; i < match.players.length; i++) {        
-                                sql = `INSERT INTO UserMatch (email_user, id_match) VALUES ('${match.players[i].email}', '${match.id}')`;
+                                sql = `INSERT INTO usermatch (email_user, id_match) VALUES ('${match.players[i].email}', '${match.id}')`;
                                     
                                 db.query(sql, (err, data) => {
                                     if(err){
@@ -105,7 +105,7 @@ module.exports = {
                     
                 }else{
                     for (let i = 0; i < match.players.length; i++) {        
-                        sql = `INSERT INTO UserMatch (email_user, id_match) VALUES ('${match.players[i].email}', '${match.id}')`;
+                        sql = `INSERT INTO usermatch (email_user, id_match) VALUES ('${match.players[i].email}', '${match.id}')`;
                             
                         db.query(sql, (err, data) => {
                             if(err){
@@ -117,7 +117,7 @@ module.exports = {
             }
         });            
         
-        sql = `UPDATE Matchs SET date = '${match.date}', hour = '${match.hour}', id_court = '${match.court}' WHERE id = '${match.id}'`;
+        sql = `UPDATE matchs SET date = '${match.date}', hour = '${match.hour}', id_court = '${match.court}' WHERE id = '${match.id}'`;
 
         db.query(sql, (err, data) => {
             if(err){
@@ -140,7 +140,7 @@ module.exports = {
         var id_match = req.body.id_match;
         var email_user = req.body.email_user;
 
-        db.query('SELECT * FROM UserMatch WHERE id_match = ?', [id_match], (err, data) => {
+        db.query('SELECT * FROM usermatch WHERE id_match = ?', [id_match], (err, data) => {
             if (err) {
                 result.error = err;
                 return res.json(result)
@@ -158,7 +158,7 @@ module.exports = {
                 }
 
                 if(added){
-                    db.query('UPDATE UserMatch SET email_user = ? WHERE id = ?', [email_user, id_usermatch], (err, data) => {
+                    db.query('UPDATE usermatch SET email_user = ? WHERE id = ?', [email_user, id_usermatch], (err, data) => {
                         if (err) {
                             result.error = err;
                             return res.json(result)
@@ -178,7 +178,7 @@ module.exports = {
 
     addEmptyPlayers(match, db) {
         for (let i = 0; i < 4; i++) {
-            db.query('INSERT INTO UserMatch (email_user, id_match) VALUES (?, ?)', ['', match], (err, data) => {
+            db.query('INSERT INTO usermatch (email_user, id_match) VALUES (?, ?)', ['', match], (err, data) => {
                 if (err) {
                     console.log(err)
                 }
