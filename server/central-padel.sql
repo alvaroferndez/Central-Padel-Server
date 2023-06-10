@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-06-2023 a las 13:33:40
+-- Tiempo de generación: 10-06-2023 a las 12:27:18
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -31,7 +31,7 @@ CREATE TABLE `bookproduct` (
   `id` int(11) NOT NULL,
   `user_email` varchar(255) NOT NULL,
   `id_product` int(11) NOT NULL,
-  `size` varchar(5) NOT NULL,
+  `size` varchar(5) DEFAULT NULL,
   `book_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -120,9 +120,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`admin`, `name`, `phone`, `email`, `user_name`, `age`, `position`, `category`, `dni`, `creation_date`, `years_played`, `experience`, `club`, `password`, `path`, `salt`) VALUES
-(1, 'Álvaro Fernández Domingo', 666638298, 'alvaro@gmail.com', 'alvarito', '20', 'derecha', '3', '72431736J', '2023-04-19', '5', '', 'central padel', 'e996e49a44f4fde78be2be5a2e3c4607871559210e048087f151b0eda0d2d5e18fc8190ef71180104ed18e4bc9168f4165c351d1b9618775d47165a60ea40508', '', '0877cf68fa6e986d445c6bfd99fbdf74'),
-(0, NULL, 847309573, 'jose@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4480ed90ba512e03192351dc141ed5ddb132daae98c46e458e912d366822e1f1f93c1583b80a7a1109a5bc179edf5668c9960e2694ed75508c84f8f8e6a541f5', '', 'af975d3e5486ff1fbf6210320848ea07'),
-(0, NULL, 674489367, 'pepe@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '10ade93c01a4d92b9eefcb4739c97711b5017f60e397cb829b76c308bf428cbdc00fbee3010e857bea106b035fdbb7582ddd2c79e1dc4f702317fbf0d9a3cf94', '', 'd9f78af858cf84f8c0e15cda3dc71ca1');
+(1, 'Álvaro Fernández Domingo', 666638298, 'alvaro@gmail.com', 'alvarito', '21', 'derecha', '3', '72431736J', '2023-04-19', '5', '', 'central padel', 'e996e49a44f4fde78be2be5a2e3c4607871559210e048087f151b0eda0d2d5e18fc8190ef71180104ed18e4bc9168f4165c351d1b9618775d47165a60ea40508', 'uploads/logo (2)-1686392651530-974091542.png', '0877cf68fa6e986d445c6bfd99fbdf74'),
+(0, 'jose', 847309573, 'jose@gmail.com', 'joselit', '', 'derecha', '', '77023847J', NULL, '', '', '', '4480ed90ba512e03192351dc141ed5ddb132daae98c46e458e912d366822e1f1f93c1583b80a7a1109a5bc179edf5668c9960e2694ed75508c84f8f8e6a541f5', '', 'af975d3e5486ff1fbf6210320848ea07'),
+(0, 'pepe', 674489367, 'pepe@gmail.com', 'pepillos', '23', 'derecha', '', '', NULL, '', '', 'central', '10ade93c01a4d92b9eefcb4739c97711b5017f60e397cb829b76c308bf428cbdc00fbee3010e857bea106b035fdbb7582ddd2c79e1dc4f702317fbf0d9a3cf94', '', 'd9f78af858cf84f8c0e15cda3dc71ca1');
 
 -- --------------------------------------------------------
 
@@ -208,31 +208,31 @@ ALTER TABLE `usermatch`
 -- AUTO_INCREMENT de la tabla `bookproduct`
 --
 ALTER TABLE `bookproduct`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `matchs`
 --
 ALTER TABLE `matchs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `productsize`
 --
 ALTER TABLE `productsize`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `usermatch`
 --
 ALTER TABLE `usermatch`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=305;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=329;
 
 --
 -- Restricciones para tablas volcadas
