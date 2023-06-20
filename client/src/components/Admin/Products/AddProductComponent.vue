@@ -99,6 +99,15 @@ function removeSize() {
     stock.value = '';
     toast.showSuccess('Talla eliminada');
 }
+
+function addProduct() {
+    if(product.value.name == '' || product.value.price == '' || product.value.description == '' || product.value.category == '' || product.value.image == '') {
+        toast.showError('Rellena todos los campos');
+        return;
+    }
+    adminShop.addProduct(product.value);
+    admin.actual_component.subcomponent = 'home';
+}
 </script>
 
 
@@ -150,7 +159,7 @@ function removeSize() {
               </div>
           </div>
           
-          <button class="button" type="button" @click="adminShop.addProduct(product)">Guardar producto</button>
+          <button class="button" type="button" @click="addProduct(product)">Guardar producto</button>
         </div>
     </div>
 </div>

@@ -61,8 +61,9 @@ setMatchs();
     <div class="match" v-if="show">
       <div class="match-header">
         <section class="container-image">
-          <div v-for="player of props.match.players" @click="viewPlayer(player)" class="position" :class="player.email == auth.user.email && props.add ? 'is-added' : ''">
-            <img :title="player.email ? player.email : 'vacio'" :src="player.photo ? player.photo : '../../../src/assets/images/profile-photo.webp'" :alt="player.email">
+          <div v-for="player of props.match.players" @click="viewPlayer(player)" class="position" :class="player.email == auth.user.email && props.add || !auth.user.email ? 'is-added' : ''">
+            <!-- <img :title="player.email ? player.email : 'vacio'" :src="player.photo ? player.photo : '../../../src/assets/images/profile-photo.webp'" :alt="player.email"> -->
+            <img :title="player.email ? player.email : 'vacio'" :src="player.photo ? player.photo : '../assets/profile-photo-6be0f302.webp'" :alt="player.email">
             <p>{{ player.email ? player.email : 'vacio' }}</p>
           </div>
         </section>

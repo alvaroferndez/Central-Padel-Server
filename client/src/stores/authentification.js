@@ -3,8 +3,8 @@ import { defineStore } from 'pinia'
 import {toastStore} from "./toast";
 
 export const authentificationStore = defineStore('authentification', () => {
-    const url = 'http://localhost:3080/api'
-    // const url = 'http://centralpadelgranada.me:3080/api';
+    // const url = 'http://localhost:3080/api'
+    const url = 'http://centralpadelgranada.me:3080/api';
 
     const current_device = navigator.userAgent;
 

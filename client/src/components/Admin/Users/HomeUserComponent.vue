@@ -57,7 +57,8 @@ authentification.getAllUsers();
                 </thead>
                 <tbody>
                     <tr v-for="user of authentification.users" :key="user.email" v-on:click="viewUser(user.email)">
-                        <td><img :src="user.photo ? user.photo : '../../../src/assets/images/profile-photo.webp'" class="photo-profile" alt="Foto de perfil"></td>
+                        <!-- <td><img :src="user.photo ? user.photo : '../../../src/assets/images/profile-photo.webp'" class="photo-profile" alt="Foto de perfil"></td> -->
+                        <td><img :src="user.photo ? user.photo : '../../../assets/profile-photo-6be0f302.webp'" class="photo-profile" alt="Foto de perfil"></td>
                         <td class="overflow">{{ user.name ? user.name : 'sin definir' }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.phone }}</td>

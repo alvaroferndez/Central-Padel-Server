@@ -1,10 +1,12 @@
 <script setup>
 import { adminShopStore } from '../../stores/Admin/adminShop';
+import { authentificationStore } from '../../stores/authentification';
 import { ref } from 'vue';
 
 
 // stores
 var adminShop = adminShopStore();
+var auth = authentificationStore();
 var emit = defineEmits(['closeModal']);
 
 // variables
@@ -53,12 +55,9 @@ function canBook(){
                                 </div>
                             </div>
                         </div>
-                        <div class="button" v-if="canBook()">
+                        <div class="button" v-if="canBook() && auth.user.email">
                             <button @click="bookProduct()">Reservar</button>
                         </div>
-                    </div>
-                    <div class="close" @click="confirm()">
-                        <v-icon name="io-close" class="icon" scale="2"/>
                     </div>
                 </div>
             </section>
@@ -144,7 +143,7 @@ function canBook(){
                 }
                 .data{
                     // size
-                    width: 79%;
+                    width: 80%;
                     height: 80%;
 
                     // display
@@ -397,14 +396,83 @@ function canBook(){
 
                     }
                 }
-
-                .close{
-                    // size
-                    width: 1%;
-                    height: 80%;
-                }
             }
 
+            @media screen and (max-width: 1100px){
+                // size
+                height: 100%;
+
+                @include flexbox(column,center,center);
+                
+                .container-image{
+                    height: 50%;
+                    width: 80%;
+                }
+
+                .content{
+                    height: 70%;
+                    width: 100%;
+
+                    .data{
+                        .name{
+                            // decoration
+                            font-size: 1rem;
+                        }
+
+                        .description{
+                            // size
+                            height: 20%;
+
+                            // decoration
+                            font-size: 0.8rem;
+                        }
+
+                        .price{
+
+                            h2{
+                                // decoration
+                                font-size: 1rem;
+                            }
+                        }
+
+                        .container-sizes{
+                            // size
+                            height: 30%;
+
+                            .title{
+                                // decoration
+                                font-size: 0.8rem;
+                            }
+
+                            .container-size{
+                                .size{
+                                    .radio-size{
+                                        input{
+                                            & + label{
+                                                &:before{
+                                                    width: 15px;
+                                                    height: 15px;
+                                                }
+                                                &:after{
+                                                    width: 15px;
+                                                    height: 15px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .button{
+                            button{
+                                padding: 5px 10px;
+                                font-size: 0.8rem;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

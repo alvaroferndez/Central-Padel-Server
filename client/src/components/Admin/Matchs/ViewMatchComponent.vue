@@ -46,7 +46,8 @@ function goHome(){
             </section>
             <section class="container-image">
                 <div v-for="player of adminMatch.current_match.players" class="position">
-                    <img :title="player.email ? player.email : 'sin definir'" :src="player.photo ? player.photo : '../../../src/assets/images/profile-photo.webp'" :alt="player.email">
+                    <!-- <img :title="player.email ? player.email : 'sin definir'" :src="player.photo ? player.photo : '../../../src/assets/images/profile-photo.webp'" :alt="player.email"> -->
+                    <img :title="player.email ? player.email : 'sin definir'" :src="player.photo ? player.photo : '../../../assets/profile-photo-6be0f302.webp'" :alt="player.email">
                     <p>{{ player.email ? player.email : 'sin definir' }}</p>
                 </div>
             </section>

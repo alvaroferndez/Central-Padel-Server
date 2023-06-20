@@ -27,6 +27,10 @@ const password = ref('');
 // functions
 function login(e) {
   e.preventDefault();
+  if(email.value == '' || password.value == ''){
+    toast.showError('Rellene todos los campos');
+    return;
+  }
   authentification.login(email.value, password.value).then(() => {
     if(authentification.user != undefined){
       localStorage.setItem('user', JSON.stringify(authentification.user.email));
@@ -49,10 +53,10 @@ function login(e) {
     <h1 class="title">Login</h1>
     <form>
       <div class="email">
-        <input type="email" id="email" placeholder="correo" v-model="email"/>
+        <input type="email" id="email" placeholder="correo" v-model="email" required/>
       </div>
       <div class="password">
-        <input type="password" id="password" placeholder="contraseña" v-model="password"/>
+        <input type="password" id="password" placeholder="contraseña" v-model="password" required/>
       </div>
       <button class="button" type="submit" v-on:click="login($event)">Login</button>
     </form>
@@ -62,7 +66,8 @@ function login(e) {
     </div>
     <div class="options">
       <router-link class="hover" to="/sign-in">Crear cuenta</router-link>
-      <router-link class="hover" to="/password">¿Has olvidado tu contraseña?</router-link>
+      <!-- <router-link class="hover" to="/password">¿Has olvidado tu contraseña?</router-link> -->
+      <span class="hover">¿Has olvidado tu contraseña?</span>
     </div>
     <router-link class="hover return" to="/">Volver al inicio</router-link>
   </div>

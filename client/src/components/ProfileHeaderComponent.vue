@@ -28,7 +28,8 @@ getImage(authentification.user.path);
     <div class="container">
       <div class="container-photo">
         <img v-if="image != ''" :src="image" alt="foto de perfil">
-        <img v-else src="../assets/images/profile-photo.webp" alt="foto de perfil">
+        <!-- <img v-else src="../assets/images/profile-photo.webp" alt="foto de perfil"> -->
+        <img v-else src="../assets/profile-photo-6be0f302.webp" alt="foto de perfil">
       </div>
       <div class="container-information">
         <div class="information">
@@ -51,9 +52,9 @@ getImage(authentification.user.path);
             </label>
           </div>
         </div>
-        <div class="friend">
+        <!-- <div class="friend">
           <button type="button">Añadir a amigos</button>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>

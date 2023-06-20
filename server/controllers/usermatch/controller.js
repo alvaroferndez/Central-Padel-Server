@@ -59,16 +59,6 @@ module.exports = {
                         }
                     })
                 }
-                // if(match.players.length < 4){
-                //     for (let j = 0; j < 4 - match.players.length; j++) {
-                //         match.players.push({
-                //             name: '',
-                //             surname: '',
-                //             email: '',
-                //             position: '',
-                //         })
-                //     }
-                // }
             }
         })
     },

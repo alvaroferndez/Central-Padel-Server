@@ -30,6 +30,11 @@ var phone = ref('');
 function signIn(e) {
   e.preventDefault();
 
+  if(email.value == '' || password.value == '' || repitPassword.value == '' || phone.value == ''){
+    toast.showError('Rellene todos los campos');
+    return;
+  }
+
   // validate data
   if (regEx.validateEmail(email.value) && regEx.validatePassword(password.value) && regEx.validatePhone(phone.value)) {
     if (password.value === repitPassword.value) {

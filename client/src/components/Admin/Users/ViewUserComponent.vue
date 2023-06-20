@@ -27,7 +27,8 @@ function goHome(){
         </button>
         <div class="container">
             <div class="container-image">
-                <img :src="adminUser.actual_user.photo ? adminUser.actual_user.photo : '../../../src/assets/images/profile-photo.webp'" alt="foto de perfil">
+                <!-- <img :src="adminUser.actual_user.photo ? adminUser.actual_user.photo : '../../../src/assets/images/profile-photo.webp'" alt="foto de perfil"> -->
+                <img :src="adminUser.actual_user.photo ? adminUser.actual_user.photo : '../../../assets/profile-photo-6be0f302.webp'" alt="foto de perfil">
             </div>
             <div class="container-data">
                 <div>
